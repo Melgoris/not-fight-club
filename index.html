@@ -11,15 +11,24 @@
   <body>
     <div id="app">
 
-      <div class="login" id="login">
+      <div class="login" id="_login">
         <div class="login-form">
           <div class="input_box">
-            <input type="text" id="nName" placeholder="Enter nickname">
+            <input type="text" id="playerName" placeholder="Enter nickname">
           </div>
-          <button id="submit">Go</button>
+          <button class="login-button" id="loginBtn">Go</button>
         </div>
       </div>
-      <div class="bacground"></div>
+      <div class="character-ui" id="_characterUi">
+        <div class="player-container">
+          <span class="player-name" id="displayPlayerName"></span>
+          <span id="wins"></span>
+          <span id="losses"></span>
+          <button class="login-button" id="win-btn">Go win</button>
+          <button class="login-button" id="loss-btn">Go lose</button>
+          <button class="login-button" id="logout-btn">logout</button>
+        </div>
+      </div>
 
     </div>
 
