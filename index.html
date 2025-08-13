@@ -8,28 +8,56 @@
     <title>Vite App</title>
   </head>
 
+
   <body>
+    <div class="top-menu-container">
+      <div class="avatar-container" role="banner">
+        <div class="_avatar">
+          <img class="avatar-img" src="/img/avatar1.jpg" alt="">
+        </div>
+      </div>
+      <nav role="navigation">
+        <ul class="menu__list">
+          <li class="menu__item">
+            <button class="menu__link">Item 1</button>
+          </li>
+          <li class="menu__item">
+            <button class="menu__link">Menu 2</button>
+          </li>
+          <li class="menu__item">
+            <button class="menu__link">Menu 3</button>
+          </li>
+          <li class="menu__item">
+            <button class="menu__link">Menu 4</button>
+          </li>
+        </ul>
+      </nav>
+      <button class="reset">Exit</button>
+    </div>
     <div id="app">
 
-      <div class="login" id="_login">
-        <div class="login-form">
-          <div class="input_box">
-            <input type="text" id="playerName" placeholder="Enter nickname">
+      <section class="current-screan">
+        <div class="login" id="_login">
+          <div class="login-form">
+            <div class="input_box">
+              <input type="text" id="playerName" placeholder="Enter nickname">
+            </div>
+            <button class="login-button" id="loginBtn">Go</button>
           </div>
-          <button class="login-button" id="loginBtn">Go</button>
         </div>
-      </div>
-      <div class="character-ui" id="_characterUi">
-        <div class="player-container">
-          <span class="player-name" id="displayPlayerName"></span>
-          <span id="wins"></span>
-          <span id="losses"></span>
-          <button class="login-button" id="win-btn">Go win</button>
-          <button class="login-button" id="loss-btn">Go lose</button>
-          <button class="login-button" id="logout-btn">logout</button>
+      </section>
+      <section class="current-screan">
+        <div class="character-ui" id="_characterUi">
+          <div class="player-container">
+            <span class="player-name" id="displayPlayerName"></span>
+            <span id="wins"></span>
+            <span id="losses"></span>
+            <button class="login-button" id="win-btn">Go win</button>
+            <button class="login-button" id="loss-btn">Go lose</button>
+            <button class="login-button" id="logout-btn">logout</button>
+          </div>
         </div>
-      </div>
-
+      </section>
     </div>
 
     </div>

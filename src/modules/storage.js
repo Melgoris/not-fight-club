@@ -34,6 +34,13 @@ export const PlayerStorage = {
     this.save(data)
   },
 
+  setCharacter(char) {
+    const data = this.get()
+    if (!data) return
+    data.character = char
+    this.save(data)
+  },
+
   clear() {
     localStorage.removeItem(STORAGE_KEY)
   },

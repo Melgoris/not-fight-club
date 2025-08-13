@@ -1,6 +1,7 @@
 import {PlayerStorage} from './storage'
 
 export const routesUi = () => {
+  const mainMenu = document.querySelector('.top-menu-container')
   const routes = {
     '#login': showLoginScreen,
     '#character': showCharacterScreen,
@@ -17,6 +18,8 @@ export const routesUi = () => {
   }
 
   function showLoginScreen(active) {
+    mainMenu.classList.remove('active')
+
     const screen = document.getElementById('_login')
     screen.classList.toggle('active', active)
     if (!active) return
@@ -32,6 +35,7 @@ export const routesUi = () => {
   function showCharacterScreen(active) {
     const screen = document.getElementById('_characterUi')
     screen.classList.toggle('active', active)
+    mainMenu.classList.add('active')
     if (!active) return
 
     const player = PlayerStorage.get()
