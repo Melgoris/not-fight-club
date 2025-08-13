@@ -68,13 +68,14 @@ export class Character {
     this._animate({sprite, totalFrames, fps, loop: true})
   }
   attack() {
-    const {sprite, totalFrames, fps} = this.skin.attack
+    const {sprite, totalFrames, fps, endFrame} = this.skin.attack
     this._animate({
       sprite,
       totalFrames,
       fps,
+      endFrame,
       loop: false,
-      delayAfter: 500,
+      delayAfter: 200,
       returnToIdle: true,
     })
   }

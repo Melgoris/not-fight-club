@@ -28,7 +28,7 @@ export const charactersUi = () => {
   // schoolGirl.walk()
   // schoolGirl.protect()
   // schoolGirl.attack()
-  // schoolGirl2.idle()
+  // schoolGirl2.attack()
   // schoolGirl.idle()
-  // schoolGirl3.idle()
+  // schoolGirl3.attack()
 }

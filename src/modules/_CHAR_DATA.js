@@ -30,8 +30,8 @@ export const _SCHOOL_GIRL = {
     attack: {
       sprite: '/img/characters/schoolGirl/skinTwo/Attack.png',
       totalFrames: 9,
-      fps: 12,
-      endFrame: 1,
+      fps: 8,
+      endFrame: 6,
     },
     dialogue: {
       sprite: '/img/characters/schoolGirl/skinTwo/Dialogue.png',
