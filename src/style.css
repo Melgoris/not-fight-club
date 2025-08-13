@@ -310,20 +310,31 @@ nav {
 }
 
 /*login*/
-.login {
+.login,
+.character-ui {
   position: relative;
   display: none;
   justify-content: center;
   align-items: center;
   width: 1600px;
   height: 900px;
-  background-image: url(/img/backgrounds/prelogin.webp);
   background-size: auto;
   background-position: center;
   background-repeat: no-repeat;
 }
 
-.login.active {
+.login {
+  background-image: url(/img/backgrounds/prelogin.webp);
+  background-repeat: no-repeat;
+}
+
+.character-ui {
+  background-image: url(/img/backgrounds/champ-select.png);
+  background-repeat: no-repeat;
+}
+
+.login.active,
+.character-ui.active {
   display: flex;
 }
 
@@ -383,3 +394,12 @@ nav {
 }
 
 /*login*/
+/*character select*/
+.character {
+  overflow: hidden;
+  image-rendering: pixelated;
+  position: absolute;
+  z-index: 30;
+}
+
+/*character select*/
