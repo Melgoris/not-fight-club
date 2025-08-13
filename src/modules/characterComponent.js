@@ -1,9 +1,8 @@
 export class Character {
-  constructor({skin, frameWidth, frameHeight, fps, container}) {
+  constructor({skin, frameWidth, frameHeight, container}) {
     this.skin = skin
     this.frameWidth = frameWidth
     this.frameHeight = frameHeight
-    this.fps = fps
     this.container = container
     this.currentFrame = 0
     this.intervalId = null
@@ -20,10 +19,19 @@ export class Character {
     this.container.appendChild(this.element)
   }
 
-  _animate(sprite, totalFrames, loop = true, onFinish) {
+  _animate({
+    sprite,
+    totalFrames,
+    fps,
+    loop = false,
+    endFrame = null,
+    onFinish,
+    delayAfter = 0,
+    returnToIdle = false,
+  }) {
     clearInterval(this.intervalId)
     this.currentFrame = 0
-    const frameTime = 1000 / this.fps
+    const frameTime = 1000 / fps
 
     this.element.style.backgroundImage = `url(${sprite})`
 
@@ -38,30 +46,54 @@ export class Character {
           this.currentFrame = 0
         } else {
           clearInterval(this.intervalId)
-          if (onFinish) onFinish()
+
+          if (endFrame !== null) {
+            this.element.style.backgroundPositionX = `-${
+              endFrame * this.frameWidth
+            }px`
+          }
+
+          setTimeout(() => {
+            onFinish?.()
+            if (returnToIdle) {
+              this.idle()
+            }
+          }, delayAfter)
         }
       }
     }, frameTime)
   }
-
   idle() {
-    const {sprite, totalFrames} = this.skin.idle
-    this._animate(sprite, totalFrames, true)
+    const {sprite, totalFrames, fps} = this.skin.idle
+    this._animate({sprite, totalFrames, fps, loop: true})
   }
-
   attack() {
-    const {sprite, totalFrames} = this.skin.attack
-    this._animate(sprite, totalFrames, false, () => this.idle())
+    const {sprite, totalFrames, fps} = this.skin.attack
+    this._animate({
+      sprite,
+      totalFrames,
+      fps,
+      loop: false,
+      delayAfter: 500,
+      returnToIdle: true,
+    })
   }
 
   walk() {
-    const {sprite, totalFrames} = this.skin.walk
-    this._animate(sprite, totalFrames, true)
+    const {sprite, totalFrames, fps} = this.skin.walk
+    this._animate({sprite, totalFrames, fps, loop: true})
   }
 
-  defend() {
-    const {sprite, totalFrames} = this.skin.defend
-    this._animate(sprite, totalFrames, false, () => this.idle())
+  protect() {
+    const {sprite, totalFrames, fps} = this.skin.protect
+    this._animate({
+      sprite,
+      totalFrames,
+      fps,
+      loop: false,
+      delayAfter: 500,
+      returnToIdle: true,
+    })
   }
 
   changeSkin(newSkinSet) {

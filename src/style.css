@@ -398,7 +398,7 @@ nav {
 .character {
   overflow: hidden;
   image-rendering: pixelated;
-  position: absolute;
+  position: relative;
   z-index: 30;
 }
 
