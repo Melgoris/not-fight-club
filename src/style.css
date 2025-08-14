@@ -400,6 +400,39 @@ nav {
   image-rendering: pixelated;
   position: relative;
   z-index: 30;
+  bottom: 0;
+}
+
+.hero-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  overflow: hidden;
+  height: 170px;
+  image-rendering: pixelated;
+  position: relative;
+  z-index: 30;
+
+}
+
+.hero-container img {
+  position: absolute;
+  top: 0;
+  left: 31px;
+  width: 100px;
+  z-index: 100;
+  transition: opacity 0.5s ease-in;
+}
+
+.cloud-text {
+  position: absolute;
+  top: 23%;
+  left: 65%;
+  font-size: 12px;
+  transform: translate(-50%, -50%);
+  color: rgb(0, 0, 0);
+  text-align: center;
+  z-index: 101;
 }
 
 /*character select*/

@@ -285,8 +285,32 @@ export const _GORGON = {
 }
 
 export const _CHARS = [
-  {id: 'school_girl', name: 'School girl', skins: _SCHOOL_GIRL},
-  {id: 'satyr', name: 'Satyr', skins: _SATYR},
-  {id: 'vampire', name: 'Vampire', skins: _VAMPIRE},
-  {id: 'gorgon', name: 'Gorgon', skins: _GORGON},
+  {
+    id: 'school_girl',
+    name: 'School girl',
+    skins: _SCHOOL_GIRL,
+    class: 'hero-container',
+    text: 'Не буду учится!',
+  },
+  {
+    id: 'satyr',
+    name: 'Satyr',
+    skins: _SATYR,
+    class: 'hero-container',
+    text: 'Прыг скок...',
+  },
+  {
+    id: 'vampire',
+    name: 'Vampire',
+    skins: _VAMPIRE,
+    class: 'hero-container',
+    text: 'Пора на охоту!',
+  },
+  {
+    id: 'gorgon',
+    name: 'Gorgon',
+    skins: _GORGON,
+    class: 'hero-container',
+    text: 'Пшш-шшш!',
+  },
 ]
