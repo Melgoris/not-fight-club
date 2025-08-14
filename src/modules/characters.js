@@ -1,31 +1,31 @@
 import {Character} from './characterComponent'
 import {_CHARS} from './_CHAR_DATA'
 import heroCloudImg from '/img/text_cloud_white.png'
+import {addCloudText} from './helperFunc'
+import {addHeroCloud} from './helperFunc'
 
 export const charactersUi = () => {
-  let pickedHeroData = null
-  const addHeroCloud = ({parentContainer, src, text}) => {
-    const cloud = document.createElement('div')
-    const cloudImg = document.createElement('img')
-    const textContainer = document.createElement('p')
-    cloudImg.src = src
-    cloud.classList.add('cloud-container')
-    textContainer.classList.add('cloud-text')
-    textContainer.textContent = text
-    parentContainer.appendChild(cloud)
-    cloud.appendChild(cloudImg)
-    cloud.appendChild(textContainer)
+  let pickedHero = {
+    pickedHeroData: null,
+    heroUi: null,
+  }
+  // let pickedHeroData = null
+  let pickedEnemyData = null
+  const addHeroLightContainer = containerId => {
+    const heroLight = document.createElement('div')
+    heroLight.classList.add('hero-light')
+    document.querySelector(`#${containerId}`).appendChild(heroLight)
+  }
+  const clearHeroLight = () => {
+    document
+      .querySelectorAll('.hero-container')
+      .forEach(h => h.classList.remove('selected'))
+  }
+  const heroLightActive = id => {
+    clearHeroLight()
+    document.querySelector(`#${id}`).classList.add('selected')
   }
 
-  const addCloudText = (id, text, duration = 2000) => {
-    const container = document.querySelector(`#${id} .cloud-container`)
-    document.querySelector(`#${id} p`).textContent = text
-    container.style.opacity = '1'
-
-    setTimeout(() => {
-      container.style.opacity = '0'
-    }, duration)
-  }
   const heroes = _CHARS.map(hero => {
     const characterUi = document.querySelector('.character-ui')
     const heroContainer = document.createElement('div')
@@ -37,10 +37,16 @@ export const charactersUi = () => {
       src: heroCloudImg,
       text: hero.text,
     })
+    addHeroLightContainer(hero.id)
+    console.log('hero', hero)
     heroContainer.addEventListener('click', () => {
-      pickedHeroData = {id: hero.id, name: hero.name, text: hero.text}
+      pickedHero.pickedHeroData = {
+        id: hero.id,
+        name: hero.name,
+        text: hero.text,
+      }
       // console.log(`Выбран герой: ${hero.name}`)
-      console.log(`Выбран герой: ${hero.text}`)
+      console.log(`Текст: ${hero.text}`)
     })
     return new Character({
       skin: hero.skins.defoult,
@@ -53,10 +59,12 @@ export const charactersUi = () => {
   heroes.forEach(hero => {
     hero.idle()
     hero.container.addEventListener('click', () => {
-      const {id, name, text} = pickedHeroData
-      hero.attack()
-      console.log()
+      const {id, name, text} = pickedHero.pickedHeroData
+      pickedHero.heroUi = hero
+      // hero.attack()
+      console.log(pickedHero)
       addCloudText(id, text)
+      heroLightActive(id)
     })
   })
   addCloudText('school_girl', 'ууу бля')

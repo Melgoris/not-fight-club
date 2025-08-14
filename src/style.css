@@ -393,6 +393,59 @@ nav {
   color: #fff;
 }
 
+/*chose buton*/
+.button-wrapper {
+  position: absolute;
+  z-index: 105;
+  bottom: 30%;
+}
+
+.button-wrapper button {
+  outline: none;
+  font-size: 20px;
+  text-transform: uppercase;
+  color: #ffa592;
+  border: none;
+  width: 170px;
+  height: 40px;
+  background-color: #962c2d;
+  border: 2px solid #ca4748;
+  box-shadow: inset 2px 2px 0px #752424;
+  text-shadow: 2px 1px 1px black;
+  transition: background 0.3s ease-in, transform 0.1s ease-in;
+}
+
+.button-wrapper button:hover {
+  background: #6c1a1b;
+}
+
+.button-wrapper button:active {
+  background: #6c1a1b;
+  transform: scale(0.95);
+}
+
+.button-wrapper:after,
+.button-wrapper:before {
+  content: '';
+  position: absolute;
+  width: 10px;
+  height: 45px;
+  top: 50%;
+  background-color: #b52d30;
+  border: 2px solid #d88253;
+  transform: translateY(-50%);
+  background: linear-gradient(0.4turn, #b92d2b, #b92d2b, #d0797b, #b92d2b, #b92d2b);
+}
+
+.button-wrapper:after {
+  left: -13px;
+}
+
+.button-wrapper:before {
+  right: -13px;
+}
+
+/*chose buton*/
 /*login*/
 /*character select*/
 .character {
@@ -413,6 +466,29 @@ nav {
   position: relative;
   z-index: 30;
 
+}
+
+.hero-light {
+  position: absolute;
+  top: 38px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90px;
+  height: 150px;
+  background: linear-gradient(to bottom,
+      rgba(255, 255, 200, 0) 20%,
+      rgba(255, 255, 200, 0.5) 70%,
+      rgba(255, 255, 200, 0.3) 80%,
+      rgba(255, 255, 200, 0) 85%);
+  clip-path: polygon(50% 0%, 0% 100%, 100% 100%);
+  filter: drop-shadow(0 4px 6px rgba(255, 255, 150, 0.6)) drop-shadow(0 8px 15px rgba(255, 255, 200, 0.3));
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.hero-container.selected .hero-light {
+  opacity: 0.6;
 }
 
 .cloud-container {
