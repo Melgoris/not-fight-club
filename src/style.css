@@ -415,6 +415,12 @@ nav {
 
 }
 
+.cloud-container {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+
 .hero-container img {
   position: absolute;
   top: 0;
