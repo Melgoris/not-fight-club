@@ -5,40 +5,16 @@ import {addCloudText} from './helperFunc'
 import {addHeroCloud} from './helperFunc'
 import {getPickedHero} from './storage'
 import {setPickedHero} from './storage'
+import {addHeroLightContainer} from './helperFunc'
+import {clearHeroLight} from './helperFunc'
+import {heroLightActive} from './helperFunc'
+import {moveHeroToPortal} from './helperFunc'
+import {delay} from './helperFunc'
 
 import {addRemovePortal} from './portals'
 
 export const charactersUi = () => {
   const chooseButton = document.querySelector('#choose-hero-btn')
-
-  const addHeroLightContainer = containerId => {
-    const heroLight = document.createElement('div')
-    heroLight.classList.add('hero-light')
-    document.querySelector(`#${containerId}`).appendChild(heroLight)
-  }
-  const clearHeroLight = () => {
-    document
-      .querySelectorAll('.hero-container')
-      .forEach(h => h.classList.remove('selected'))
-  }
-  const heroLightActive = id => {
-    clearHeroLight()
-    document.querySelector(`#${id}`).classList.add('selected')
-  }
-  const moveHeroToPortal = heroEl => {
-    const portalEl = document.querySelector('#portal')
-    const heroRect = heroEl.getBoundingClientRect()
-    const portalRect = portalEl.getBoundingClientRect()
-    let deltaX = portalRect.left - heroRect.left
-    let deltaY = portalRect.top - heroRect.top
-    if (heroEl.id === 'gorgon') deltaX = deltaX - 45
-    heroEl.style.transition = 'transform 3s linear'
-    heroEl.style.transform = `translate(${deltaX}px, ${deltaY}px)`
-    setTimeout(() => {
-      heroEl.style.transition = 'transform 0.5s ease-out'
-      heroEl.style.transform = `translate(${deltaX}px, ${deltaY - 40}px)`
-    }, 3000)
-  }
 
   const heroes = _CHARS.map(hero => {
     const characterUi = document.querySelector('.character-ui')
@@ -79,7 +55,7 @@ export const charactersUi = () => {
   })
   addCloudText('school_girl', 'ууу бля')
 
-  chooseButton.addEventListener('click', () => {
+  chooseButton.addEventListener('click', async () => {
     const pickedHero = getPickedHero()
     if (!pickedHero.pickedHeroData) return
     console.log(pickedHero.pickedHeroData.container)
@@ -88,17 +64,15 @@ export const charactersUi = () => {
         e.container.classList.add('opasity')
       }
     })
-    setTimeout(() => {
-      clearHeroLight()
-      pickedHero.pickedHeroData.container.classList.add('move-hero')
-      pickedHero.pickedHeroData.walk()
-      addRemovePortal('add')
-      moveHeroToPortal(pickedHero.pickedHeroData.container)
-
-      setTimeout(() => {
-        pickedHero.pickedHeroData.container.classList.add('opasity')
-        // addRemovePortal()
-      }, 3600)
-    }, 600)
+    await delay(600)
+    clearHeroLight()
+    pickedHero.pickedHeroData.container.classList.add('move-hero')
+    pickedHero.pickedHeroData.walk()
+    addRemovePortal('add')
+    moveHeroToPortal(pickedHero.pickedHeroData.container)
+    await delay(3600)
+    pickedHero.pickedHeroData.container.classList.add('opasity')
+    await delay(300)
+    addRemovePortal()
   })
 }

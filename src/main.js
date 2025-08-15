@@ -4,5 +4,5 @@ import {headerMenuUi} from './modules/headerMenu'
 import {charactersUi} from './modules/characters'
 
 routesUi()
-headerMenuUi()
+// headerMenuUi()
 charactersUi()
