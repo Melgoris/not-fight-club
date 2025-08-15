@@ -5,7 +5,8 @@ import {addCloudText} from './helperFunc'
 import {addHeroCloud} from './helperFunc'
 import {getPickedHero} from './storage'
 import {setPickedHero} from './storage'
-import {portal} from './portals'
+
+import {addRemovePortal} from './portals'
 
 export const charactersUi = () => {
   const chooseButton = document.querySelector('#choose-hero-btn')
@@ -23,6 +24,20 @@ export const charactersUi = () => {
   const heroLightActive = id => {
     clearHeroLight()
     document.querySelector(`#${id}`).classList.add('selected')
+  }
+  const moveHeroToPortal = heroEl => {
+    const portalEl = document.querySelector('#portal')
+    const heroRect = heroEl.getBoundingClientRect()
+    const portalRect = portalEl.getBoundingClientRect()
+    let deltaX = portalRect.left - heroRect.left
+    let deltaY = portalRect.top - heroRect.top
+    if (heroEl.id === 'gorgon') deltaX = deltaX - 45
+    heroEl.style.transition = 'transform 3s linear'
+    heroEl.style.transform = `translate(${deltaX}px, ${deltaY}px)`
+    setTimeout(() => {
+      heroEl.style.transition = 'transform 0.5s ease-out'
+      heroEl.style.transform = `translate(${deltaX}px, ${deltaY - 40}px)`
+    }, 3000)
   }
 
   const heroes = _CHARS.map(hero => {
@@ -67,17 +82,23 @@ export const charactersUi = () => {
   chooseButton.addEventListener('click', () => {
     const pickedHero = getPickedHero()
     if (!pickedHero.pickedHeroData) return
-    console.log(pickedHero)
+    console.log(pickedHero.pickedHeroData.container)
     heroes.forEach(e => {
       if (e.container.id !== pickedHero.id) {
         e.container.classList.add('opasity')
       }
     })
     setTimeout(() => {
+      clearHeroLight()
       pickedHero.pickedHeroData.container.classList.add('move-hero')
       pickedHero.pickedHeroData.walk()
+      addRemovePortal('add')
+      moveHeroToPortal(pickedHero.pickedHeroData.container)
+
+      setTimeout(() => {
+        pickedHero.pickedHeroData.container.classList.add('opasity')
+        // addRemovePortal()
+      }, 3600)
     }, 600)
   })
-
-  portal.portal()
 }
