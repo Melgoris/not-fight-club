@@ -67,6 +67,9 @@ export class Character {
     const {sprite, totalFrames, fps} = this.skin.idle
     this._animate({sprite, totalFrames, fps, loop: true})
   }
+  portal() {
+    this._animate({sprite: this.skin, totalFrames: 8, fps: 5, loop: true})
+  }
   attack() {
     const {sprite, totalFrames, fps, endFrame} = this.skin.attack
     this._animate({

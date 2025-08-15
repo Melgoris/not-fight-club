@@ -1,4 +1,22 @@
 const STORAGE_KEY = 'playerData'
+const store = {
+  pickedHero: {
+    pickedHeroData: null,
+    heroUi: null,
+  },
+}
+
+export function getPickedHero() {
+  return store.pickedHero
+}
+
+export function setPickedHero(data) {
+  store.pickedHero = {...store.pickedHero, ...data}
+}
+
+export function resetPickedHero() {
+  store.pickedHero = {pickedHeroData: null, heroUi: null}
+}
 
 export const PlayerStorage = {
   get() {

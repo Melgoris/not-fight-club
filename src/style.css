@@ -465,7 +465,40 @@ nav {
   image-rendering: pixelated;
   position: relative;
   z-index: 30;
+  opacity: 1;
+  transition: opacity 0.3s ease-in;
 
+}
+
+.move-hero {
+  animation-name: move-right;
+  animation-duration: 3s;
+  animation-timing-function: linear;
+  animation-fill-mode: forwards;
+}
+
+.portal-styles {
+  position: absolute;
+  right: 15%;
+  bottom: 40%;
+}
+
+@keyframes move-right {
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(250px);
+  }
+}
+
+.hero-container.hidden {
+  display: none;
+}
+
+.hero-container.opasity {
+  opacity: 0;
 }
 
 .hero-light {

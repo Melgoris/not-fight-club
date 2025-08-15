@@ -3,14 +3,13 @@ import {_CHARS} from './_CHAR_DATA'
 import heroCloudImg from '/img/text_cloud_white.png'
 import {addCloudText} from './helperFunc'
 import {addHeroCloud} from './helperFunc'
+import {getPickedHero} from './storage'
+import {setPickedHero} from './storage'
+import {portal} from './portals'
 
 export const charactersUi = () => {
-  let pickedHero = {
-    pickedHeroData: null,
-    heroUi: null,
-  }
-  // let pickedHeroData = null
-  let pickedEnemyData = null
+  const chooseButton = document.querySelector('#choose-hero-btn')
+
   const addHeroLightContainer = containerId => {
     const heroLight = document.createElement('div')
     heroLight.classList.add('hero-light')
@@ -38,15 +37,13 @@ export const charactersUi = () => {
       text: hero.text,
     })
     addHeroLightContainer(hero.id)
-    console.log('hero', hero)
+    // console.log('hero', hero)
     heroContainer.addEventListener('click', () => {
-      pickedHero.pickedHeroData = {
+      setPickedHero({
         id: hero.id,
         name: hero.name,
         text: hero.text,
-      }
-      // console.log(`Выбран герой: ${hero.name}`)
-      console.log(`Текст: ${hero.text}`)
+      })
     })
     return new Character({
       skin: hero.skins.defoult,
@@ -59,13 +56,28 @@ export const charactersUi = () => {
   heroes.forEach(hero => {
     hero.idle()
     hero.container.addEventListener('click', () => {
-      const {id, name, text} = pickedHero.pickedHeroData
-      pickedHero.heroUi = hero
-      // hero.attack()
-      console.log(pickedHero)
+      const {id, name, text} = getPickedHero()
+      setPickedHero({pickedHeroData: hero})
       addCloudText(id, text)
       heroLightActive(id)
     })
   })
   addCloudText('school_girl', 'ууу бля')
+
+  chooseButton.addEventListener('click', () => {
+    const pickedHero = getPickedHero()
+    if (!pickedHero.pickedHeroData) return
+    console.log(pickedHero)
+    heroes.forEach(e => {
+      if (e.container.id !== pickedHero.id) {
+        e.container.classList.add('opasity')
+      }
+    })
+    setTimeout(() => {
+      pickedHero.pickedHeroData.container.classList.add('move-hero')
+      pickedHero.pickedHeroData.walk()
+    }, 600)
+  })
+
+  portal.portal()
 }
