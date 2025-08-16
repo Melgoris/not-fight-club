@@ -39,12 +39,12 @@ export const routesUi = () => {
     // mainMenu.classList.add('active')
     if (!active) return
     const player = PlayerStorage.get()
-    console.log('player', player)
-    if (player.pickedHeroData) window.location.hash = '#home'
+    // console.log('player', player)
     if (!player) {
       window.location.hash = '#login'
       return
     }
+    if (player.storeHero) window.location.hash = '#home'
   }
 
   function showHeroHomepage(active) {
@@ -52,12 +52,12 @@ export const routesUi = () => {
     screen.classList.toggle('active', active)
     if (!active) return
     const data = PlayerStorage.get()
-    console.log('data', data)
+    // console.log('data', data)
     if (!data) {
       window.location.hash = '#login'
       return
     }
-    if (!data.pickedHeroData) window.location.hash = '#character'
+    if (!data.storeHero) window.location.hash = '#character'
     // document.getElementById('displayPlayerName').textContent = player.username
     //     document.getElementById('wins').textContent = player.wins
     //     document.getElementById('losses').textContent = player.losses

@@ -1,17 +1,34 @@
 const STORAGE_KEY = 'playerData'
+// const HERO_STORAGE_KEY = 'heroData'
 const store = {
   pickedHero: {
     pickedHeroData: null,
     heroUi: null,
   },
+  storeHero: {
+    class: '',
+    id: null,
+    name: '',
+    skins: null,
+    text: '',
+  },
 }
 
+export function getFullStore() {
+  return store
+}
 export function getPickedHero() {
   return store.pickedHero
 }
-
 export function setPickedHero(data) {
   store.pickedHero = {...store.pickedHero, ...data}
+}
+
+export function getStoreHero() {
+  return store.storeHero
+}
+export function setStoreHero(data) {
+  store.storeHero = {...store.storeHero, ...data}
 }
 
 export function resetPickedHero() {
@@ -26,7 +43,23 @@ export const PlayerStorage = {
   save(data) {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data))
   },
-
+  updateStoreHero(heroData) {
+    const data = this.get() || {
+      pickedHero: {
+        pickedHeroData: null,
+        heroUi: null,
+      },
+      storeHero: {
+        class: '',
+        id: null,
+        name: '',
+        skins: null,
+        text: '',
+      },
+    }
+    data.storeHero = heroData
+    this.save(data)
+  },
   setName(name) {
     const data = this.get() || {
       username: '',

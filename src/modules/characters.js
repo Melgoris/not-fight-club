@@ -3,8 +3,14 @@ import {_CHARS} from './_CHAR_DATA'
 import heroCloudImg from '/img/text_cloud_white.png'
 import {addCloudText} from './helperFunc'
 import {addHeroCloud} from './helperFunc'
-import {getPickedHero, PlayerStorage} from './storage'
-import {setPickedHero} from './storage'
+import {
+  getPickedHero,
+  PlayerStorage,
+  getStoreHero,
+  setPickedHero,
+  setStoreHero,
+} from './storage'
+
 import {addHeroLightContainer} from './helperFunc'
 import {clearHeroLight} from './helperFunc'
 import {heroLightActive} from './helperFunc'
@@ -29,10 +35,19 @@ export const charactersUi = () => {
     addHeroLightContainer(hero.id)
     // console.log('hero', hero)
     heroContainer.addEventListener('click', () => {
+      console.log('hero', hero)
+
       setPickedHero({
         id: hero.id,
         name: hero.name,
         text: hero.text,
+      })
+      setStoreHero({
+        id: hero.id,
+        name: hero.name,
+        text: hero.text,
+        class: hero.class,
+        skins: hero.skins,
       })
     })
     return new Character({
@@ -55,15 +70,16 @@ export const charactersUi = () => {
   addCloudText('school_girl', 'ууу бля')
 
   chooseButton.addEventListener('click', async () => {
+    const storeHero = getStoreHero()
     const pickedHero = getPickedHero()
+
     if (!pickedHero.pickedHeroData) return
-    console.log(pickedHero.pickedHeroData.container)
     heroes.forEach(e => {
       if (e.container.id !== pickedHero.id) {
         e.container.classList.add('opasity')
       }
     })
-    PlayerStorage.save(pickedHero)
+    PlayerStorage.updateStoreHero(storeHero)
     await delay(600)
     clearHeroLight()
     pickedHero.pickedHeroData.container.classList.add('move-hero')
