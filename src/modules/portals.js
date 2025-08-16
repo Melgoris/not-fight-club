@@ -16,13 +16,9 @@ export const portal = new Character({
   container: portalContainer,
 })
 
-export const addRemovePortal = state => {
-  if (state === 'add') {
-    document.querySelector('#portal').classList.remove('disable')
-    document.querySelector('#portal').classList.add('active')
-    portal.portal()
-  } else {
-    document.querySelector('#portal').classList.add('disable')
-    document.querySelector('#portal').classList.remove('active')
-  }
+export const addRemovePortal = (portalID, state) => {
+  const portalEl = document.querySelector(`#${portalID}`)
+  portalEl.classList.toggle('disable', !state)
+  portalEl.classList.toggle('active', state)
+  if (state) portal.portal()
 }

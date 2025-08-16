@@ -5,6 +5,7 @@ export const routesUi = () => {
   const routes = {
     '#login': showLoginScreen,
     '#character': showCharacterScreen,
+    '#home': showHeroHomepage,
   }
 
   function router() {
@@ -37,33 +38,42 @@ export const routesUi = () => {
     screen.classList.toggle('active', active)
     // mainMenu.classList.add('active')
     if (!active) return
-
     const player = PlayerStorage.get()
+    console.log('player', player)
+    if (player.pickedHeroData) window.location.hash = '#home'
     if (!player) {
       window.location.hash = '#login'
       return
     }
-
-    document.getElementById('displayPlayerName').textContent = player.username
-    document.getElementById('wins').textContent = player.wins
-    document.getElementById('losses').textContent = player.losses
-
-    document.getElementById('win-btn').onclick = () => {
-      PlayerStorage.addWin()
-      document.getElementById('wins').textContent = PlayerStorage.get().wins
-    }
-
-    document.getElementById('loss-btn').onclick = () => {
-      PlayerStorage.addLoss()
-      document.getElementById('losses').textContent = PlayerStorage.get().losses
-    }
-
-    document.getElementById('logout-btn').onclick = () => {
-      PlayerStorage.clear()
-      window.location.hash = '#login'
-    }
   }
 
+  function showHeroHomepage(active) {
+    const screen = document.getElementById('_heroHome')
+    screen.classList.toggle('active', active)
+    if (!active) return
+    const data = PlayerStorage.get()
+    console.log('data', data)
+    if (!data) {
+      window.location.hash = '#login'
+      return
+    }
+    if (!data.pickedHeroData) window.location.hash = '#character'
+    // document.getElementById('displayPlayerName').textContent = player.username
+    //     document.getElementById('wins').textContent = player.wins
+    //     document.getElementById('losses').textContent = player.losses
+    //     document.getElementById('win-btn').onclick = () => {
+    //       PlayerStorage.addWin()
+    //       document.getElementById('wins').textContent = PlayerStorage.get().wins
+    //     }
+    //     document.getElementById('loss-btn').onclick = () => {
+    //       PlayerStorage.addLoss()
+    //       document.getElementById('losses').textContent = PlayerStorage.get().losses
+    //     }
+    //     document.getElementById('logout-btn').onclick = () => {
+    //       PlayerStorage.clear()
+    //       window.location.hash = '#login'
+    //     }
+  }
   window.addEventListener('hashchange', router)
   window.addEventListener('load', () => {
     if (PlayerStorage.get()) {

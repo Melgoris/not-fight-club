@@ -3,14 +3,13 @@ import {_CHARS} from './_CHAR_DATA'
 import heroCloudImg from '/img/text_cloud_white.png'
 import {addCloudText} from './helperFunc'
 import {addHeroCloud} from './helperFunc'
-import {getPickedHero} from './storage'
+import {getPickedHero, PlayerStorage} from './storage'
 import {setPickedHero} from './storage'
 import {addHeroLightContainer} from './helperFunc'
 import {clearHeroLight} from './helperFunc'
 import {heroLightActive} from './helperFunc'
 import {moveHeroToPortal} from './helperFunc'
 import {delay} from './helperFunc'
-
 import {addRemovePortal} from './portals'
 
 export const charactersUi = () => {
@@ -64,15 +63,17 @@ export const charactersUi = () => {
         e.container.classList.add('opasity')
       }
     })
+    PlayerStorage.save(pickedHero)
     await delay(600)
     clearHeroLight()
     pickedHero.pickedHeroData.container.classList.add('move-hero')
     pickedHero.pickedHeroData.walk()
-    addRemovePortal('add')
+    addRemovePortal('portal', true)
     moveHeroToPortal(pickedHero.pickedHeroData.container)
     await delay(3600)
     pickedHero.pickedHeroData.container.classList.add('opasity')
     await delay(300)
-    addRemovePortal()
+    addRemovePortal('portal', false)
+    window.location.hash = '#home'
   })
 }
