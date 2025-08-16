@@ -311,7 +311,8 @@ nav {
 
 /*login*/
 .login,
-.character-ui {
+.character-ui,
+.character-homepage {
   position: relative;
   display: none;
   justify-content: center;
@@ -333,8 +334,15 @@ nav {
   background-repeat: no-repeat;
 }
 
+.character-homepage {
+  background-image: url(/img/backgrounds/hero-home.png);
+  background-repeat: no-repeat;
+
+}
+
 .login.active,
-.character-ui.active {
+.character-ui.active,
+.character-homepage {
   display: flex;
 }
 
@@ -563,7 +571,7 @@ nav {
 .hero-container img {
   position: absolute;
   top: 0;
-  left: 31px;
+  left: 28px;
   width: 100px;
   z-index: 100;
   transition: opacity 0.5s ease-in;

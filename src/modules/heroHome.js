@@ -2,8 +2,12 @@ import {PlayerStorage} from './storage'
 import {getFullStore, getPickedHero, getStoreHero} from './storage'
 import {Character} from './characterComponent'
 import {_CHARS} from './_CHAR_DATA'
+import {addCloudText} from './helperFunc'
+import {addHeroCloud} from './helperFunc'
+import heroCloudImg from '/img/text_cloud_white.png'
+import {delay} from './helperFunc'
 
-export const heroHomeUi = () => {
+export const heroHomeUi = async () => {
   const heroData = getStoreHero().id
     ? getStoreHero()
     : PlayerStorage.get().storeHero
@@ -20,8 +24,16 @@ export const heroHomeUi = () => {
     frameHeight: 128,
     container: heroContainer,
   })
-  hero.walk()
-  console.log('PlayerStorage.get()', PlayerStorage.get().storeHero)
-  console.log('getStoreHero()', getStoreHero())
-  console.log('heroData', heroData)
+  addHeroCloud({
+    parentContainer: heroContainer,
+    src: heroCloudImg,
+    text: heroData.text,
+  })
+  hero.idle()
+  await delay(100)
+  addCloudText('satyr', 'ууу бля')
+  heroContainer.addEventListener('click', () => {
+    console.log('dfdfd')
+    addCloudText('satyr', 'ууу бля')
+  })
 }

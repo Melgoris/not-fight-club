@@ -1,4 +1,5 @@
 import {PlayerStorage} from './storage'
+import {destroyInactiveWindows} from './helperFunc'
 
 export const routesUi = () => {
   // const mainMenu = document.querySelector('.top-menu-container')
@@ -16,6 +17,7 @@ export const routesUi = () => {
     } else {
       window.location.hash = '#login'
     }
+    destroyInactiveWindows()
   }
 
   function showLoginScreen(active) {
@@ -44,7 +46,8 @@ export const routesUi = () => {
       window.location.hash = '#login'
       return
     }
-    if (player.storeHero) window.location.hash = '#home'
+    if (player.storeHero && window.location.hash !== '#home')
+      window.location.hash = '#home'
   }
 
   function showHeroHomepage(active) {
@@ -52,12 +55,13 @@ export const routesUi = () => {
     screen.classList.toggle('active', active)
     if (!active) return
     const data = PlayerStorage.get()
-    // console.log('data', data)
+    console.log('active', active)
     if (!data) {
       window.location.hash = '#login'
       return
     }
-    if (!data.storeHero) window.location.hash = '#character'
+    if (!data.storeHero && window.location.hash !== '#character')
+      window.location.hash = '#character'
     // document.getElementById('displayPlayerName').textContent = player.username
     //     document.getElementById('wins').textContent = player.wins
     //     document.getElementById('losses').textContent = player.losses
@@ -76,7 +80,12 @@ export const routesUi = () => {
   }
   window.addEventListener('hashchange', router)
   window.addEventListener('load', () => {
-    if (PlayerStorage.get()) {
+    const player = PlayerStorage.get()
+    if (!player) {
+      window.location.hash = '#login'
+    } else if (player.storeHero) {
+      window.location.hash = '#home'
+    } else {
       window.location.hash = '#character'
     }
     router()

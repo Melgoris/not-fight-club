@@ -35,8 +35,6 @@ export const charactersUi = () => {
     addHeroLightContainer(hero.id)
     // console.log('hero', hero)
     heroContainer.addEventListener('click', () => {
-      console.log('hero', hero)
-
       setPickedHero({
         id: hero.id,
         name: hero.name,

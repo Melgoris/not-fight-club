@@ -11,7 +11,13 @@ export const addHeroCloud = ({parentContainer, src, text}) => {
   cloud.appendChild(cloudImg)
   cloud.appendChild(textContainer)
 }
-
+export const destroyInactiveWindows = () => {
+  document.querySelectorAll('.current-screan > div').forEach(screen => {
+    if (!screen.classList.contains('active')) {
+      screen.innerHTML = ''
+    }
+  })
+}
 export const addCloudText = (id, text, duration = 2000) => {
   const container = document.querySelector(`#${id} .cloud-container`)
   document.querySelector(`#${id} p`).textContent = text
