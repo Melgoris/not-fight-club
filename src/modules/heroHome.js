@@ -9,6 +9,7 @@ import {delay} from './helperFunc'
 import {moveHeroToObject} from './helperFunc'
 import {createSceneObjectElement} from './helperFunc'
 import {_GIRL_DEALER} from './_OBJECT_DATA'
+import {addRemovePortal} from './portals'
 
 export const heroHomeUi = async () => {
   const heroData = getStoreHero().id
@@ -29,6 +30,14 @@ export const heroHomeUi = async () => {
     parent: homeUi,
     x: 658,
     y: 700,
+    top: false,
+  })
+  const map = createSceneObjectElement({
+    id: '_map',
+    className: 'map',
+    parent: homeUi,
+    x: 790,
+    y: 630,
     top: false,
   })
   const heroContainer = document.createElement('div')
@@ -101,4 +110,6 @@ export const heroHomeUi = async () => {
       {once: true},
     )
   })
+  map.classList.add('mapshake')
+  addRemovePortal('portal', true, '_heroHome').classList.add('home-portal')
 }

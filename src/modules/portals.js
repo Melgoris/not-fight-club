@@ -1,24 +1,38 @@
 import {Character} from './characterComponent'
 
 const characterUi = document.querySelector('.character-ui')
-const portalContainer = document.createElement('div')
-portalContainer.id = 'portal'
-portalContainer.classList.add('portal-styles')
-characterUi.appendChild(portalContainer)
 
-portalContainer.addEventListener('click', () => {
-  console.log('gjhnfk')
-})
-export const portal = new Character({
-  skin: '/public/img/portal.png',
-  frameWidth: 128,
-  frameHeight: 128,
-  container: portalContainer,
-})
+// portalContainer.addEventListener('click', () => {
+//   console.log('gjhnfk')
+// })
 
-export const addRemovePortal = (portalID, state) => {
-  const portalEl = document.querySelector(`#${portalID}`)
-  portalEl.classList.toggle('disable', !state)
-  portalEl.classList.toggle('active', state)
-  if (state) portal.portal()
+export function addRemovePortal(portalID, state, containerId) {
+  const parentCont = document.querySelector(`#${containerId}`)
+  if (!parentCont) return
+
+  let portalContainer = document.querySelector(`#${portalID}`)
+  if (!portalContainer && state) {
+    portalContainer = document.createElement('div')
+    portalContainer.id = portalID
+    portalContainer.classList.add('portal-styles')
+    parentCont.appendChild(portalContainer)
+
+    const portal = new Character({
+      skin: '/public/img/portal.png',
+      frameWidth: 128,
+      frameHeight: 128,
+      container: portalContainer,
+    })
+    portal.portal()
+  }
+
+  if (portalContainer) {
+    portalContainer.classList.toggle('disable', !state)
+    portalContainer.classList.toggle('active', state)
+
+    if (!state) {
+      portalContainer.remove()
+    }
+  }
+  return portalContainer
 }

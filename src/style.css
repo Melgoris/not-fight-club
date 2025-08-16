@@ -510,6 +510,11 @@ nav {
   bottom: 40%;
   opacity: 0;
   transition: opacity 0.5s ease-in;
+  cursor: pointer;
+}
+
+.home-portal {
+  bottom: 15%;
 }
 
 .portal-styles.active {
@@ -613,8 +618,24 @@ nav {
   transition: filter 0.2s ease;
 }
 
-.tent:hover {
+.map {
+  width: 150px;
+  height: 107px;
+  background-image: url('/public/img/object/map-transparent.png');
+  opacity: 0.9;
+  cursor: pointer;
+  transition: filter 0.2s ease;
+  transition: opacity 0.4s ease;
+}
+
+.tent:hover,
+.map:hover,
+.portal-styles:hover {
   filter: brightness(1.2) drop-shadow(0 0 10px rgba(218, 218, 168, 0.6));
+}
+
+.map:active {
+  opacity: 0.6;
 }
 
 @keyframes shake {
@@ -645,6 +666,24 @@ nav {
 
 .shake {
   animation: shake 0.4s ease;
+}
+
+@keyframes mapshake {
+  0% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-10px);
+  }
+
+  100% {
+    transform: translateY(0);
+  }
+}
+
+.mapshake {
+  animation: mapshake 3s ease-in-out infinite;
 }
 
 .dealer {

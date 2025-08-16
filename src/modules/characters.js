@@ -82,12 +82,12 @@ export const charactersUi = () => {
     clearHeroLight()
     pickedHero.pickedHeroData.container.classList.add('move-hero')
     pickedHero.pickedHeroData.walk()
-    addRemovePortal('portal', true)
+    addRemovePortal('portal', true, '_characterUi')
     moveHeroToPortal(pickedHero.pickedHeroData.container)
     await delay(3600)
     pickedHero.pickedHeroData.container.classList.add('opasity')
     await delay(300)
-    addRemovePortal('portal', false)
+    addRemovePortal('portal', false, '_characterUi')
     window.location.hash = '#home'
   })
 }
