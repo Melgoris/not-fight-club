@@ -8,3 +8,13 @@ routesUi()
 // headerMenuUi()
 charactersUi()
 heroHomeUi()
+function resizeScene() {
+  const scene = document.querySelector('.character-homepage')
+  const scaleX = window.innerWidth / 1600
+  const scaleY = window.innerHeight / 900
+  const scale = Math.min(scaleX, scaleY)
+  scene.style.transform = `scale(${scale})`
+}
+
+window.addEventListener('resize', resizeScene)
+resizeScene()

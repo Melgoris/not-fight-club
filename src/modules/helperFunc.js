@@ -58,3 +58,30 @@ export const moveHeroToPortal = heroEl => {
     heroEl.style.transform = `translate(${deltaX}px, ${deltaY - 40}px)`
   }, 3000)
 }
+export const moveHeroToObject = (heroEl, objEl, shift = 0) => {
+  const heroRect = heroEl.getBoundingClientRect()
+  const objRect = objEl.getBoundingClientRect()
+  let deltaX = objRect.left - heroRect.left - shift
+  if (heroEl.id === 'gorgon') deltaX = deltaX - 45
+  heroEl.style.transition = 'transform 3s linear'
+  heroEl.style.transform = `translate(${deltaX}px)`
+}
+export const createSceneObjectElement = ({
+  id,
+  className,
+  parent,
+  x,
+  y,
+  top = true,
+}) => {
+  const el = document.createElement('div')
+  el.id = id
+  el.classList.add('building', className)
+  el.style.position = 'absolute'
+  el.style.left = `${x}px`
+  el.style.top = `${y}px`
+  // top ? (el.style.top = `${y}px`) : (el.style.bottom = `${y}px`)
+
+  parent.appendChild(el)
+  return el
+}

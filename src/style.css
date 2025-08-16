@@ -337,7 +337,9 @@ nav {
 .character-homepage {
   background-image: url(/img/backgrounds/hero-home.png);
   background-repeat: no-repeat;
-
+  justify-content: flex-start;
+  align-items: flex-end;
+  padding-bottom: 135px;
 }
 
 .login.active,
@@ -588,4 +590,69 @@ nav {
   z-index: 101;
 }
 
+/*home objects*/
+.building {
+  width: 128px;
+  height: 128px;
+  background-size: contain;
+  background-repeat: no-repeat;
+}
+
+.stone {
+  width: 10px;
+  height: 9px;
+  background-image: url('/public/img/object/stone.png');
+}
+
+.tent {
+  width: 73px;
+  height: 65px;
+  background-image: url('/public/img/object/dressShop/tent.png');
+  opacity: 0.9;
+  cursor: pointer;
+  transition: filter 0.2s ease;
+}
+
+.tent:hover {
+  filter: brightness(1.2) drop-shadow(0 0 10px rgba(218, 218, 168, 0.6));
+}
+
+@keyframes shake {
+  0% {
+    transform: translate(0, 0);
+  }
+
+  20% {
+    transform: translate(-5px, 0);
+  }
+
+  40% {
+    transform: translate(5px, 0);
+  }
+
+  60% {
+    transform: translate(-5px, 0);
+  }
+
+  80% {
+    transform: translate(5px, 0);
+  }
+
+  100% {
+    transform: translate(0, 0);
+  }
+}
+
+.shake {
+  animation: shake 0.4s ease;
+}
+
+.dealer {
+  position: absolute;
+  right: 880px;
+  top: 640px;
+  /* scale: 1.5; */
+}
+
+/*home objects*/
 /*character select*/
