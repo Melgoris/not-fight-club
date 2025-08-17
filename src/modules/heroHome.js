@@ -9,10 +9,11 @@ import {delay} from './helperFunc'
 import {moveHeroToObject} from './helperFunc'
 import {createSceneObjectElement, createWeatherElement} from './helperFunc'
 import {
-  _CLOUDS,
+  _CLOUDS_DATA,
   _GIRL_DEALER,
   _HOME_LOCATION_OBJ,
   _HOME_LOCATION_OBJ_NAMES,
+  _CLOUDS_NAME,
 } from './_OBJECT_DATA'
 import {addRemovePortal} from './portals'
 
@@ -30,7 +31,6 @@ export const heroHomeUi = async () => {
     y: 10,
     top: false,
   })
-
   const homeLocationObjects = _HOME_LOCATION_OBJ_NAMES.reduce((acc, name) => {
     acc[name] = createSceneObjectElement({
       ..._HOME_LOCATION_OBJ[name],
@@ -38,10 +38,34 @@ export const heroHomeUi = async () => {
     })
     return acc
   }, {})
-  console.log('homeLocationObjects', homeLocationObjects)
-  const cloud = createWeatherElement({..._CLOUDS[0]})
-  homeUi.appendChild(cloud)
-  console.log('cloud', cloud)
+  const homeClouds = _CLOUDS_NAME.reduce((acc, name) => {
+    acc[name] = createWeatherElement({..._CLOUDS_DATA[name]})
+    return acc
+  }, {})
+
+  homeClouds.cloudOne.classList.add('cloudsmall')
+  homeClouds.cloudTwo.classList.add('cloudsmalllower')
+  homeClouds.cloudThree.classList.add('cloudsmalllower')
+  homeClouds.cloudFour.classList.add('cloudy')
+  homeClouds.fogOne.classList.add('fogshace')
+  homeClouds.portalFogOne.classList.add('fogshace')
+  ;(() => {
+    setInterval(async () => {
+      homeClouds.portalFogTwo.classList.add('ghost-active')
+      await delay(2000)
+      homeClouds.portalFogTwo.classList.remove('ghost-active')
+    }, 10000)
+  })()
+
+  homeUi.appendChild(homeClouds.cloudOne)
+  homeUi.appendChild(homeClouds.cloudTwo)
+  homeUi.appendChild(homeClouds.cloudThree)
+  homeUi.appendChild(homeClouds.cloudFour)
+  homeUi.appendChild(homeClouds.fogOne)
+  homeUi.appendChild(homeClouds.portalFogOne)
+  homeUi.appendChild(homeClouds.portalFogTwo)
+
+  homeUi.appendChild(homeClouds.portalFogTwo)
   const heroContainer = document.createElement('div')
   heroContainer.id = heroData.id
   heroContainer.classList.add(heroData.class)
@@ -110,6 +134,7 @@ export const heroHomeUi = async () => {
       {once: true},
     )
   })
+
   homeLocationObjects.map.classList.add('mapshake')
   fullSizeFog.classList.add('fogshace')
   addRemovePortal('portal', true, '_heroHome').classList.add('home-portal')

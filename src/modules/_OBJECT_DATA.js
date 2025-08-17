@@ -36,13 +36,71 @@ export const _HOME_LOCATION_OBJ = {
     top: false,
   },
 }
-export const _CLOUDS = [
-  {
-    src: './img/backgrounds/clouds/cloud.png',
+
+export const _CLOUDS_NAME = [
+  'cloudOne',
+  'cloudTwo',
+  'cloudThree',
+  'cloudFour',
+  'fogOne',
+  'portalFogOne',
+  'portalFogTwo',
+]
+export const _CLOUDS_DATA = {
+  cloudOne: {
+    src: './img/backgrounds/clouds/cloudOne.png',
     width: 200,
     height: 200,
     id: '_cloudBOne',
-    x: 500,
-    y: 500,
+    x: 200,
+    y: 125,
   },
-]
+  cloudTwo: {
+    src: './img/backgrounds/clouds/cloudTwo.png',
+    width: 200,
+    height: 200,
+    id: '_cloudTwo',
+    x: 600,
+    y: 14,
+  },
+  cloudThree: {
+    src: './img/backgrounds/clouds/cloudThree.png',
+    width: 200,
+    height: 200,
+    id: '_cloudThree',
+    x: 1392,
+    y: 100,
+  },
+  cloudFour: {
+    src: './img/backgrounds/clouds/cloudFour.png',
+    width: 300,
+    height: 300,
+    id: '_cloudFour',
+    x: 1086,
+    y: -70,
+  },
+  fogOne: {
+    src: './img/backgrounds//clouds/fog-two.png',
+    width: 1700,
+    height: 619,
+    id: '_fogOne',
+    x: 71,
+    y: 135,
+  },
+  portalFogOne: {
+    src: './img/backgrounds//clouds/portalFogOne.png',
+    width: 400,
+    height: 253,
+    id: '_portalFogOne',
+    x: 1050,
+    y: 575,
+  },
+  portalFogTwo: {
+    src: './img/backgrounds//clouds/portalFogTwoRed.png',
+    width: 130,
+    height: 120,
+    id: '_portalFogTwo',
+    x: 1236,
+    y: 660,
+  },
+}
