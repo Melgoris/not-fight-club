@@ -7,7 +7,12 @@ import {addHeroCloud} from './helperFunc'
 import heroCloudImg from '/img/text_cloud_white.png'
 import {delay} from './helperFunc'
 import {moveHeroToObject} from './helperFunc'
-import {createSceneObjectElement, createWeatherElement} from './helperFunc'
+import {
+  createSceneObjectElement,
+  createWeatherElement,
+  createModalMenu,
+  createModalMenuBtn,
+} from './helperFunc'
 import {
   _CLOUDS_DATA,
   _GIRL_DEALER,
@@ -18,19 +23,12 @@ import {
 import {addRemovePortal} from './portals'
 
 export const heroHomeUi = async () => {
+  await delay(100)
   const heroData = getStoreHero().id
     ? getStoreHero()
     : PlayerStorage.get().storeHero
   const homeUi = document.querySelector('#_heroHome')
 
-  const fullSizeFog = createSceneObjectElement({
-    id: '_full-page-fog',
-    className: 'full-page-fog',
-    parent: homeUi,
-    x: 10,
-    y: 10,
-    top: false,
-  })
   const homeLocationObjects = _HOME_LOCATION_OBJ_NAMES.reduce((acc, name) => {
     acc[name] = createSceneObjectElement({
       ..._HOME_LOCATION_OBJ[name],
@@ -93,6 +91,19 @@ export const heroHomeUi = async () => {
     src: heroCloudImg,
     text: heroData.text,
   })
+  addHeroCloud({
+    parentContainer: dealerContainer,
+    src: heroCloudImg,
+    text: 'Карр!',
+  })
+  // addCloudText('_dealer', 'Fnfnfnf')
+  await delay(100)
+
+  // const d = document.querySelector('#_dealer')
+  dealerContainer.addEventListener('click', () => {
+    addCloudText('_dealer', 'К-арр!')
+  })
+  // hero.changeSkin(heroData.skins.skinTwo)
   hero.idle()
   await delay(100)
   addCloudText('satyr', 'ууу бля')
@@ -123,6 +134,13 @@ export const heroHomeUi = async () => {
     heroId: heroData.id,
     cloudText: 'Где это я..',
   })
+
+  const skinModal = createModalMenu({
+    id: '_skinModal',
+    name: 'skinmodal',
+    parent: homeUi,
+  })
+  console.log(skinModal)
   homeLocationObjects.tent.addEventListener('click', () => {
     homeLocationObjects.tent.classList.add('shake')
 
@@ -134,8 +152,19 @@ export const heroHomeUi = async () => {
       {once: true},
     )
   })
-
+  const correntHeroSkins = heroData.skins
+  console.log(heroData.skins)
+  Object.values(correntHeroSkins).map(skin => {
+    const button = createModalMenuBtn({src: skin.logo})
+    skinModal.appendChild(button)
+    button.addEventListener('click', () => {
+      console.log('залупа', skin)
+      hero.changeSkin({...skin})
+      hero.idle()
+    })
+  })
+  // console.log(_CHARS.find(e => e.name === heroData.name))
   homeLocationObjects.map.classList.add('mapshake')
-  fullSizeFog.classList.add('fogshace')
+
   addRemovePortal('portal', true, '_heroHome').classList.add('home-portal')
 }

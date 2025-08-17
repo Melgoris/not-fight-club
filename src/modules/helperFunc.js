@@ -104,3 +104,19 @@ export const createWeatherElement = ({
   el.style.top = `${y}px`
   return el
 }
+export const createModalMenu = ({id, name, parent}) => {
+  const el = document.createElement('div')
+  el.id = id
+  el.classList.add('modal-menu', name)
+  parent.appendChild(el)
+  return el
+}
+export const createModalMenuBtn = ({src}) => {
+  const el = document.createElement('div')
+  const img = document.createElement('img')
+  img.src = src
+  el.classList.add('modal-menu-buttons')
+  el.appendChild(img)
+  // el.style.backgroundImage = `url(${src})`
+  return el
+}

@@ -110,6 +110,7 @@ export const _SATYR = {
       totalFrames: 4,
       fps: 8,
     },
+    logo: '/img/characters/satyr/defoultSkin/heroIco.png',
   },
   skinTwo: {
     attack: {
@@ -138,6 +139,7 @@ export const _SATYR = {
       totalFrames: 4,
       fps: 5,
     },
+    logo: '/img/characters/satyr/defoultSkin/heroIco.png',
   },
 }
 export const _VAMPIRE = {

@@ -81,6 +81,7 @@ export const routesUi = () => {
   window.addEventListener('hashchange', router)
   window.addEventListener('load', () => {
     const player = PlayerStorage.get()
+    console.log('player', player.storeHero ? 'yes' : 'no')
     if (!player) {
       window.location.hash = '#login'
     } else if (player.storeHero) {

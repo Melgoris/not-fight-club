@@ -85,7 +85,7 @@ export const _CLOUDS_DATA = {
     height: 619,
     id: '_fogOne',
     x: 71,
-    y: 135,
+    y: 275,
   },
   portalFogOne: {
     src: './img/backgrounds//clouds/portalFogOne.png',
