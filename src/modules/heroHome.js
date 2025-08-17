@@ -8,7 +8,12 @@ import heroCloudImg from '/img/text_cloud_white.png'
 import {delay} from './helperFunc'
 import {moveHeroToObject} from './helperFunc'
 import {createSceneObjectElement, createWeatherElement} from './helperFunc'
-import {_CLOUDS, _GIRL_DEALER} from './_OBJECT_DATA'
+import {
+  _CLOUDS,
+  _GIRL_DEALER,
+  _HOME_LOCATION_OBJ,
+  _HOME_LOCATION_OBJ_NAMES,
+} from './_OBJECT_DATA'
 import {addRemovePortal} from './portals'
 
 export const heroHomeUi = async () => {
@@ -16,30 +21,7 @@ export const heroHomeUi = async () => {
     ? getStoreHero()
     : PlayerStorage.get().storeHero
   const homeUi = document.querySelector('#_heroHome')
-  const stone = createSceneObjectElement({
-    id: '_stone',
-    className: 'stone',
-    parent: homeUi,
-    x: 450,
-    y: 757,
-    top: false,
-  })
-  const tent = createSceneObjectElement({
-    id: '_tent',
-    className: 'tent',
-    parent: homeUi,
-    x: 658,
-    y: 700,
-    top: false,
-  })
-  const map = createSceneObjectElement({
-    id: '_map',
-    className: 'map',
-    parent: homeUi,
-    x: 790,
-    y: 630,
-    top: false,
-  })
+
   const fullSizeFog = createSceneObjectElement({
     id: '_full-page-fog',
     className: 'full-page-fog',
@@ -49,6 +31,14 @@ export const heroHomeUi = async () => {
     top: false,
   })
 
+  const homeLocationObjects = _HOME_LOCATION_OBJ_NAMES.reduce((acc, name) => {
+    acc[name] = createSceneObjectElement({
+      ..._HOME_LOCATION_OBJ[name],
+      parent: homeUi,
+    })
+    return acc
+  }, {})
+  console.log('homeLocationObjects', homeLocationObjects)
   const cloud = createWeatherElement({..._CLOUDS[0]})
   homeUi.appendChild(cloud)
   console.log('cloud', cloud)
@@ -97,9 +87,6 @@ export const heroHomeUi = async () => {
     addCloudText(heroId, cloudText)
   }
 
-  // console.log(heroContainer.getBoundingClientRect())
-  // console.log(stone.getBoundingClientRect())
-  // console.log(stone)
   heroContainer.addEventListener('click', () => {
     console.log('dfdfd', heroData)
     addCloudText('satyr', 'ууу бля')
@@ -107,23 +94,23 @@ export const heroHomeUi = async () => {
 
   moveHeroMainWithAnimation({
     heroContainer,
-    obj: stone,
+    obj: homeLocationObjects.stone,
     shift: 100,
     heroId: heroData.id,
     cloudText: 'Где это я..',
   })
-  tent.addEventListener('click', () => {
-    tent.classList.add('shake')
+  homeLocationObjects.tent.addEventListener('click', () => {
+    homeLocationObjects.tent.classList.add('shake')
 
-    tent.addEventListener(
+    homeLocationObjects.tent.addEventListener(
       'animationend',
       () => {
-        tent.classList.remove('shake')
+        homeLocationObjects.tent.classList.remove('shake')
       },
       {once: true},
     )
   })
-  map.classList.add('mapshake')
+  homeLocationObjects.map.classList.add('mapshake')
   fullSizeFog.classList.add('fogshace')
   addRemovePortal('portal', true, '_heroHome').classList.add('home-portal')
 }
