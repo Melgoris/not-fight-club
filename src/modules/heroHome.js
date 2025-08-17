@@ -7,8 +7,8 @@ import {addHeroCloud} from './helperFunc'
 import heroCloudImg from '/img/text_cloud_white.png'
 import {delay} from './helperFunc'
 import {moveHeroToObject} from './helperFunc'
-import {createSceneObjectElement} from './helperFunc'
-import {_GIRL_DEALER} from './_OBJECT_DATA'
+import {createSceneObjectElement, createWeatherElement} from './helperFunc'
+import {_CLOUDS, _GIRL_DEALER} from './_OBJECT_DATA'
 import {addRemovePortal} from './portals'
 
 export const heroHomeUi = async () => {
@@ -40,6 +40,18 @@ export const heroHomeUi = async () => {
     y: 630,
     top: false,
   })
+  const fullSizeFog = createSceneObjectElement({
+    id: '_full-page-fog',
+    className: 'full-page-fog',
+    parent: homeUi,
+    x: 10,
+    y: 10,
+    top: false,
+  })
+
+  const cloud = createWeatherElement({..._CLOUDS[0]})
+  homeUi.appendChild(cloud)
+  console.log('cloud', cloud)
   const heroContainer = document.createElement('div')
   heroContainer.id = heroData.id
   heroContainer.classList.add(heroData.class)
@@ -48,6 +60,7 @@ export const heroHomeUi = async () => {
   dealerContainer.id = '_dealer'
   dealerContainer.classList.add('dealer')
   homeUi.appendChild(dealerContainer)
+
   const girlDealer = new Character({
     skin: _GIRL_DEALER.defoult,
     frameWidth: 48,
@@ -111,5 +124,6 @@ export const heroHomeUi = async () => {
     )
   })
   map.classList.add('mapshake')
+  fullSizeFog.classList.add('fogshace')
   addRemovePortal('portal', true, '_heroHome').classList.add('home-portal')
 }

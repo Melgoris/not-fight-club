@@ -628,6 +628,14 @@ nav {
   transition: opacity 0.4s ease;
 }
 
+.full-page-fog {
+  /* width: 100%;
+  height: 100%;
+  background-image: url('/public/img/backgrounds/fog_seamless_blended.png');
+  background-repeat: repeat-x;
+  pointer-events: none; */
+}
+
 .tent:hover,
 .map:hover,
 .portal-styles:hover {
@@ -686,6 +694,24 @@ nav {
   animation: mapshake 3s ease-in-out infinite;
 }
 
+@keyframes fogshace {
+  0% {
+    transform: translateX(0);
+  }
+
+  50% {
+    transform: translateX(-100px);
+  }
+
+  100% {
+    transform: translateX(-150px);
+  }
+}
+
+.fogshace {
+  animation: fogshace 3s ease-in-out infinite;
+}
+
 .dealer {
   position: absolute;
   right: 880px;
@@ -693,5 +719,15 @@ nav {
   /* scale: 1.5; */
 }
 
+/*weather elements*/
+.weather-element {
+  position: absolute;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  transition: transform 0.3s ease;
+}
+
+/*weather elements*/
 /*home objects*/
 /*character select*/

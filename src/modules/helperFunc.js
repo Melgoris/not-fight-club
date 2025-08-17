@@ -85,3 +85,22 @@ export const createSceneObjectElement = ({
   parent.appendChild(el)
   return el
 }
+
+export const createWeatherElement = ({
+  id,
+  src,
+  x = 0,
+  y = 0,
+  width,
+  height,
+}) => {
+  const el = document.createElement('div')
+  el.id = id
+  el.classList.add('weather-element')
+  el.style.backgroundImage = `url(${src})`
+  el.style.width = `${width}px`
+  el.style.height = `${height}px`
+  el.style.left = `${x}px`
+  el.style.top = `${y}px`
+  return el
+}

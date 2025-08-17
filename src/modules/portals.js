@@ -1,4 +1,5 @@
 import {Character} from './characterComponent'
+import {addHeroCloud, addCloudText} from './helperFunc'
 
 const characterUi = document.querySelector('.character-ui')
 
@@ -34,5 +35,8 @@ export function addRemovePortal(portalID, state, containerId) {
       portalContainer.remove()
     }
   }
+  portalContainer.addEventListener('click', () => {
+    console.log('dfsdff')
+  })
   return portalContainer
 }
