@@ -12,17 +12,22 @@ import {
 } from './storage'
 
 import {addHeroLightContainer} from './helperFunc'
-import {clearHeroLight} from './helperFunc'
+import {clearHeroLight, createBtn} from './helperFunc'
 import {heroLightActive} from './helperFunc'
 import {moveHeroToPortal} from './helperFunc'
 import {delay} from './helperFunc'
 import {addRemovePortal} from './portals'
 
-export const charactersUi = () => {
-  const chooseButton = document.querySelector('#choose-hero-btn')
-
+export const charactersUi = async () => {
+  const characterUi = document.querySelector('.character-ui')
+  // await delay(100)
+  const chooseButton = createBtn(
+    'choose-hero-button',
+    'choose-hero-btn',
+    'Choose',
+  )
+  characterUi.appendChild(chooseButton)
   const heroes = _CHARS.map(hero => {
-    const characterUi = document.querySelector('.character-ui')
     const heroContainer = document.createElement('div')
     heroContainer.id = hero.id
     heroContainer.classList.add(hero.class)
@@ -67,7 +72,7 @@ export const charactersUi = () => {
   })
   addCloudText('school_girl', 'ууу бля')
 
-  chooseButton.addEventListener('click', async () => {
+  chooseButton?.addEventListener('click', async () => {
     const storeHero = getStoreHero()
     const pickedHero = getPickedHero()
 

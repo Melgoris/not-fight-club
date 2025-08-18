@@ -120,3 +120,13 @@ export const createModalMenuBtn = ({src}) => {
   // el.style.backgroundImage = `url(${src})`
   return el
 }
+export const createBtn = (btnClass, id, text) => {
+  const wrapper = document.createElement('div')
+  const btn = document.createElement('button')
+  wrapper.classList.add('button-wrapper')
+  btn.id = id
+  btn.classList.add(btnClass)
+  btn.textContent = text
+  wrapper.appendChild(btn)
+  return wrapper
+}

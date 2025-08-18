@@ -1,5 +1,8 @@
 import {PlayerStorage} from './storage'
 import {destroyInactiveWindows} from './helperFunc'
+import {charactersUi} from './characters'
+import {heroHomeUi} from './heroHome'
+import {delay} from './helperFunc'
 
 export const routesUi = () => {
   // const mainMenu = document.querySelector('.top-menu-container')
@@ -27,15 +30,17 @@ export const routesUi = () => {
     screen.classList.toggle('active', active)
     if (!active) return
 
-    document.getElementById('loginBtn').onclick = () => {
+    document.getElementById('loginBtn').onclick = async () => {
       const name = document.getElementById('playerName').value.trim()
       if (!name) return alert('Enter Name!')
       PlayerStorage.setName(name)
+      screen.classList.toggle('hide', active)
+      await delay(400)
       window.location.hash = '#character'
     }
   }
 
-  function showCharacterScreen(active) {
+  async function showCharacterScreen(active) {
     const screen = document.getElementById('_characterUi')
     screen.classList.toggle('active', active)
     // mainMenu.classList.add('active')
@@ -46,11 +51,14 @@ export const routesUi = () => {
       window.location.hash = '#login'
       return
     }
-    if (player.storeHero && window.location.hash !== '#home')
+    if (player.storeHero && window.location.hash !== '#home') {
       window.location.hash = '#home'
+    }
+    charactersUi()
+    await delay(200)
   }
 
-  function showHeroHomepage(active) {
+  async function showHeroHomepage(active) {
     const screen = document.getElementById('_heroHome')
     screen.classList.toggle('active', active)
     if (!active) return
@@ -60,8 +68,11 @@ export const routesUi = () => {
       window.location.hash = '#login'
       return
     }
-    if (!data.storeHero && window.location.hash !== '#character')
+    if (!data.storeHero && window.location.hash !== '#character') {
       window.location.hash = '#character'
+    }
+    heroHomeUi()
+    await delay(200)
     // document.getElementById('displayPlayerName').textContent = player.username
     //     document.getElementById('wins').textContent = player.wins
     //     document.getElementById('losses').textContent = player.losses
@@ -81,13 +92,15 @@ export const routesUi = () => {
   window.addEventListener('hashchange', router)
   window.addEventListener('load', () => {
     const player = PlayerStorage.get()
-    console.log('player', player.storeHero ? 'yes' : 'no')
+
     if (!player) {
       window.location.hash = '#login'
     } else if (player.storeHero) {
       window.location.hash = '#home'
+      // heroHomeUi()
     } else {
       window.location.hash = '#character'
+      // charactersUi()
     }
     router()
   })

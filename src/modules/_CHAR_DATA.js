@@ -114,7 +114,7 @@ export const _SATYR = {
   },
   skinTwo: {
     attack: {
-      sprite: '/img/characters/satyr/skinTwo/Attack.png',
+      sprite: '/img/characters/satyr/skinTwo/Attack_normalized.png',
       totalFrames: 8,
       fps: 8,
       endFrame: 6,
@@ -125,12 +125,12 @@ export const _SATYR = {
       fps: 5,
     },
     idle: {
-      sprite: '/img/characters/satyr/skinTwo/Idle_fixtwo.png',
+      sprite: '/img/characters/satyr/skinTwo/Idle_normalized.png',
       totalFrames: 7,
       fps: 7,
     },
     walk: {
-      sprite: '/img/characters/satyr/skinTwo/Walk_fixed.png',
+      sprite: '/img/characters/satyr/skinTwo/Walk_normalized.png',
       totalFrames: 12,
       fps: 15,
     },

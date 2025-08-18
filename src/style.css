@@ -322,6 +322,14 @@ nav {
   background-size: auto;
   background-position: center;
   background-repeat: no-repeat;
+  opacity: 1;
+  transition: opacity 1s ease-in;
+}
+
+.login.hide,
+.character-ui.hide,
+.character-homepage.hide {
+  opacity: 0;
 }
 
 .login {
@@ -606,13 +614,13 @@ nav {
 .stone {
   width: 10px;
   height: 9px;
-  background-image: url('/public/img/object/stone.png');
+  background-image: url('./img/object/stone.png');
 }
 
 .tent {
   width: 73px;
   height: 65px;
-  background-image: url('/public/img/object/dressShop/tent.png');
+  background-image: url('./img/object/dressShop/tent.png');
   opacity: 0.9;
   cursor: pointer;
   transition: filter 0.2s ease;
@@ -621,7 +629,7 @@ nav {
 .map {
   width: 150px;
   height: 107px;
-  background-image: url('/public/img/object/map-transparent.png');
+  background-image: url('./img/object/map-transparent.png');
   opacity: 0.9;
   cursor: pointer;
   transition: filter 0.2s ease;
@@ -889,7 +897,8 @@ nav {
 .skinmodal {
   bottom: 120px;
   left: 418px;
-  width: 100px;
+  min-width: 100px;
+  padding: 5px;
   height: 50px;
   display: flex;
   flex-direction: row;

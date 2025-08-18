@@ -23,7 +23,7 @@ import {
 import {addRemovePortal} from './portals'
 
 export const heroHomeUi = async () => {
-  await delay(100)
+  // await delay(100)
   const heroData = getStoreHero().id
     ? getStoreHero()
     : PlayerStorage.get().storeHero
@@ -106,7 +106,7 @@ export const heroHomeUi = async () => {
   // hero.changeSkin(heroData.skins.skinTwo)
   hero.idle()
   await delay(100)
-  addCloudText('satyr', 'ууу бля')
+  // addCloudText('satyr', 'ууу бля')
   const moveHeroMainWithAnimation = async ({
     heroContainer = null,
     obj = null,
@@ -154,11 +154,10 @@ export const heroHomeUi = async () => {
   })
   const correntHeroSkins = heroData.skins
   console.log(heroData.skins)
-  Object.values(correntHeroSkins).map(skin => {
+  Object.values(correntHeroSkins).map((skin, i) => {
     const button = createModalMenuBtn({src: skin.logo})
     skinModal.appendChild(button)
     button.addEventListener('click', () => {
-      console.log('залупа', skin)
       hero.changeSkin({...skin})
       hero.idle()
     })
