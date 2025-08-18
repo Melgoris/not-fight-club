@@ -130,3 +130,6 @@ export const createBtn = (btnClass, id, text) => {
   wrapper.appendChild(btn)
   return wrapper
 }
+export const toogleMenus = (el, status) => {
+  el.classList.toggle('open', status)
+}

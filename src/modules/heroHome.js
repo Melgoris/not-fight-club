@@ -12,6 +12,7 @@ import {
   createWeatherElement,
   createModalMenu,
   createModalMenuBtn,
+  toogleMenus,
 } from './helperFunc'
 import {
   _CLOUDS_DATA,
@@ -162,8 +163,16 @@ export const heroHomeUi = async () => {
       hero.idle()
     })
   })
-  // console.log(_CHARS.find(e => e.name === heroData.name))
-  homeLocationObjects.map.classList.add('mapshake')
 
+  homeLocationObjects.map.classList.add('mapshake')
+  homeLocationObjects.tent.addEventListener('click', () => {
+    skinModal.classList.toggle('open')
+  })
+
+  document.addEventListener('click', e => {
+    e.preventDefault
+    if (e.target !== skinModal && e.target !== homeLocationObjects.tent)
+      skinModal.classList.remove('open')
+  })
   addRemovePortal('portal', true, '_heroHome').classList.add('home-portal')
 }
