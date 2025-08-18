@@ -20,6 +20,7 @@ import {
   _HOME_LOCATION_OBJ,
   _HOME_LOCATION_OBJ_NAMES,
   _CLOUDS_NAME,
+  _DUNGEONS,
 } from './_OBJECT_DATA'
 import {addRemovePortal} from './portals'
 import {_CHANGE_SKIN_EFF} from './_EFFECT_DATA'
@@ -158,6 +159,11 @@ export const heroHomeUi = async () => {
     name: 'mapmodal',
     parent: homeUi,
   })
+  _DUNGEONS.map(dunge => {
+    const item = createModalMenuBtn({src: dunge.src, text: dunge.name})
+    item.classList.add('map-item')
+    mapModal.appendChild(item)
+  })
   homeLocationObjects.tent.addEventListener('click', () => {
     homeLocationObjects.tent.classList.add('shake')
 
@@ -185,6 +191,9 @@ export const heroHomeUi = async () => {
   })
 
   homeLocationObjects.map.classList.add('mapshake')
+  homeLocationObjects.map.addEventListener('click', () => {
+    mapModal.classList.toggle('open')
+  })
   homeLocationObjects.tent.addEventListener('click', () => {
     skinModal.classList.toggle('open')
   })
@@ -193,6 +202,8 @@ export const heroHomeUi = async () => {
     e.preventDefault
     if (e.target !== skinModal && e.target !== homeLocationObjects.tent)
       skinModal.classList.remove('open')
+    if (e.target !== mapModal && e.target !== homeLocationObjects.map)
+      mapModal.classList.remove('open')
   })
   addRemovePortal('portal', true, '_heroHome').classList.add('home-portal')
 }

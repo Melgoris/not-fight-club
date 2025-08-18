@@ -111,12 +111,18 @@ export const createModalMenu = ({id, name, parent}) => {
   parent.appendChild(el)
   return el
 }
-export const createModalMenuBtn = ({src}) => {
+export const createModalMenuBtn = ({src, text}) => {
   const el = document.createElement('div')
   const img = document.createElement('img')
+
   img.src = src
   el.classList.add('modal-menu-buttons')
   el.appendChild(img)
+  if (text) {
+    const t = document.createElement('p')
+    t.textContent = text
+    el.appendChild(t)
+  }
   // el.style.backgroundImage = `url(${src})`
   return el
 }

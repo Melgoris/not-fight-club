@@ -104,3 +104,20 @@ export const _CLOUDS_DATA = {
     y: 660,
   },
 }
+
+export const _DUNGEONS = [
+  {name: 'Swamps', src: '/public/img/dungeons/swamps.jpg', id: '_swamps'},
+  {name: 'Cemetery', src: '/public/img/dungeons/cemetery.jpg', id: '_cemetery'},
+  {
+    name: 'Сatacombs',
+    src: '/public/img/dungeons/catacombs.jpg',
+    id: '_catacombs',
+  },
+  {
+    name: 'Wasteland',
+    src: '/public/img/dungeons/wasteland.jpg',
+    id: '_wasteland',
+  },
+  {name: 'Forest', src: '/public/img/dungeons/forest.jpg', id: '_forest'},
+  {name: 'Tunnel', src: '/public/img/dungeons/tunnel.jpg', id: '_tunnel'},
+]
