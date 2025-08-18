@@ -22,8 +22,8 @@ export const _HOME_LOCATION_OBJ = {
     id: '_map',
     className: 'map',
     // parent: homeUi,
-    x: 790,
-    y: 630,
+    x: 911,
+    y: 580,
     top: false,
   },
 

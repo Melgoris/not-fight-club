@@ -22,6 +22,8 @@ import {
   _CLOUDS_NAME,
 } from './_OBJECT_DATA'
 import {addRemovePortal} from './portals'
+import {_CHANGE_SKIN_EFF} from './_EFFECT_DATA'
+import {AEffects} from './effectsComponent'
 
 export const heroHomeUi = async () => {
   // await delay(100)
@@ -70,6 +72,7 @@ export const heroHomeUi = async () => {
   heroContainer.classList.add(heroData.class)
   homeUi.appendChild(heroContainer)
   const dealerContainer = document.createElement('div')
+
   dealerContainer.id = '_dealer'
   dealerContainer.classList.add('dealer')
   homeUi.appendChild(dealerContainer)
@@ -80,6 +83,7 @@ export const heroHomeUi = async () => {
     frameHeight: 48,
     container: dealerContainer,
   })
+
   girlDealer.idle()
   const hero = new Character({
     skin: heroData.skins.defoult,
@@ -122,10 +126,18 @@ export const heroHomeUi = async () => {
     await delay(700)
     addCloudText(heroId, cloudText)
   }
-
+  const spellEffect = document.createElement('div')
+  spellEffect.classList.add('spell-effect')
+  const changeSkinEff = new AEffects({
+    effect: _CHANGE_SKIN_EFF.changeEff,
+    frameWidth: 33,
+    frameHeight: 33,
+    container: spellEffect,
+  })
+  heroContainer.appendChild(spellEffect)
   heroContainer.addEventListener('click', () => {
-    console.log('dfdfd', heroData)
-    addCloudText('satyr', 'ууу бля')
+    changeSkinEff.changeSkin()
+    addCloudText('school_girl', 'ууу бля')
   })
 
   moveHeroMainWithAnimation({
@@ -141,7 +153,11 @@ export const heroHomeUi = async () => {
     name: 'skinmodal',
     parent: homeUi,
   })
-  console.log(skinModal)
+  const mapModal = createModalMenu({
+    id: '_mapModal',
+    name: 'mapmodal',
+    parent: homeUi,
+  })
   homeLocationObjects.tent.addEventListener('click', () => {
     homeLocationObjects.tent.classList.add('shake')
 
@@ -154,13 +170,17 @@ export const heroHomeUi = async () => {
     )
   })
   const correntHeroSkins = heroData.skins
-  console.log(heroData.skins)
+
   Object.values(correntHeroSkins).map((skin, i) => {
     const button = createModalMenuBtn({src: skin.logo})
     skinModal.appendChild(button)
-    button.addEventListener('click', () => {
+    button.addEventListener('click', async () => {
+      changeSkinEff.changeSkin()
+      await delay(200)
       hero.changeSkin({...skin})
       hero.idle()
+      await delay(700)
+      addCloudText(heroData.id, skin.skinChangeText)
     })
   })
 

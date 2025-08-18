@@ -735,12 +735,12 @@ nav {
 }
 
 .dealer {
-  right: -450px;
-  top: -79px;
+  right: -540px;
+  top: -80px;
   display: flex;
   flex-direction: column-reverse;
   justify-content: flex-end;
-  height: 170px;
+  height: 140px;
   image-rendering: pixelated;
   position: relative;
   z-index: 30;
@@ -898,7 +898,7 @@ nav {
 
 .skinmodal {
   bottom: 10px;
-  left: 315px;
+  left: 520px;
   min-width: 100px;
   padding: 5px;
   height: 50px;
@@ -940,6 +940,16 @@ nav {
   width: 100%;
 }
 
+/*spells*/
+.spell-effect {
+  position: absolute;
+
+  transform: scale(3);
+  bottom: 13px;
+  left: 60px;
+}
+
+/*spells*/
 /*weather elements*/
 /*home objects*/
 /*character select*/

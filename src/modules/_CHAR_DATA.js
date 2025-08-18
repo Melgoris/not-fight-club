@@ -25,6 +25,9 @@ export const _SCHOOL_GIRL = {
       totalFrames: 4,
       fps: 8,
     },
+    logo: '/img/characters/schoolGirl/defoultSkin/heroIco.png',
+    skinChangeText: 'первая тяночка на раене!',
+    count: 0,
   },
   skinTwo: {
     attack: {
@@ -53,6 +56,9 @@ export const _SCHOOL_GIRL = {
       totalFrames: 2,
       fps: 8,
     },
+    logo: '/img/characters/schoolGirl/skinTwo/heroIco.png',
+    skinChangeText: 'Пионер всегда готов!',
+    count: 1,
   },
   skinThree: {
     attack: {
@@ -81,6 +87,9 @@ export const _SCHOOL_GIRL = {
       totalFrames: 3,
       fps: 8,
     },
+    logo: '/img/characters/schoolGirl/skinThree/heroIco.png',
+    skinChangeText: 'опа, бабулин гардероб!',
+    count: 2,
   },
 }
 export const _SATYR = {
@@ -111,6 +120,8 @@ export const _SATYR = {
       fps: 8,
     },
     logo: '/img/characters/satyr/defoultSkin/heroIco.png',
+    skinChangeText: 'Во имя света!',
+    count: 0,
   },
   skinTwo: {
     attack: {
@@ -139,7 +150,9 @@ export const _SATYR = {
       totalFrames: 4,
       fps: 5,
     },
-    logo: '/img/characters/satyr/defoultSkin/heroIco.png',
+    logo: '/img/characters/satyr/skinTwo/heroIco.png',
+    skinChangeText: 'Природа - наш храм!',
+    count: 1,
   },
 }
 export const _VAMPIRE = {
@@ -169,6 +182,9 @@ export const _VAMPIRE = {
       totalFrames: 2,
       fps: 5,
     },
+    logo: '/img/characters/vampire/defoultSkin/heroIco.png',
+    skinChangeText: 'Темнота зовет!',
+    count: 0,
   },
   skinTwo: {
     attack: {
@@ -197,6 +213,9 @@ export const _VAMPIRE = {
       totalFrames: 2,
       fps: 5,
     },
+    logo: '/img/characters/vampire/skinTwo/heroIco.png',
+    skinChangeText: 'Спи спокойно, смертный.',
+    count: 1,
   },
 }
 export const _GORGON = {
@@ -227,6 +246,9 @@ export const _GORGON = {
       totalFrames: 3,
       fps: 5,
     },
+    logo: '/img/characters/gorgon/defoultSkin/heroIco.png',
+    skinChangeText: 'Змеи вместо волос.',
+    count: 0,
   },
   skinTwo: {
     attack: {
@@ -255,6 +277,9 @@ export const _GORGON = {
       totalFrames: 3,
       fps: 5,
     },
+    logo: '/img/characters/gorgon/skinTwo/heroIco.png',
+    skinChangeText: 'Ужас, застывший в камне!',
+    count: 1,
   },
   skinThree: {
     attack: {
@@ -283,6 +308,9 @@ export const _GORGON = {
       totalFrames: 3,
       fps: 5,
     },
+    logo: '/img/characters/gorgon/skinThree/heroIco.png',
+    skinChangeText: 'Посмотри на меня!',
+    count: 2,
   },
 }
 
