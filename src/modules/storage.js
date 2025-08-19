@@ -12,6 +12,9 @@ const store = {
     skins: null,
     text: '',
   },
+  arenaUi: {
+    location: null,
+  },
 }
 
 export function getFullStore() {
@@ -56,8 +59,31 @@ export const PlayerStorage = {
         skins: null,
         text: '',
       },
+      arenaUi: {
+        location: null,
+      },
     }
     data.storeHero = heroData
+    this.save(data)
+  },
+  updateCombatData(heroData) {
+    const data = this.get() || {
+      pickedHero: {
+        pickedHeroData: null,
+        heroUi: null,
+      },
+      storeHero: {
+        class: '',
+        id: null,
+        name: '',
+        skins: null,
+        text: '',
+      },
+      arenaUi: {
+        location: null,
+      },
+    }
+    data.arenaUi = heroData
     this.save(data)
   },
   setName(name) {

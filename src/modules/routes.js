@@ -3,6 +3,7 @@ import {destroyInactiveWindows} from './helperFunc'
 import {charactersUi} from './characters'
 import {heroHomeUi} from './heroHome'
 import {delay} from './helperFunc'
+import {battlePageUi} from './batlePage'
 
 export const routesUi = () => {
   // const mainMenu = document.querySelector('.top-menu-container')
@@ -10,6 +11,7 @@ export const routesUi = () => {
     '#login': showLoginScreen,
     '#character': showCharacterScreen,
     '#home': showHeroHomepage,
+    '#battle': showBattlepage,
   }
 
   function router() {
@@ -63,7 +65,6 @@ export const routesUi = () => {
     screen.classList.toggle('active', active)
     if (!active) return
     const data = PlayerStorage.get()
-    console.log('active', active)
     if (!data) {
       window.location.hash = '#login'
       return
@@ -89,18 +90,33 @@ export const routesUi = () => {
     //       window.location.hash = '#login'
     //     }
   }
+  async function showBattlepage(active) {
+    const screen = document.getElementById('_battlePage')
+    screen.classList.toggle('active', active)
+    if (!active) return
+    const data = PlayerStorage.get()
+    if (!data) {
+      window.location.hash = '#login'
+      return
+    }
+    if (!data.arenaUi.location && window.location.hash !== '#battle') {
+      window.location.hash = '#home'
+    }
+    battlePageUi()
+    await delay(200)
+  }
   window.addEventListener('hashchange', router)
   window.addEventListener('load', () => {
     const player = PlayerStorage.get()
 
     if (!player) {
       window.location.hash = '#login'
+    } else if (player.arenaUi.location) {
+      window.location.hash = '#battle'
     } else if (player.storeHero) {
       window.location.hash = '#home'
-      // heroHomeUi()
     } else {
       window.location.hash = '#character'
-      // charactersUi()
     }
     router()
   })

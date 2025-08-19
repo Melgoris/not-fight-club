@@ -312,7 +312,8 @@ nav {
 /*login*/
 .login,
 .character-ui,
-.character-homepage {
+.character-homepage,
+.battle-page {
   position: relative;
   display: none;
   justify-content: center;
@@ -326,9 +327,14 @@ nav {
   transition: opacity 1s ease-in;
 }
 
+.battle-page {
+  justify-content: space-around;
+}
+
 .login.hide,
 .character-ui.hide,
-.character-homepage.hide {
+.character-homepage.hide,
+.battle-page.hide {
   opacity: 0;
 }
 
@@ -350,9 +356,14 @@ nav {
   padding-bottom: 135px;
 }
 
+.battle-page {
+  background: #fff;
+}
+
 .login.active,
 .character-ui.active,
-.character-homepage.active {
+.character-homepage.active,
+.battle-page.active {
   display: flex;
 }
 
@@ -478,8 +489,8 @@ nav {
   display: flex;
   flex-direction: column;
   justify-content: flex-end;
-  overflow: hidden;
-  height: 170px;
+  /* overflow: hidden; */
+  /* height: 170px; */
   image-rendering: pixelated;
   position: relative;
   z-index: 30;
@@ -490,6 +501,10 @@ nav {
 
 .hero-container.hidden {
   display: none;
+}
+
+.boss-flip {
+  transform: scaleX(-1);
 }
 
 .hero-container.opasity {
@@ -1019,6 +1034,45 @@ nav {
 }
 
 /*spells*/
+/*fight*/
+.resurse-bar {
+  position: absolute;
+  display: flex;
+  top: -100px;
+  left: 0;
+  flex-direction: column;
+  transition: width 0.3s;
+  z-index: 300;
+}
+
+.hp-bar,
+.mana-bar {
+  width: 100px;
+  height: 10px;
+  background: #747474;
+  border: 2px solid #333;
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 5px;
+  position: relative;
+
+}
+
+.hp-bar-fill {
+  height: 100%;
+  width: 100%;
+  background: #e22;
+  transition: width 0.3s ease;
+}
+
+.mana-bar-fill {
+  height: 100%;
+  width: 100%;
+  background: rgb(34, 146, 238);
+  transition: width 0.3s ease;
+}
+
+/*fight*/
 /*weather elements*/
 /*home objects*/
 /*character select*/

@@ -176,6 +176,11 @@ export const heroHomeUi = async () => {
     const item = createModalMenuBtn({src: dunge.src, text: dunge.name})
     item.classList.add('map-item')
     mapModal.appendChild(item)
+    item.addEventListener('click', () => {
+      window.location.hash = '#battle'
+      // console.log('item', item)
+      PlayerStorage.updateCombatData({location: 'forest'})
+    })
   })
   homeLocationObjects.tent.addEventListener('click', () => {
     homeLocationObjects.tent.classList.add('shake')
@@ -215,7 +220,10 @@ export const heroHomeUi = async () => {
     e.preventDefault
     if (e.target !== skinModal && e.target !== homeLocationObjects.tent)
       skinModal.classList.remove('open')
-    if (e.target !== mapModal && e.target !== homeLocationObjects.map)
+    if (
+      !e.target.closest('.modal-menu') &&
+      e.target !== homeLocationObjects.map
+    )
       mapModal.classList.remove('open')
   })
   addRemovePortal('portal', true, '_heroHome').classList.add('home-portal')

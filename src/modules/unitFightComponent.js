@@ -5,14 +5,10 @@ export class CombatUnit extends Character {
     super(options)
     this.type = 'hero'
     this.resurseImg = options.resurseImg
-    // this.mainContainername = options.mainContainername
-    // this.parrentPageContainet = options.parrentPageContainet
     this._createBars()
   }
 
   _createBars() {
-    // this.mainContainer = document.createElement('div')
-    // this.mainContainer.className = mainContainername
     this.resurseBar = document.createElement('div')
     this.resurseBar.className = 'resurse-bar'
 
@@ -32,8 +28,6 @@ export class CombatUnit extends Character {
     this.manaBar.appendChild(this.manaBarFill)
     this.container.appendChild(this.resurseBar)
     this.element.appendChild(this.resurseBar)
-
-    // this.parrentPageContainet.appendChild(this.mainContainer)
   }
 
   setHP(current, max) {

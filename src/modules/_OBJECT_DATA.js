@@ -121,3 +121,6 @@ export const _DUNGEONS = [
   {name: 'Forest', src: '/public/img/dungeons/forest.jpg', id: '_forest'},
   {name: 'Tunnel', src: '/public/img/dungeons/tunnel.jpg', id: '_tunnel'},
 ]
+export const _DUNGEONS_LOCATION_DATA = {
+  swamps: {name: 'Wasteland', src: './public/img/dungeons/WastelandArena.webp'},
+}
