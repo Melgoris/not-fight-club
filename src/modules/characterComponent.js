@@ -1,11 +1,12 @@
 export class Character {
-  constructor({skin, frameWidth, frameHeight, container}) {
+  constructor({skin, frameWidth, frameHeight, container, hp = 100}) {
     this.skin = skin
     this.frameWidth = frameWidth
     this.frameHeight = frameHeight
     this.container = container
     this.currentFrame = 0
     this.intervalId = null
+    this.hp = hp
 
     this._createElement()
   }

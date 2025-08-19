@@ -43,7 +43,7 @@ export class AEffects {
   }
   changeSkin() {
     const {sprite, totalFrames, fps} = this.effect.changeSkin
-    console.log('sprite', sprite)
+
     this._animate({sprite, totalFrames, fps})
   }
 }

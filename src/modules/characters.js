@@ -38,7 +38,6 @@ export const charactersUi = async () => {
       text: hero.text,
     })
     addHeroLightContainer(hero.id)
-    // console.log('hero', hero)
     heroContainer.addEventListener('click', () => {
       setPickedHero({
         id: hero.id,
@@ -75,7 +74,8 @@ export const charactersUi = async () => {
   chooseButton?.addEventListener('click', async () => {
     const storeHero = getStoreHero()
     const pickedHero = getPickedHero()
-
+    // console.log('storeHero', storeHero)
+    // console.log('pickedHero', pickedHero)
     if (!pickedHero.pickedHeroData) return
     heroes.forEach(e => {
       if (e.container.id !== pickedHero.id) {
