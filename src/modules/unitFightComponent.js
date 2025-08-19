@@ -1,19 +1,23 @@
 import {Character} from './characterComponent'
 
-class CombatUnit extends Character {
+export class CombatUnit extends Character {
   constructor(options) {
     super(options)
     this.type = 'hero'
     this.resurseImg = options.resurseImg
+    // this.mainContainername = options.mainContainername
+    // this.parrentPageContainet = options.parrentPageContainet
     this._createBars()
   }
 
   _createBars() {
+    // this.mainContainer = document.createElement('div')
+    // this.mainContainer.className = mainContainername
     this.resurseBar = document.createElement('div')
     this.resurseBar.className = 'resurse-bar'
-    this.element.appendChild(this.resurseBar)
-    this.resurseBar.style.backgroundImage = `url(${resurseImg})`
 
+    if (this.resurseImg)
+      this.resurseBar.style.backgroundImage = `url(${resurseImg})`
     this.hpBar = document.createElement('div')
     this.hpBarFill = document.createElement('div')
     this.manaBarFill = document.createElement('div')
@@ -26,9 +30,19 @@ class CombatUnit extends Character {
     this.resurseBar.appendChild(this.manaBar)
     this.hpBar.appendChild(this.hpBarFill)
     this.manaBar.appendChild(this.manaBarFill)
+    this.container.appendChild(this.resurseBar)
+    this.element.appendChild(this.resurseBar)
+
+    // this.parrentPageContainet.appendChild(this.mainContainer)
   }
 
-  setHP(current, max) {}
+  setHP(current, max) {
+    const percent = Math.max(0, (current / max) * 100)
+    this.hpBarFill.style.width = `${percent}%`
+  }
 
-  setMana(current, max) {}
+  setMana(current, max) {
+    const percent = Math.max(0, (current / max) * 100)
+    this.manaBarFill.style.width = `${percent}%`
+  }
 }

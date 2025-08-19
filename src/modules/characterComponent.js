@@ -1,16 +1,36 @@
 export class Character {
-  constructor({skin, frameWidth, frameHeight, container, hp = 100}) {
+  constructor({
+    skin,
+    frameWidth,
+    frameHeight,
+    container,
+    hp = 100,
+    wtapperClassName,
+    wrapperId,
+    renderSection,
+  }) {
     this.skin = skin
     this.frameWidth = frameWidth
     this.frameHeight = frameHeight
-    this.container = container
+    this.renderSection = renderSection
     this.currentFrame = 0
     this.intervalId = null
     this.hp = hp
+    this.wtapperClassName = wtapperClassName
+    this.wrapperId = wrapperId
+    this.container = container || this._createContainer()
+    // if (renderSection)
+    //   this.renderSection = document.querySelector(`#${renderSection}`)
 
     this._createElement()
   }
-
+  _createContainer() {
+    const wrapper = document.createElement('div')
+    if (this.wtapperClassName) wrapper.className = this.wtapperClassName
+    if (this.wrapperId) wrapper.id = this.wrapperId
+    if (this.renderSection) this.renderSection.appendChild(wrapper)
+    return wrapper
+  }
   _createElement() {
     this.element = document.createElement('div')
     this.element.style.width = `${this.frameWidth}px`

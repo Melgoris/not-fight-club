@@ -26,6 +26,8 @@ import {addRemovePortal} from './portals'
 import {_CHANGE_SKIN_EFF} from './_EFFECT_DATA'
 import {AEffects} from './effectsComponent'
 
+import {CombatUnit} from './unitFightComponent'
+
 export const heroHomeUi = async () => {
   // await delay(100)
   const heroData = getStoreHero().id
@@ -86,12 +88,23 @@ export const heroHomeUi = async () => {
   })
 
   girlDealer.idle()
+
   const hero = new Character({
     skin: heroData.skins.defoult,
     frameWidth: 128,
     frameHeight: 128,
     container: heroContainer,
   })
+
+  // const hero = new CombatUnit({
+  //   skin: heroData.skins.defoult,
+  //   frameWidth: 128,
+  //   frameHeight: 128,
+  //   wtapperClassName: heroData.class,
+  //   wrapperId: heroData.id,
+  //   renderSection: homeUi,
+  // })
+
   addHeroCloud({
     parentContainer: heroContainer,
     src: heroCloudImg,
@@ -137,7 +150,7 @@ export const heroHomeUi = async () => {
   })
   heroContainer.appendChild(spellEffect)
   heroContainer.addEventListener('click', () => {
-    changeSkinEff.changeSkin()
+    // changeSkinEff.changeSkin()
     addCloudText('school_girl', 'ууу бля')
   })
 
@@ -206,4 +219,7 @@ export const heroHomeUi = async () => {
       mapModal.classList.remove('open')
   })
   addRemovePortal('portal', true, '_heroHome').classList.add('home-portal')
+
+  // testHero.attack()
+  // console.log('testHero', testHero)
 }
