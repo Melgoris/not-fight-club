@@ -1,10 +1,12 @@
 import {_DUNGEONS_LOCATION_DATA} from './_OBJECT_DATA'
+import {_CHANGE_SKIN_EFF} from './_EFFECT_DATA'
 import {CombatUnit} from './unitFightComponent'
 import {PlayerStorage} from './storage'
 import {getStoreHero} from './storage'
 import {_BOSES_DATA} from './_ENEMY_DATA'
 import {createBtn} from './helperFunc'
 import {delay} from './helperFunc'
+import {AEffects} from './effectsComponent'
 
 export const battlePageUi = async () => {
   const chooseButton = createBtn(
@@ -37,9 +39,25 @@ export const battlePageUi = async () => {
     renderSection: batleContainer,
   })
   boss.idle()
+  const spellEffect = document.createElement('div')
+  spellEffect.classList.add('hero-spell-effect')
+  const heroSpellsAnim = new AEffects({
+    effect: _CHANGE_SKIN_EFF.heroSpellEff,
+    frameWidth: 64,
+    frameHeight: 64,
+    container: spellEffect,
+  })
+  hero.container.appendChild(spellEffect)
+  console.log(hero.container)
+
   chooseButton.addEventListener('click', async () => {
     hero.attack()
-    await delay(700)
-    boss.attack()
+    await delay(100)
+    // boss.attack()
+    heroSpellsAnim.create()
+    await delay(500)
+    heroSpellsAnim.hit()
+    await delay(100)
+    heroSpellsAnim.explode()
   })
 }

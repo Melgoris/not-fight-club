@@ -139,3 +139,13 @@ export const createBtn = (btnClass, id, text) => {
 export const toogleMenus = (el, status) => {
   el.classList.toggle('open', status)
 }
+
+export const moveSpellToTarget = (fromTarget, toTarget, shift = 0) => {
+  const fromTargetRect = fromTarget.getBoundingClientRect()
+  const toTargetRect = toTarget.getBoundingClientRect()
+  let deltaX = toTargetRect.left - fromTargetRect.left - shift
+  if (fromTarget.id === 'gorgon') deltaX = deltaX - 45
+
+  // heroEl.style.transition = 'transform 3s linear'
+  // heroEl.style.transform = `translate(${deltaX}px)`
+}

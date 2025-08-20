@@ -1027,10 +1027,15 @@ nav {
 /*spells*/
 .spell-effect {
   position: absolute;
-
   transform: scale(3);
   bottom: 13px;
   left: 60px;
+}
+
+.hero-spell-effect {
+  position: absolute;
+  bottom: 30px;
+  left: 80px;
 }
 
 /*spells*/

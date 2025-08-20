@@ -19,7 +19,14 @@ export class AEffects {
     this.container.appendChild(this.element)
   }
 
-  _animate({sprite, totalFrames, fps, loop = false}) {
+  _animate({
+    sprite,
+    totalFrames,
+    fps,
+    loop = false,
+    delayAfter = 0,
+    returnToIdle = false,
+  }) {
     clearInterval(this.intervalId)
     this.currentFrame = 0
     const frameTime = 1000 / fps
@@ -38,12 +45,38 @@ export class AEffects {
         } else {
           clearInterval(this.intervalId)
         }
+
+        setTimeout(() => {
+          if (returnToIdle) {
+            this.idle()
+          }
+        }, delayAfter)
       }
     }, frameTime)
   }
   changeSkin() {
     const {sprite, totalFrames, fps} = this.effect.changeSkin
-
+    this._animate({sprite, totalFrames, fps})
+  }
+  create() {
+    const {sprite, totalFrames, fps} = this.effect.create
+    this._animate({
+      sprite,
+      totalFrames,
+      fps,
+      returnToIdle: true,
+    })
+  }
+  idle() {
+    const {sprite, totalFrames, fps} = this.effect.idle
+    this._animate({sprite, totalFrames, fps, loop: true})
+  }
+  hit() {
+    const {sprite, totalFrames, fps} = this.effect.hit
+    this._animate({sprite, totalFrames, fps, loop: true})
+  }
+  explode() {
+    const {sprite, totalFrames, fps} = this.effect.explode
     this._animate({sprite, totalFrames, fps})
   }
 }
