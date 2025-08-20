@@ -159,12 +159,35 @@ export const buttleHeroUi = (mainContainer, spellMass) => {
   fightBtn.classList.add('arena-button')
   wrapper.appendChild(spellsPanel)
   wrapper.appendChild(fightBtn)
-  const spellWrapper = spellMass.map(spell => {
+  spellMass.map(spell => {
     const spellCont = document.createElement('div')
     spellCont.classList.add('spell-container')
     const ico = document.createElement('img')
+    const pName = document.createElement('p')
+    const pDescrip = document.createElement('p')
+    pName.classList.add('spell-name')
+    pDescrip.classList.add('spell-description')
+    pName.textContent = spell.name
+    pDescrip.textContent = spell.desc
     ico.src = spell.ico
+
+    spellCont.addEventListener('click', () => {
+      spellsPanel.querySelectorAll('.spell-container').forEach(el => {
+        el.classList.remove('active')
+      })
+      spellCont.classList.add('active')
+      console.log(spell.name)
+    })
+    spellCont.addEventListener('mouseenter', () => {
+      pDescrip.classList.add('show')
+    })
+    spellCont.addEventListener('mouseleave', () => {
+      pDescrip.classList.remove('show')
+    })
+
     spellCont.appendChild(ico)
+    spellCont.appendChild(pName)
+    spellCont.appendChild(pDescrip)
     spellsPanel.appendChild(spellCont)
   })
 

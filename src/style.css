@@ -1042,8 +1042,8 @@ nav {
 /*fight*/
 .battle-hero-ui {
   position: absolute;
-  width: 400px;
-  height: 150px;
+  width: 330px;
+  height: 60px;
   background: #fff;
   display: flex;
   align-content: flex-start;
@@ -1059,6 +1059,19 @@ nav {
   border: 2px solid #000;
   background: #ffffff;
   cursor: pointer;
+  transition: border 0.3s, transform 0.3s, filter 0.3s ease-in;
+  /* filter: brightness(80%); */
+  filter: grayscale(50%)
+}
+
+.spell-container.no-mana {
+  filter: grayscale(100%)
+}
+
+.spell-container.active {
+  border: 2px solid #0ce319;
+  filter: grayscale(0)
+    /* transform: scale(0.95); */
 }
 
 .spell-container img {
@@ -1080,8 +1093,42 @@ nav {
 .arena-button {
 
   position: relative;
-  left: 10px;
-  top: 10px;
+  left: 170px;
+  bottom: 50px;
+  transform: scale(0.5);
+}
+
+.spell-name {
+  position: relative;
+  background: #1b1b1b;
+  color: #fff;
+  font-size: 12px;
+  display: block;
+  top: 4px;
+  left: -2px;
+  border: 1px solid #000;
+  text-align: center;
+  width: 50px;
+  padding: 2px;
+  height: 15px;
+}
+
+.spell-description {
+  position: absolute;
+  top: -25px;
+  border: 1px solid #747474;
+  border-radius: 3px;
+  background: #fff;
+  height: 18px;
+  width: max-content;
+  opacity: 0;
+  padding: 2px;
+  pointer-events: none;
+  transition: opacity 0.3s ease-in;
+}
+
+.spell-description.show {
+  opacity: 1;
 }
 
 .resurse-bar {
