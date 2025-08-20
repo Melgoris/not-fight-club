@@ -5,6 +5,7 @@ export class Character {
     frameHeight,
     container,
     hp = 100,
+    mana = 0,
     wtapperClassName,
     wrapperId,
     renderSection,
@@ -16,6 +17,7 @@ export class Character {
     this.currentFrame = 0
     this.intervalId = null
     this.hp = hp
+    this.mana = mana
     this.wtapperClassName = wtapperClassName
     this.wrapperId = wrapperId
     this.container = container || this._createContainer()

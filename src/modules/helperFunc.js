@@ -149,3 +149,25 @@ export const moveSpellToTarget = (fromTarget, toTarget, shift = 0) => {
   // heroEl.style.transition = 'transform 3s linear'
   // heroEl.style.transform = `translate(${deltaX}px)`
 }
+
+export const buttleHeroUi = (mainContainer, spellMass) => {
+  const wrapper = document.createElement('div')
+  const spellsPanel = document.createElement('div')
+  spellsPanel.classList.add('spells-panel')
+  wrapper.classList.add('battle-hero-ui')
+  const fightBtn = createBtn('choose-hero-button', 'choose-hero-btn', 'Attack!')
+  fightBtn.classList.add('arena-button')
+  wrapper.appendChild(spellsPanel)
+  wrapper.appendChild(fightBtn)
+  const spellWrapper = spellMass.map(spell => {
+    const spellCont = document.createElement('div')
+    spellCont.classList.add('spell-container')
+    const ico = document.createElement('img')
+    ico.src = spell.ico
+    spellCont.appendChild(ico)
+    spellsPanel.appendChild(spellCont)
+  })
+
+  mainContainer.appendChild(wrapper)
+  return fightBtn
+}

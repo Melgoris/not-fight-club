@@ -321,6 +321,29 @@ export const _CHARS = [
     skins: _SCHOOL_GIRL,
     class: 'hero-container',
     text: 'Не буду учится!',
+    spells: [
+      {
+        name: 'basic attack',
+        damage: 10,
+        school: 'fire',
+        mana: 0,
+        ico: './img/effects/heroSpells/spellIco/arcane-sceptre.png',
+      },
+      {
+        name: 'fireboll',
+        damage: 24,
+        school: 'fire',
+        mana: 20,
+        ico: './img/effects/heroSpells/spellIco/explosion-3.png',
+      },
+      {
+        name: 'inferno',
+        damage: 40,
+        school: 'fire',
+        mana: 60,
+        ico: './img/effects/heroSpells/spellIco/meteor.png',
+      },
+    ],
   },
   {
     id: 'satyr',

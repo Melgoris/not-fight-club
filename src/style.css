@@ -1040,6 +1040,50 @@ nav {
 
 /*spells*/
 /*fight*/
+.battle-hero-ui {
+  position: absolute;
+  width: 400px;
+  height: 150px;
+  background: #fff;
+  display: flex;
+  align-content: flex-start;
+  flex-wrap: wrap;
+  bottom: 225px;
+  left: 350px;
+
+}
+
+.spell-container {
+  width: 50px;
+  height: 50px;
+  border: 2px solid #000;
+  background: #ffffff;
+  cursor: pointer;
+}
+
+.spell-container img {
+  width: 100%;
+}
+
+.spells-panel {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  gap: 2px;
+  padding: 5px;
+  width: 100%;
+  height: 70px;
+  bottom: 0;
+
+}
+
+.arena-button {
+
+  position: relative;
+  left: 10px;
+  top: 10px;
+}
+
 .resurse-bar {
   position: absolute;
   display: flex;

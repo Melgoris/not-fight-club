@@ -5,8 +5,9 @@ import {PlayerStorage} from './storage'
 import {getStoreHero} from './storage'
 import {_BOSES_DATA} from './_ENEMY_DATA'
 import {createBtn} from './helperFunc'
-import {delay} from './helperFunc'
+import {delay, buttleHeroUi} from './helperFunc'
 import {AEffects} from './effectsComponent'
+import {_CHARS} from './_CHAR_DATA'
 
 export const battlePageUi = async () => {
   const chooseButton = createBtn(
@@ -18,7 +19,7 @@ export const battlePageUi = async () => {
     ? getStoreHero()
     : PlayerStorage.get().storeHero
   const batleContainer = document.querySelector('#_battlePage')
-  batleContainer.appendChild(chooseButton)
+  // batleContainer.appendChild(chooseButton)
   batleContainer.style.backgroundImage = `url(${_DUNGEONS_LOCATION_DATA.swamps.src})`
 
   const hero = new CombatUnit({
@@ -49,15 +50,20 @@ export const battlePageUi = async () => {
   })
   hero.container.appendChild(spellEffect)
   console.log(hero.container)
-
-  chooseButton.addEventListener('click', async () => {
-    hero.attack()
-    await delay(100)
-    // boss.attack()
-    heroSpellsAnim.create()
-    await delay(500)
-    heroSpellsAnim.hit()
-    await delay(100)
-    heroSpellsAnim.explode()
-  })
+  buttleHeroUi(batleContainer, _CHARS[0].spells).addEventListener(
+    'click',
+    async () => {
+      console.log('dfsdfsd')
+    },
+  )
+  // chooseButton.addEventListener('click', async () => {
+  //   hero.attack()
+  //   await delay(100)
+  //   // boss.attack()
+  //   heroSpellsAnim.create()
+  //   await delay(500)
+  //   heroSpellsAnim.hit()
+  //   await delay(100)
+  //   heroSpellsAnim.explode()
+  // })
 }
