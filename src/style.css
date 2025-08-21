@@ -504,8 +504,14 @@ nav {
 }
 
 .boss-flip {
+  transform: scale(-2, 2);
+}
+
+.boss-flip p {
   transform: scaleX(-1);
 }
+
+.boss-flip {}
 
 .hero-container.opasity {
   opacity: 0;
@@ -1146,8 +1152,8 @@ nav {
 
 .hp-bar,
 .mana-bar {
-  width: 100px;
-  height: 10px;
+  width: 120px;
+  height: 14px;
   background: #747474;
   border: 2px solid #333;
   border-radius: 3px;
@@ -1169,6 +1175,15 @@ nav {
   width: 100%;
   background: rgb(34, 146, 238);
   transition: width 0.3s ease;
+}
+
+.hp-bar-text,
+.mana-bar-text {
+  position: absolute;
+  left: 6px;
+  top: 0;
+  font-size: 11px;
+  color: #fff;
 }
 
 /*fight*/

@@ -15,11 +15,15 @@ export class CombatUnit extends Character {
     if (this.resurseImg)
       this.resurseBar.style.backgroundImage = `url(${resurseImg})`
     this.hpBar = document.createElement('div')
+    this.hpBarText = document.createElement('p')
     this.hpBarFill = document.createElement('div')
     this.manaBarFill = document.createElement('div')
+    this.manaBarText = document.createElement('p')
     this.manaBar = document.createElement('div')
     this.hpBar.className = 'hp-bar'
     this.hpBarFill.className = 'hp-bar-fill'
+    this.hpBarText.className = 'hp-bar-text'
+    this.manaBarText.className = 'mana-bar-text'
     this.manaBarFill.className = 'mana-bar-fill'
     this.manaBar.className = 'mana-bar'
     this.resurseBar.appendChild(this.hpBar)
@@ -27,6 +31,8 @@ export class CombatUnit extends Character {
     this.hpBar.appendChild(this.hpBarFill)
     this.manaBar.appendChild(this.manaBarFill)
     this.container.appendChild(this.resurseBar)
+    this.hpBar.appendChild(this.hpBarText)
+    this.manaBar.appendChild(this.manaBarText)
     this.element.appendChild(this.resurseBar)
   }
 
@@ -34,14 +40,17 @@ export class CombatUnit extends Character {
     const percent = Math.max(0, (current / max) * 100)
     this.hpBarFill.style.width = `${percent}%`
     this.hp = current
+    this.hpBarText.textContent = `HP: ${current} / ${max}`
   }
 
   setMana(current, max) {
     const percent = Math.max(0, (current / max) * 100)
     this.manaBarFill.style.width = `${percent}%`
     this.mana = current
+    this.manaBarText.textContent = `MP: ${current} / ${max}`
   }
   restoreMana(amount) {
     this.mana = Math.min(this.mana + amount, this.maxMana)
+    this.manaBarText.textContent = `MP: ${this.mana} / ${this.maxMana}`
   }
 }

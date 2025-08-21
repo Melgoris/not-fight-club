@@ -53,13 +53,18 @@ export const battlePageUi = async () => {
     container: spellEffect,
   })
   hero.container.appendChild(spellEffect)
-  console.log(hero.container)
+  console.log('heroSpellsAnim', heroSpellsAnim)
   const battleUicomp = buttleHeroUi(batleContainer, _CHARS[0].spells)
   // const {fightBtn, getSelectedSpell} = battleUicomp
   // fightBtn.addEventListener('click', () => {
   //   console.log('battleUicomp', getSelectedSpell())
   // })
-  const battle = new Battle({hero, enemy: boss, ui: battleUicomp})
+  const battle = new Battle({
+    hero,
+    enemy: boss,
+    ui: battleUicomp,
+    spellAnim: heroSpellsAnim,
+  })
   battle.start()
   // chooseButton.addEventListener('click', async () => {
   //   hero.attack()

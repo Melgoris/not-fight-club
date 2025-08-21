@@ -10,7 +10,7 @@ export const _CHANGE_SKIN_EFF = {
     create: {
       sprite: './img/effects/heroSpells/Create.png',
       totalFrames: 14,
-      fps: 12,
+      fps: 28,
     },
     idle: {
       sprite: './img/effects/heroSpells/Idle.png',
@@ -20,12 +20,12 @@ export const _CHANGE_SKIN_EFF = {
     hit: {
       sprite: './img/effects/heroSpells/Shoot.png',
       totalFrames: 3,
-      fps: 3,
+      fps: 6,
     },
     explode: {
       sprite: './img/effects/heroSpells/Explode.png',
       totalFrames: 7,
-      fps: 5,
+      fps: 14,
     },
   },
 }
