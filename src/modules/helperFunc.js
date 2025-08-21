@@ -159,6 +159,7 @@ export const buttleHeroUi = (mainContainer, spellMass) => {
   fightBtn.classList.add('arena-button')
   wrapper.appendChild(spellsPanel)
   wrapper.appendChild(fightBtn)
+  let selectedSpellData = null
   spellMass.map(spell => {
     const spellCont = document.createElement('div')
     spellCont.classList.add('spell-container')
@@ -176,7 +177,11 @@ export const buttleHeroUi = (mainContainer, spellMass) => {
         el.classList.remove('active')
       })
       spellCont.classList.add('active')
-      console.log(spell.name)
+      selectedSpellData = {
+        damage: spell.damage,
+        manaCost: spell.manacost,
+        name: spell.name,
+      }
     })
     spellCont.addEventListener('mouseenter', () => {
       pDescrip.classList.add('show')
@@ -192,5 +197,5 @@ export const buttleHeroUi = (mainContainer, spellMass) => {
   })
 
   mainContainer.appendChild(wrapper)
-  return fightBtn
+  return {fightBtn, getSelectedSpell: () => selectedSpellData}
 }

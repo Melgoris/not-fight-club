@@ -8,6 +8,7 @@ import {createBtn} from './helperFunc'
 import {delay, buttleHeroUi} from './helperFunc'
 import {AEffects} from './effectsComponent'
 import {_CHARS} from './_CHAR_DATA'
+import {Battle} from './battleComponent'
 
 export const battlePageUi = async () => {
   const chooseButton = createBtn(
@@ -28,18 +29,21 @@ export const battlePageUi = async () => {
     frameHeight: 128,
     wtapperClassName: heroData.class,
     wrapperId: heroData.id,
+    damage: 15,
     renderSection: batleContainer,
+    mana: 100,
   })
-  hero.idle()
+  // hero.idle()
   const boss = new CombatUnit({
     skin: _BOSES_DATA[2].sprites.skin,
     frameWidth: 96,
     frameHeight: 76,
+    damage: 20,
     wtapperClassName: 'hero-container boss-flip',
     wrapperId: '_skeleton',
     renderSection: batleContainer,
   })
-  boss.idle()
+  // boss.idle()
   const spellEffect = document.createElement('div')
   spellEffect.classList.add('hero-spell-effect')
   const heroSpellsAnim = new AEffects({
@@ -50,12 +54,13 @@ export const battlePageUi = async () => {
   })
   hero.container.appendChild(spellEffect)
   console.log(hero.container)
-  buttleHeroUi(batleContainer, _CHARS[0].spells).addEventListener(
-    'click',
-    async () => {
-      console.log('dfsdfsd')
-    },
-  )
+  const battleUicomp = buttleHeroUi(batleContainer, _CHARS[0].spells)
+  // const {fightBtn, getSelectedSpell} = battleUicomp
+  // fightBtn.addEventListener('click', () => {
+  //   console.log('battleUicomp', getSelectedSpell())
+  // })
+  const battle = new Battle({hero, enemy: boss, ui: battleUicomp})
+  battle.start()
   // chooseButton.addEventListener('click', async () => {
   //   hero.attack()
   //   await delay(100)

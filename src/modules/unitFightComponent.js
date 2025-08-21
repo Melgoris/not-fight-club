@@ -33,10 +33,15 @@ export class CombatUnit extends Character {
   setHP(current, max) {
     const percent = Math.max(0, (current / max) * 100)
     this.hpBarFill.style.width = `${percent}%`
+    this.hp = current
   }
 
   setMana(current, max) {
     const percent = Math.max(0, (current / max) * 100)
     this.manaBarFill.style.width = `${percent}%`
+    this.mana = current
+  }
+  restoreMana(amount) {
+    this.mana = Math.min(this.mana + amount, this.maxMana)
   }
 }
