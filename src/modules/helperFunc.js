@@ -160,7 +160,8 @@ export const buttleHeroUi = (mainContainer, spellMass) => {
   wrapper.appendChild(spellsPanel)
   wrapper.appendChild(fightBtn)
   let selectedSpellData = null
-  spellMass.map(spell => {
+  const spellContainers = []
+  spellMass.map((spell, i) => {
     const spellCont = document.createElement('div')
     spellCont.classList.add('spell-container')
     const ico = document.createElement('img')
@@ -172,6 +173,12 @@ export const buttleHeroUi = (mainContainer, spellMass) => {
     pDescrip.textContent = spell.desc
     ico.src = spell.ico
 
+    fightBtn.addEventListener('click', () => {
+      spellsPanel
+        .querySelectorAll('.spell-container')
+        .forEach(el => el.classList.remove('active'))
+    })
+
     spellCont.addEventListener('click', () => {
       spellsPanel.querySelectorAll('.spell-container').forEach(el => {
         el.classList.remove('active')
@@ -181,6 +188,7 @@ export const buttleHeroUi = (mainContainer, spellMass) => {
         damage: spell.damage,
         manaCost: spell.manacost,
         name: spell.name,
+        index: i,
       }
     })
     spellCont.addEventListener('mouseenter', () => {
@@ -194,8 +202,25 @@ export const buttleHeroUi = (mainContainer, spellMass) => {
     spellCont.appendChild(pName)
     spellCont.appendChild(pDescrip)
     spellsPanel.appendChild(spellCont)
+    spellContainers.push(spellCont)
   })
 
   mainContainer.appendChild(wrapper)
-  return {fightBtn, getSelectedSpell: () => selectedSpellData}
+  let currentMana = 0
+  const updateManaCostForIcons = mana => {
+    currentMana = mana
+    spellContainers.forEach((el, i) => {
+      if (mana < spellMass[i].manacost) {
+        el.classList.add('disable')
+      } else {
+        el.classList.remove('disable')
+      }
+    })
+  }
+  return {
+    wrapper,
+    fightBtn,
+    getSelectedSpell: () => selectedSpellData,
+    updateManaCostForIcons,
+  }
 }

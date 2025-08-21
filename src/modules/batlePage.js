@@ -38,6 +38,8 @@ export const battlePageUi = async () => {
     skin: _BOSES_DATA[2].sprites.skin,
     frameWidth: 96,
     frameHeight: 76,
+    hp: 200,
+    maxHp: 200,
     damage: 20,
     wtapperClassName: 'hero-container boss-flip',
     wrapperId: '_skeleton',

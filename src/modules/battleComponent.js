@@ -15,6 +15,11 @@ export class Battle {
   }
 
   bindUI() {
+    this.hero.setMana(this.hero.mana, this.hero.maxMana)
+    this.hero.setHP(this.hero.hp, this.hero.maxHp)
+    this.enemy.setHP(this.enemy.hp, this.enemy.maxHp)
+    this.enemy.setMana(this.enemy.mana, this.enemy.maxMana)
+
     this.ui.fightBtn.addEventListener('click', () => {
       if (this.turn !== 'hero' || this.isBattleOver) return
 
@@ -27,18 +32,19 @@ export class Battle {
   async heroAttack() {
     const manacost = this.ui.getSelectedSpell().manaCost
     const spellName = this.ui.getSelectedSpell().name
+    const index = this.ui.getSelectedSpell().index
+    console.log(this.ui.getSelectedSpell())
+
+    // this.ui.fightBtn.classList.add('disable')
+    // return
+    this.ui.wrapper.classList.add('disable')
+
     this.hero.attack()
     await this.wait(500)
     this.spellAnim.idle()
-    // return
     await this.wait(100)
     await this.spellTravel(this.spellAnim.container, this.enemy.container)
 
-    // this.spellAnim.hit()
-
-    // this.spellAnim.explode()
-    // console.log(this.spellAnim.container)
-    // console.log(this.enemy)
     if (this.hero.mana < manacost) {
       console.log('nema mani')
       return
@@ -49,14 +55,33 @@ export class Battle {
     // this.hero.attack()
     this.enemy.setHP(this.enemy.hp - damage, this.enemy.maxHp)
     this.hero.setMana(this.hero.mana - manacost, this.hero.maxMana)
+    // this.updateManacostIco()
+    this.ui.updateManaCostForIcons(this.hero.mana)
     await this.wait(800)
     if (this.bossFightEnd()) return
     console.log('damage', damage)
     console.log('this.enemy.hp', this.enemy.hp)
     console.log('this.enemy.maxHp', this.enemy.maxHp)
+
     this.nextTurn()
   }
-
+  updateManacostIco() {
+    const spellContainers = document.querySelectorAll('.spell-container')
+    console.log('spellContainers', spellContainers)
+    spellContainers.forEach(el => el.classList.remove('disable'))
+    spellContainers.forEach((el, i) => {
+      const index = this.ui.getSelectedSpell().index
+      const manCost = this.ui.getSelectedSpell().manaCost
+      if (i === index && this.hero.mana < manCost) {
+        el.classList.add('disable')
+      }
+      // if (this.hero.mana < spell.manacost) {
+      //   el.classList.add('disable')
+      // } else {
+      //   el.classList.remove('disable')
+      // }
+    })
+  }
   async enemyAttack() {
     this.enemy.attack()
     const damage = this.calcDamage(this.enemy, this.hero)
@@ -111,6 +136,8 @@ export class Battle {
           await this.wait(500)
           spellContainer.style.transition = 'none'
           spellContainer.style.transform = `translate(0px)`
+          this.ui.wrapper.classList.remove('disable')
+          // this.ui.fightBtn.classList.remove('disable')
           resolve()
         },
         {once: true},
