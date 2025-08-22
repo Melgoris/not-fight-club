@@ -8,7 +8,6 @@ export class Battle {
     this.spellAnim = spellAnim
   }
   start() {
-    console.log('gav')
     this.hero.idle()
     this.enemy.idle()
     this.bindUI()
@@ -33,8 +32,7 @@ export class Battle {
     const manacost = this.ui.getSelectedSpell().manaCost
     const spellName = this.ui.getSelectedSpell().name
     const index = this.ui.getSelectedSpell().index
-    console.log(this.ui.getSelectedSpell())
-
+    console.log(this.spellAnim)
     // this.ui.fightBtn.classList.add('disable')
     // return
     this.ui.wrapper.classList.add('disable')
@@ -43,7 +41,7 @@ export class Battle {
     await this.wait(500)
     this.spellAnim.idle()
     await this.wait(100)
-    await this.spellTravel(this.spellAnim.container, this.enemy.container)
+    await this.spellTravel(this.spellAnim.container, this.enemy.container, -30)
 
     if (this.hero.mana < manacost) {
       console.log('nema mani')
@@ -67,7 +65,7 @@ export class Battle {
   }
   updateManacostIco() {
     const spellContainers = document.querySelectorAll('.spell-container')
-    console.log('spellContainers', spellContainers)
+    // console.log('spellContainers', spellContainers)
     spellContainers.forEach(el => el.classList.remove('disable'))
     spellContainers.forEach((el, i) => {
       const index = this.ui.getSelectedSpell().index
@@ -82,11 +80,23 @@ export class Battle {
       // }
     })
   }
+  getHit(target) {
+    target.classList.add('get-hit')
+
+    target.addEventListener(
+      'animationend',
+      () => {
+        target.classList.remove('get-hit')
+      },
+      {once: true},
+    )
+  }
   async enemyAttack() {
     this.enemy.attack()
+    this.wait(100)
+    this.getHit(this.hero.container)
     const damage = this.calcDamage(this.enemy, this.hero)
     this.hero.setHP(this.hero.hp - damage, this.hero.maxHp)
-
     await this.wait(800)
     if (this.bossFightEnd()) return
 
@@ -109,11 +119,13 @@ export class Battle {
   bossFightEnd() {
     if (this.hero.hp <= 0) {
       console.log('-hero')
+      this.hero.dead()
       this.isBattleOver = true
       return true
     }
     if (this.enemy.hp <= 0) {
       console.log('-boss')
+      this.enemy.dead()
       this.isBattleOver = true
       return true
     }

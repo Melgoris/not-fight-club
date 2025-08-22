@@ -11,11 +11,11 @@ import {_CHARS} from './_CHAR_DATA'
 import {Battle} from './battleComponent'
 
 export const battlePageUi = async () => {
-  const chooseButton = createBtn(
-    'choose-hero-button',
-    'choose-hero-btn',
-    'Attack!',
-  )
+  // const chooseButton = createBtn(
+  //   'choose-hero-button',
+  //   'choose-hero-btn',
+  //   'Attack!',
+  // )
   const heroData = getStoreHero().id
     ? getStoreHero()
     : PlayerStorage.get().storeHero

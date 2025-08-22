@@ -500,6 +500,24 @@ nav {
 
 }
 
+@keyframes get-hit {
+  0% {
+    transform: translateX(0);
+  }
+
+  30% {
+    transform: translateX(-3px);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.get-hit {
+  animation: get-hit 0.3s ease;
+}
+
 .hero-container.hidden {
   display: none;
 }
@@ -508,11 +526,15 @@ nav {
   transform: scale(-2, 2);
 }
 
+
+
+
+
 .boss-flip p {
   transform: scaleX(-1);
 }
 
-.boss-flip {}
+
 
 .hero-container.opasity {
   opacity: 0;
@@ -1044,6 +1066,8 @@ nav {
   bottom: 30px;
   left: 80px;
 }
+
+
 
 /*spells*/
 /*fight*/

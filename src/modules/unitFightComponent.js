@@ -53,4 +53,9 @@ export class CombatUnit extends Character {
     this.mana = Math.min(this.mana + amount, this.maxMana)
     this.manaBarText.textContent = `MP: ${this.mana} / ${this.maxMana}`
   }
+  dead() {
+    this._animate({stop: true})
+    this.element.style.backgroundImage = `url(/img/characters/satyr/dead.png)`
+    this.element.style.backgroundPositionX = 0
+  }
 }

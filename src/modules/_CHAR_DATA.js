@@ -122,6 +122,7 @@ export const _SATYR = {
     logo: '/img/characters/satyr/defoultSkin/heroIco.png',
     skinChangeText: 'Во имя света!',
     count: 0,
+    dead: './img/characters/satyr/dead.png',
   },
   skinTwo: {
     attack: {

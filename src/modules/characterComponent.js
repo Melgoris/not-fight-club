@@ -58,8 +58,10 @@ export class Character {
     onFinish,
     delayAfter = 0,
     returnToIdle = false,
+    stop = false,
   }) {
     clearInterval(this.intervalId)
+    if (stop) return
     this.currentFrame = 0
     const frameTime = 1000 / fps
 
