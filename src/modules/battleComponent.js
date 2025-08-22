@@ -50,14 +50,27 @@ export class Battle {
     }
     // return
     this.hero.damage = this.ui.getSelectedSpell().damage
-    const damage = this.hero.damage
+    const damage = Math.floor(Math.random() * 10 + this.hero.damage)
+    const {damage: critHitChangeDamage, crit} = this.rollDamage({
+      damage: damage,
+    })
+    console.log('damage', critHitChangeDamage)
+    console.log('crit', crit)
+
+    // const damage = this.hero.damage
     // this.hero.attack()
-    this.enemy.setHP(this.enemy.hp - damage, this.enemy.maxHp)
+    this.enemy.setHP(this.enemy.hp - critHitChangeDamage, this.enemy.maxHp)
     this.hero.setMana(this.hero.mana - manacost, this.hero.maxMana)
     // this.updateManacostIco()
     this.ui.updateManaCostForIcons(this.hero.mana)
     await this.wait(800)
-    this.addLog('Герой', damage, 'hero-turn-text', 'противнику')
+    this.addLog(
+      'Герой',
+      critHitChangeDamage,
+      'hero-turn-text',
+      'противнику',
+      crit,
+    )
     if (this.bossFightEnd()) return
     console.log('damage', damage)
     console.log('this.enemy.hp', this.enemy.hp)
@@ -82,26 +95,44 @@ export class Battle {
       // }
     })
   }
-  addLog(attacker, text, textType = 'neitral', target) {
+  rollDamage({crit = 0.3, miss = 0.1, damage}) {
+    const rand = Math.random()
+    let data = {damage, crit: false}
+    if (rand < miss) {
+      data.damage = 0
+    } else if (rand < crit) {
+      data.damage = damage * 2
+      data.crit = true
+    }
+    return data
+  }
+  addLog(attacker, text, textType = 'neitral', target, crit = false) {
     const logLine = document.createElement('p')
     logLine.classList.add(`log-text`, textType)
-    logLine.textContent = `${attacker} нанес ${text} урона ${target}`
-    this.logs.appendChild(logLine)
 
+    if (text === 0) {
+      logLine.textContent = `${attacker} нанес ${text} урона. Промах!`
+    } else {
+      logLine.textContent =
+        `${attacker} нанес ${text} урона ${target}!` +
+        (crit ? ' Критическое попадание!' : '')
+    }
+
+    this.logs.appendChild(logLine)
     this.logs.scrollTop = this.logs.scrollHeight
   }
   dethLog({heroAlive = true, enemyAlive = true}) {
-    if (heroAlive || enemyAlive) return
-    const logLine = document.createElement('p')
     if (!heroAlive) {
+      const logLine = document.createElement('p')
       logLine.classList.add(`log-text`)
       logLine.textContent = 'Ваш герой повержен! Вы проиграли!'
-      this.addLog.appendChild(logLine)
+      this.logs.appendChild(logLine)
     }
     if (!enemyAlive) {
+      const logLine = document.createElement('p')
       logLine.classList.add(`log-text`)
       logLine.textContent = 'Вы одолели противника! Победа!'
-      this.addLog.appendChild(logLine)
+      this.logs.appendChild(logLine)
     }
   }
   getHit(target) {
@@ -119,18 +150,22 @@ export class Battle {
     this.enemy.attack()
     this.wait(100)
     this.getHit(this.hero.container)
-    const damage = this.calcDamage(this.enemy, this.hero)
-    this.hero.setHP(this.hero.hp - damage, this.hero.maxHp)
+    const damage = Math.floor(Math.random() * 10 + this.enemy.damage)
+    const {damage: critHitChangeDamage, crit} = this.rollDamage({
+      damage: damage,
+    })
+    // const damage = this.calcDamage(this.enemy, this.hero)
+    this.hero.setHP(this.hero.hp - critHitChangeDamage, this.hero.maxHp)
     await this.wait(800)
-    this.addLog('Враг', damage, 'enemy-turn-text', 'герою')
+    this.addLog('Враг', critHitChangeDamage, 'enemy-turn-text', 'герою', crit)
     if (this.bossFightEnd()) return
 
     this.nextTurn()
   }
 
-  calcDamage(attacker, defender) {
-    return Math.floor(Math.random() * 10 + 5)
-  }
+  // calcDamage(attacker, defender) {
+  //   return Math.floor(Math.random() * 10 + 5)
+  // }
 
   nextTurn() {
     if (this.turn === 'hero') {
