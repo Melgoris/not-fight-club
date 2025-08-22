@@ -1,11 +1,12 @@
 export class Battle {
-  constructor({hero, enemy, ui, spellAnim}) {
+  constructor({hero, enemy, ui, spellAnim, logs}) {
     this.hero = hero
     this.enemy = enemy
     this.turn = 'hero'
     this.isBattleOver = false
     this.ui = ui
     this.spellAnim = spellAnim
+    this.logs = logs
   }
   start() {
     this.hero.idle()
@@ -32,7 +33,7 @@ export class Battle {
     const manacost = this.ui.getSelectedSpell().manaCost
     const spellName = this.ui.getSelectedSpell().name
     const index = this.ui.getSelectedSpell().index
-    console.log(this.spellAnim)
+    console.log(this.hero)
     // this.ui.fightBtn.classList.add('disable')
     // return
     this.ui.wrapper.classList.add('disable')
@@ -56,6 +57,7 @@ export class Battle {
     // this.updateManacostIco()
     this.ui.updateManaCostForIcons(this.hero.mana)
     await this.wait(800)
+    this.addLog('Герой', damage, 'hero-turn-text', 'противнику')
     if (this.bossFightEnd()) return
     console.log('damage', damage)
     console.log('this.enemy.hp', this.enemy.hp)
@@ -80,6 +82,28 @@ export class Battle {
       // }
     })
   }
+  addLog(attacker, text, textType = 'neitral', target) {
+    const logLine = document.createElement('p')
+    logLine.classList.add(`log-text`, textType)
+    logLine.textContent = `${attacker} нанес ${text} урона ${target}`
+    this.logs.appendChild(logLine)
+
+    this.logs.scrollTop = this.logs.scrollHeight
+  }
+  dethLog({heroAlive = true, enemyAlive = true}) {
+    if (heroAlive || enemyAlive) return
+    const logLine = document.createElement('p')
+    if (!heroAlive) {
+      logLine.classList.add(`log-text`)
+      logLine.textContent = 'Ваш герой повержен! Вы проиграли!'
+      this.addLog.appendChild(logLine)
+    }
+    if (!enemyAlive) {
+      logLine.classList.add(`log-text`)
+      logLine.textContent = 'Вы одолели противника! Победа!'
+      this.addLog.appendChild(logLine)
+    }
+  }
   getHit(target) {
     target.classList.add('get-hit')
 
@@ -98,6 +122,7 @@ export class Battle {
     const damage = this.calcDamage(this.enemy, this.hero)
     this.hero.setHP(this.hero.hp - damage, this.hero.maxHp)
     await this.wait(800)
+    this.addLog('Враг', damage, 'enemy-turn-text', 'герою')
     if (this.bossFightEnd()) return
 
     this.nextTurn()
@@ -120,12 +145,14 @@ export class Battle {
     if (this.hero.hp <= 0) {
       console.log('-hero')
       this.hero.dead()
+      this.dethLog({heroAlive: false})
       this.isBattleOver = true
       return true
     }
     if (this.enemy.hp <= 0) {
       console.log('-boss')
       this.enemy.dead()
+      this.dethLog({enemyAlive: false})
       this.isBattleOver = true
       return true
     }

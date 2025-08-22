@@ -20,9 +20,18 @@ export const battlePageUi = async () => {
     ? getStoreHero()
     : PlayerStorage.get().storeHero
   const batleContainer = document.querySelector('#_battlePage')
+  const logContainer = document.createElement('div')
+  const logTitle = document.createElement('p')
+  logTitle.classList.add('log-title')
+  logContainer.classList.add('log-container')
+  logTitle.textContent = 'Logs'
+  batleContainer.appendChild(logTitle)
   // batleContainer.appendChild(chooseButton)
   batleContainer.style.backgroundImage = `url(${_DUNGEONS_LOCATION_DATA.swamps.src})`
-
+  batleContainer.appendChild(logContainer)
+  logTitle.addEventListener('click', () => {
+    logContainer.classList.toggle('active')
+  })
   const hero = new CombatUnit({
     skin: heroData.skins.defoult,
     frameWidth: 128,
@@ -66,6 +75,7 @@ export const battlePageUi = async () => {
     enemy: boss,
     ui: battleUicomp,
     spellAnim: heroSpellsAnim,
+    logs: logContainer,
   })
   battle.start()
   // chooseButton.addEventListener('click', async () => {

@@ -549,6 +549,62 @@ nav {
   box-shadow: 0px 0px 10px 6px rgba(0, 0, 0, 0.6);
 }
 
+/*log cont*/
+.log-container {
+  position: absolute;
+  bottom: 20px;
+  right: 50px;
+  width: 290px;
+  height: 10px;
+  background: #5656569e;
+  z-index: 1;
+  border: 2px solid #0b2311;
+  border-radius: 10px;
+  transition: height 0.4s ease-in;
+  overflow: auto;
+}
+
+.log-container.active {
+  height: 200px;
+
+}
+
+.log-text {
+  padding: 4px 10px;
+  font-size: 16px;
+}
+
+.hero-turn-text {
+  color: #ffffff;
+  text-align: left;
+}
+
+.enemy-turn-text {
+  color: #fb3b3b;
+  text-align: right;
+}
+
+.log-title {
+  text-align: left;
+  color: #ffffff;
+  background: #2e2e2e;
+  padding: 4px 20px;
+  width: fit-content;
+  position: absolute;
+  bottom: 5px;
+  right: 350px;
+  z-index: 1;
+  border: 2px solid #000000;
+  cursor: pointer;
+  transition: border 0.3s ease-in;
+}
+
+.log-title:hover {
+
+  border: 2px solid #338051;
+}
+
+/*log cont*/
 /* .move-hero {
   animation-name: move-right;
   animation-duration: 3s;
