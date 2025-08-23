@@ -50,7 +50,8 @@ export class CombatUnit extends Character {
     this.manaBarText.textContent = `MP: ${current} / ${max}`
   }
   restoreMana(amount) {
-    this.mana = Math.min(this.mana + amount, this.maxMana)
+    const manaRegeneration = Math.floor(Math.random() * 10 + amount)
+    this.mana = this.mana + manaRegeneration
     this.manaBarText.textContent = `MP: ${this.mana} / ${this.maxMana}`
   }
   dead() {

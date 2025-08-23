@@ -86,14 +86,21 @@ const _WEREWOLF = {
       totalFrames: 2,
       fps: 3,
     },
-
+  },
+  options: {
     text: 'Arrrrhg!',
     count: 0,
-    id: '_skeleton',
+    frameWidth: 96,
+    frameHeight: 76,
+    hp: 200,
+    maxHp: 200,
+    damage: 20,
+    wrapperId: '_werewolf',
+    abilities: [],
   },
 }
 export const _BOSES_DATA = [
-  {sprites: _SKELETON, name: 'Skeleton King'},
+  {data: _WEREWOLF, name: 'Werewolf', index: 0},
   {sprites: _GOLLUX, name: 'Gollux'},
-  {sprites: _WEREWOLF, name: 'Were'},
+  {data: _WEREWOLF, name: 'Werewolf', index: 3},
 ]

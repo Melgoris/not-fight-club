@@ -111,7 +111,7 @@ export const routesUi = () => {
 
     if (!player) {
       window.location.hash = '#login'
-    } else if (player.arenaUi.location) {
+    } else if (player.arenaUi?.location) {
       window.location.hash = '#battle'
     } else if (player.storeHero) {
       window.location.hash = '#home'

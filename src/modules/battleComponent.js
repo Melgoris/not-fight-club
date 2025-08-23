@@ -56,11 +56,15 @@ export class Battle {
     })
     console.log('damage', critHitChangeDamage)
     console.log('crit', crit)
-
+    if (spellName === 'Curse') this.enemy.damage = this.enemy.damage * 0.8
     // const damage = this.hero.damage
     // this.hero.attack()
+    if (spellName === 'Heal')
+      this.hero.setHP(this.hero.hp + 50, this.hero.maxHp)
+
     this.enemy.setHP(this.enemy.hp - critHitChangeDamage, this.enemy.maxHp)
     this.hero.setMana(this.hero.mana - manacost, this.hero.maxMana)
+    this.hero.restoreMana(7)
     // this.updateManacostIco()
     this.ui.updateManaCostForIcons(this.hero.mana)
     await this.wait(800)
@@ -150,12 +154,14 @@ export class Battle {
     this.enemy.attack()
     this.wait(100)
     this.getHit(this.hero.container)
+    this.ui.updateManaCostForIcons(this.hero.mana)
     const damage = Math.floor(Math.random() * 10 + this.enemy.damage)
     const {damage: critHitChangeDamage, crit} = this.rollDamage({
       damage: damage,
     })
     // const damage = this.calcDamage(this.enemy, this.hero)
     this.hero.setHP(this.hero.hp - critHitChangeDamage, this.hero.maxHp)
+
     await this.wait(800)
     this.addLog('Враг', critHitChangeDamage, 'enemy-turn-text', 'герою', crit)
     if (this.bossFightEnd()) return

@@ -1,4 +1,4 @@
-import {PlayerStorage} from './storage'
+import {PlayerStorage, setStoreHero} from './storage'
 import {getFullStore, getPickedHero, getStoreHero} from './storage'
 import {Character} from './characterComponent'
 import {_CHARS} from './_CHAR_DATA'
@@ -25,7 +25,7 @@ import {
 import {addRemovePortal} from './portals'
 import {_CHANGE_SKIN_EFF} from './_EFFECT_DATA'
 import {AEffects} from './effectsComponent'
-
+import {_BOSES_DATA} from './_ENEMY_DATA'
 import {CombatUnit} from './unitFightComponent'
 
 export const heroHomeUi = async () => {
@@ -34,7 +34,8 @@ export const heroHomeUi = async () => {
     ? getStoreHero()
     : PlayerStorage.get().storeHero
   const homeUi = document.querySelector('#_heroHome')
-
+  // console.log(heroData)
+  // console.log('ssdd', PlayerStorage.get().storeHero)
   const homeLocationObjects = _HOME_LOCATION_OBJ_NAMES.reduce((acc, name) => {
     acc[name] = createSceneObjectElement({
       ..._HOME_LOCATION_OBJ[name],
@@ -90,7 +91,7 @@ export const heroHomeUi = async () => {
   girlDealer.idle()
 
   const hero = new Character({
-    skin: heroData.skins.defoult,
+    skin: heroData?.currentSkin || heroData.skins.defoult,
     frameWidth: 128,
     frameHeight: 128,
     container: heroContainer,
@@ -151,7 +152,7 @@ export const heroHomeUi = async () => {
   heroContainer.appendChild(spellEffect)
   heroContainer.addEventListener('click', () => {
     // changeSkinEff.changeSkin()
-    addCloudText('school_girl', 'ууу бля')
+    addCloudText('school_girl', 'Скучно...')
   })
 
   moveHeroMainWithAnimation({
@@ -172,14 +173,21 @@ export const heroHomeUi = async () => {
     name: 'mapmodal',
     parent: homeUi,
   })
-  _DUNGEONS.map(dunge => {
+
+  _DUNGEONS.map((dunge, i) => {
     const item = createModalMenuBtn({src: dunge.src, text: dunge.name})
     item.classList.add('map-item')
     mapModal.appendChild(item)
     item.addEventListener('click', () => {
+      // console.log('item', dunge.name)
+      // console.log('hero', heroData)
+      // console.log('boss', _BOSES_DATA[i].index)
+      PlayerStorage.updateCombatData({
+        location: dunge.name,
+        boss: i,
+        dungSrc: dunge.src,
+      })
       window.location.hash = '#battle'
-      // console.log('item', item)
-      PlayerStorage.updateCombatData({location: 'forest'})
     })
   })
   homeLocationObjects.tent.addEventListener('click', () => {
@@ -202,6 +210,8 @@ export const heroHomeUi = async () => {
       changeSkinEff.changeSkin()
       await delay(200)
       hero.changeSkin({...skin})
+      // setStoreHero({currentSkin: skin})
+      setStoreHero({currentSkin: skin})
       hero.idle()
       await delay(700)
       addCloudText(heroData.id, skin.skinChangeText)

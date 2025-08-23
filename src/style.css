@@ -656,7 +656,7 @@ nav {
 
 .hero-light {
   position: absolute;
-  top: 38px;
+  top: 0;
   left: 50%;
   transform: translateX(-50%);
   width: 90px;
@@ -685,7 +685,7 @@ nav {
 
 .hero-container img {
   position: absolute;
-  top: 0;
+  top: -40px;
   left: 28px;
   width: 100px;
   z-index: 100;
@@ -694,7 +694,7 @@ nav {
 
 .cloud-text {
   position: absolute;
-  top: 23%;
+  top: 0;
   left: 65%;
   font-size: 12px;
   transform: translate(-50%, -50%);
@@ -850,6 +850,7 @@ nav {
 
 .dealer p {
   left: 51px;
+  top: 38px;
 }
 
 /*weather elements*/
@@ -1136,7 +1137,7 @@ nav {
   align-content: flex-start;
   flex-wrap: wrap;
   bottom: 225px;
-  left: 350px;
+  left: 270px;
 
 }
 
@@ -1189,7 +1190,7 @@ nav {
 .arena-button {
 
   position: relative;
-  left: 170px;
+  left: 270px;
   bottom: 50px;
   transform: scale(0.5);
   transition: filter 0.3s ease-in;

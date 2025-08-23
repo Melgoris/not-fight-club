@@ -2,7 +2,7 @@ import {_DUNGEONS_LOCATION_DATA} from './_OBJECT_DATA'
 import {_CHANGE_SKIN_EFF} from './_EFFECT_DATA'
 import {CombatUnit} from './unitFightComponent'
 import {PlayerStorage} from './storage'
-import {getStoreHero} from './storage'
+import {getStoreHero, getFullStore} from './storage'
 import {_BOSES_DATA} from './_ENEMY_DATA'
 import {createBtn} from './helperFunc'
 import {delay, buttleHeroUi} from './helperFunc'
@@ -16,9 +16,11 @@ export const battlePageUi = async () => {
   //   'choose-hero-btn',
   //   'Attack!',
   // )
-  const heroData = getStoreHero().id
-    ? getStoreHero()
-    : PlayerStorage.get().storeHero
+  // const heroData = getStoreHero().id
+  //   ? getStoreHero()
+  //   : PlayerStorage.get().storeHero
+  const fullStore = getStoreHero().id ? getFullStore() : PlayerStorage.get()
+  const heroData = fullStore.storeHero
   const batleContainer = document.querySelector('#_battlePage')
   const logContainer = document.createElement('div')
   const logTitle = document.createElement('p')
@@ -26,8 +28,14 @@ export const battlePageUi = async () => {
   logContainer.classList.add('log-container')
   logTitle.textContent = 'Logs'
   batleContainer.appendChild(logTitle)
+  const locationName = fullStore?.arenaUi?.location.toLowerCase()
+  console.log(heroData)
+  console.log('fullStore', fullStore)
+  console.log('loca', fullStore.arenaUi.location)
+  console.log('loca111', locationName)
   // batleContainer.appendChild(chooseButton)
-  batleContainer.style.backgroundImage = `url(${_DUNGEONS_LOCATION_DATA.swamps.src})`
+  // batleContainer.style.backgroundImage = `url(${_DUNGEONS_LOCATION_DATA.swamps.src})`
+  batleContainer.style.backgroundImage = `url(${_DUNGEONS_LOCATION_DATA[locationName].src})`
   batleContainer.appendChild(logContainer)
   logTitle.addEventListener('click', () => {
     logContainer.classList.toggle('active')
@@ -44,14 +52,15 @@ export const battlePageUi = async () => {
   })
   // hero.idle()
   const boss = new CombatUnit({
-    skin: _BOSES_DATA[2].sprites.skin,
-    frameWidth: 96,
-    frameHeight: 76,
-    hp: 200,
-    maxHp: 200,
-    damage: 20,
+    skin: _BOSES_DATA[2].data.skin,
+    ..._BOSES_DATA[2].data.options,
+    // frameWidth: 96,
+    // frameHeight: 76,
+    // hp: 200,
+    // maxHp: 200,
+    // damage: 20,
+    // wrapperId: '_skeleton',
     wtapperClassName: 'hero-container boss-flip',
-    wrapperId: '_skeleton',
     renderSection: batleContainer,
   })
   // boss.idle()
@@ -64,7 +73,7 @@ export const battlePageUi = async () => {
     container: spellEffect,
   })
   hero.container.appendChild(spellEffect)
-  console.log('heroSpellsAnim', heroSpellsAnim)
+  // console.log('heroSpellsAnim', heroSpellsAnim)
   const battleUicomp = buttleHeroUi(batleContainer, _CHARS[0].spells)
   // const {fightBtn, getSelectedSpell} = battleUicomp
   // fightBtn.addEventListener('click', () => {

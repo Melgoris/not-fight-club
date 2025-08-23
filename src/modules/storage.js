@@ -11,6 +11,7 @@ const store = {
     name: '',
     skins: null,
     text: '',
+    currentSkin: null,
   },
   arenaUi: {
     location: null,
@@ -32,6 +33,7 @@ export function getStoreHero() {
 }
 export function setStoreHero(data) {
   store.storeHero = {...store.storeHero, ...data}
+  PlayerStorage.save(store)
 }
 
 export function resetPickedHero() {
@@ -47,45 +49,17 @@ export const PlayerStorage = {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data))
   },
   updateStoreHero(heroData) {
-    const data = this.get() || {
-      pickedHero: {
-        pickedHeroData: null,
-        heroUi: null,
-      },
-      storeHero: {
-        class: '',
-        id: null,
-        name: '',
-        skins: null,
-        text: '',
-      },
-      arenaUi: {
-        location: null,
-      },
-    }
+    const data = this.get() || store
     data.storeHero = heroData
     this.save(data)
   },
+
+  //fgdgfddddddddddddddd
   updateCombatData(heroData) {
-    const data = this.get() || {
-      pickedHero: {
-        pickedHeroData: null,
-        heroUi: null,
-      },
-      storeHero: {
-        class: '',
-        id: null,
-        name: '',
-        skins: null,
-        text: '',
-      },
-      arenaUi: {
-        location: null,
-      },
-    }
-    data.arenaUi = heroData
-    this.save(data)
+    store.arenaUi = {...store.arenaUi, ...heroData}
+    this.save(store)
   },
+
   setName(name) {
     const data = this.get() || {
       username: '',

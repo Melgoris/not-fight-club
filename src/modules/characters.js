@@ -50,6 +50,7 @@ export const charactersUi = async () => {
         text: hero.text,
         class: hero.class,
         skins: hero.skins,
+        index: hero.index,
       })
     })
     return new Character({
@@ -76,6 +77,7 @@ export const charactersUi = async () => {
     const pickedHero = getPickedHero()
     // console.log('storeHero', storeHero)
     // console.log('pickedHero', pickedHero)
+    // return
     if (!pickedHero.pickedHeroData) return
     heroes.forEach(e => {
       if (e.container.id !== pickedHero.id) {

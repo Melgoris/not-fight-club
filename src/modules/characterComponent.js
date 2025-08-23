@@ -12,6 +12,8 @@ export class Character {
     wtapperClassName,
     wrapperId,
     renderSection,
+    abilities,
+    manaRegen,
   }) {
     this.skin = skin
     this.frameWidth = frameWidth
@@ -27,6 +29,8 @@ export class Character {
     this.spellName = null
     this.wtapperClassName = wtapperClassName
     this.wrapperId = wrapperId
+    this.abilities = abilities
+    this.manaRegen = manaRegen
     this.container = container || this._createContainer()
     // if (renderSection)
     //   this.renderSection = document.querySelector(`#${renderSection}`)
