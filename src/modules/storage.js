@@ -1,4 +1,5 @@
 const STORAGE_KEY = 'playerData'
+const COMBAT_STORAGE_KEY = 'arenaData'
 // const HERO_STORAGE_KEY = 'heroData'
 const store = {
   pickedHero: {
@@ -14,6 +15,14 @@ const store = {
     currentSkin: null,
   },
   arenaUi: {
+    heroHp: null,
+    heroMaxHp: null,
+    heroMana: null,
+    heroMaxMana: null,
+    bossHp: null,
+    bossMaxHp: null,
+    bossId: null,
+    locationName: null,
     location: null,
   },
 }
@@ -23,6 +32,9 @@ export function getFullStore() {
 }
 export function getPickedHero() {
   return store.pickedHero
+}
+export function getCombatData() {
+  return store.arenaUi
 }
 export function setPickedHero(data) {
   store.pickedHero = {...store.pickedHero, ...data}
@@ -44,10 +56,16 @@ export const PlayerStorage = {
   get() {
     return JSON.parse(localStorage.getItem(STORAGE_KEY)) || null
   },
-
   save(data) {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(data))
   },
+  getArena() {
+    return JSON.parse(localStorage.getItem(COMBAT_STORAGE_KEY)) || null
+  },
+  saveArena(data) {
+    localStorage.setItem(COMBAT_STORAGE_KEY, JSON.stringify(data))
+  },
+
   updateStoreHero(heroData) {
     const data = this.get() || store
     data.storeHero = heroData
@@ -57,9 +75,17 @@ export const PlayerStorage = {
   //fgdgfddddddddddddddd
   updateCombatData(heroData) {
     store.arenaUi = {...store.arenaUi, ...heroData}
-    this.save(store)
+    this.saveArena(store.arenaUi)
   },
-
+  clearCombatStore() {
+    store.arenaUi = {}
+    this.saveArena(store.arenaUi)
+  },
+  // updateCombatData(heroData) {
+  //   const data = this.get() || store
+  //   data.arenaUi = { ...data.arenaUi, ...heroData }
+  //   this.save(data)
+  // }
   setName(name) {
     const data = this.get() || {
       username: '',

@@ -1,69 +1,3 @@
-const _SKELETON = {
-  skin: {
-    attack: {
-      sprite: './img/enemys/skeleton/attack.png',
-      totalFrames: 23,
-      fps: 10,
-    },
-    idle: {
-      sprite: './img/enemys/skeleton/Idle.png',
-      totalFrames: 8,
-      fps: 6,
-    },
-    walk: {
-      sprite: './img/enemys/skeleton/move.png',
-      totalFrames: 10,
-      fps: 8,
-    },
-    protect: {
-      sprite: './img/enemys/skeleton/hurt.png',
-      totalFrames: 3,
-      fps: 5,
-    },
-    die: {
-      sprite: './img/enemys/skeleton/die.png',
-      totalFrames: 17,
-      fps: 15,
-    },
-
-    text: 'Arrrrhg!',
-    count: 0,
-    id: '_skeleton',
-  },
-}
-const _GOLLUX = {
-  skin: {
-    attack: {
-      sprite: './img/enemys/gollux/attack-fix.png',
-      totalFrames: 17,
-      fps: 10,
-    },
-    idle: {
-      sprite: './img/enemys/gollux/idle.png',
-      totalFrames: 5,
-      fps: 6,
-    },
-    walk: {
-      sprite: './img/enemys/gollux/walk.png',
-      totalFrames: 8,
-      fps: 8,
-    },
-    protect: {
-      sprite: './img/enemys/gollux/protect.png',
-      totalFrames: 3,
-      fps: 5,
-    },
-    die: {
-      sprite: './img/enemys/skeleton/die.png',
-      totalFrames: 17,
-      fps: 15,
-    },
-
-    text: 'Arrrrhg!',
-    count: 0,
-    id: '_skeleton',
-  },
-}
 const _WEREWOLF = {
   skin: {
     attack: {
@@ -134,9 +68,178 @@ const _OGRE = {
     abilities: [],
   },
 }
+const _ORC_WARRIOR = {
+  skin: {
+    attack: {
+      sprite: './img/enemys/orcWar/attack.png',
+      totalFrames: 4,
+      fps: 6,
+    },
+    idle: {
+      sprite: './img/enemys/orcWar/Idle.png',
+      totalFrames: 5,
+      fps: 3,
+    },
+    walk: {
+      sprite: './img/enemys/orcWar/Walk.png',
+      totalFrames: 7,
+      fps: 6,
+    },
+    protect: {
+      sprite: './img/enemys/orcWar/Hurt.png',
+      totalFrames: 2,
+      fps: 4,
+    },
+    dead: {
+      sprite: './img/enemys/orcWar/Dead.png',
+      totalFrames: 4,
+      fps: 3,
+    },
+  },
+  options: {
+    text: 'За орду!',
+    count: 0,
+    frameWidth: 96,
+    frameHeight: 96,
+    hp: 250,
+    maxHp: 250,
+    damage: 17,
+    wrapperId: '_orcWar',
+    abilities: [],
+    crit: 0.2,
+  },
+}
+const _KITSUNE = {
+  skin: {
+    attack: {
+      sprite: './img/enemys/kitsune/Attack.png',
+      totalFrames: 10,
+      fps: 7,
+      endFrame: 6,
+    },
+    idle: {
+      sprite: './img/enemys/kitsune/Idle.png',
+      totalFrames: 8,
+      fps: 5,
+    },
+    walk: {
+      sprite: './img/enemys/kitsune/Walk.png',
+      totalFrames: 8,
+      fps: 6,
+    },
+    protect: {
+      sprite: './img/enemys/kitsune/Hurt.png',
+      totalFrames: 2,
+      fps: 4,
+    },
+    dead: {
+      sprite: './img/enemys/kitsune/Dead.png',
+      totalFrames: 10,
+      fps: 7,
+    },
+  },
+  options: {
+    text: 'Кто тут ходит в наших лесах!',
+    count: 0,
+    frameWidth: 128,
+    frameHeight: 128,
+    hp: 270,
+    maxHp: 270,
+    damage: 9,
+    wrapperId: '_orcWar',
+    abilities: [],
+    crit: 0.4,
+  },
+}
+const _TENGU = {
+  skin: {
+    attack: {
+      sprite: './img/enemys/tengu/Attack.png',
+      totalFrames: 6,
+      fps: 5,
+      // endFrame: 6,
+    },
+    idle: {
+      sprite: './img/enemys/tengu/Idle.png',
+      totalFrames: 6,
+      fps: 5,
+    },
+    walk: {
+      sprite: './img/enemys/tengu/Walk.png',
+      totalFrames: 8,
+      fps: 6,
+    },
+    protect: {
+      sprite: './img/enemys/tengu/Hurt.png',
+      totalFrames: 3,
+      fps: 4,
+    },
+    dead: {
+      sprite: './img/enemys/tengu/Dead.png',
+      totalFrames: 6,
+      fps: 4,
+    },
+  },
+  options: {
+    text: 'Кто тут ходит в наших лесах!',
+    count: 0,
+    frameWidth: 128,
+    frameHeight: 128,
+    hp: 200,
+    maxHp: 200,
+    damage: 17,
+    wrapperId: '_orcWar',
+    abilities: [],
+    crit: 0.3,
+  },
+}
+const _MINOTAUR = {
+  skin: {
+    attack: {
+      sprite: './img/enemys/minotaur/Attack.png',
+      totalFrames: 5,
+      fps: 4,
+      // endFrame: 6,
+    },
+    idle: {
+      sprite: './img/enemys/minotaur/Idle.png',
+      totalFrames: 10,
+      fps: 7,
+    },
+    walk: {
+      sprite: './img/enemys/minotaur/Walk.png',
+      totalFrames: 12,
+      fps: 7,
+    },
+    protect: {
+      sprite: './img/enemys/minotaur/Hurt.png',
+      totalFrames: 3,
+      fps: 4,
+    },
+    dead: {
+      sprite: './img/enemys/minotaur/Dead.png',
+      totalFrames: 5,
+      fps: 4,
+    },
+  },
+  options: {
+    text: 'Молочко будешь?',
+    count: 0,
+    frameWidth: 128,
+    frameHeight: 128,
+    hp: 400,
+    maxHp: 400,
+    damage: 3,
+    wrapperId: '_minotaur',
+    abilities: [],
+    crit: 0.5,
+  },
+}
 export const _BOSES_DATA = [
-  {data: _OGRE, name: 'Ogre', index: 1},
-  {data: _WEREWOLF, name: 'Werewolf', index: 0},
-  {sprites: _GOLLUX, name: 'Gollux'},
-  {data: _WEREWOLF, name: 'Werewolf', index: 3},
+  {data: _KITSUNE, name: 'Kitsune', index: 0},
+  {data: _MINOTAUR, name: 'Minotaur', index: 1},
+  {data: _TENGU, name: 'Tengu', index: 2},
+  {data: _OGRE, name: 'Ogre', index: 3},
+  {data: _ORC_WARRIOR, name: 'Orc Warrior', index: 4},
+  {data: _WEREWOLF, name: 'Werewolf', index: 5},
 ]

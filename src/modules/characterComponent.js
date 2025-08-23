@@ -103,6 +103,10 @@ export class Character {
     const {sprite, totalFrames, fps} = this.skin.idle
     this._animate({sprite, totalFrames, fps, loop: true})
   }
+  die() {
+    const {sprite, totalFrames, fps} = this.skin.dead
+    this._animate({sprite, totalFrames, fps, loop: false})
+  }
   portal() {
     this._animate({sprite: this.skin, totalFrames: 8, fps: 5, loop: true})
   }

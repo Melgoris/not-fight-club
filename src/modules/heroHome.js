@@ -29,11 +29,14 @@ import {_BOSES_DATA} from './_ENEMY_DATA'
 import {CombatUnit} from './unitFightComponent'
 
 export const heroHomeUi = async () => {
+  const homeUi = document.querySelector('#_heroHome')
+  homeUi.innerHTML = ''
+  // PlayerStorage.clearCombatStore()
   // await delay(100)
   const heroData = getStoreHero().id
     ? getStoreHero()
     : PlayerStorage.get().storeHero
-  const homeUi = document.querySelector('#_heroHome')
+
   // console.log(heroData)
   // console.log('ssdd', PlayerStorage.get().storeHero)
   const homeLocationObjects = _HOME_LOCATION_OBJ_NAMES.reduce((acc, name) => {

@@ -323,6 +323,14 @@ export const _CHARS = [
     skins: _SCHOOL_GIRL,
     class: 'hero-container',
     text: 'Не буду учится!',
+    data: {
+      hp: 110,
+      maxHp: 110,
+      mana: 100,
+      maxMana: 100,
+      damage: 20,
+      manaRegen: 5,
+    },
     spells: [
       {
         name: 'Basic',
@@ -369,6 +377,7 @@ export const _CHARS = [
   {
     id: 'satyr',
     name: 'Satyr',
+    index: 1,
     skins: _SATYR,
     class: 'hero-container',
     text: 'Прыг скок...',
@@ -414,10 +423,19 @@ export const _CHARS = [
         desc: 'Вы лечите себя на 50 единиц оверхилом. Стоит 45 маны.',
       },
     ],
+    data: {
+      hp: 100,
+      maxHp: 100,
+      mana: 150,
+      maxMana: 150,
+      damage: 15,
+      manaRegen: 6,
+    },
   },
   {
     id: 'vampire',
     name: 'Vampire',
+    index: 2,
     skins: _VAMPIRE,
     class: 'hero-container',
     text: 'Пора на охоту!',
@@ -463,10 +481,19 @@ export const _CHARS = [
         desc: 'Вы лечите себя на 50 единиц оверхилом. Стоит 45 маны.',
       },
     ],
+    data: {
+      hp: 140,
+      maxHp: 140,
+      mana: 70,
+      maxMana: 70,
+      damage: 25,
+      manaRegen: 10,
+    },
   },
   {
     id: 'gorgon',
     name: 'Gorgon',
+    index: 3,
     skins: _GORGON,
     class: 'hero-container',
     text: 'Пшш-шшш!',
@@ -512,5 +539,13 @@ export const _CHARS = [
         desc: 'Вы лечите себя на 50 единиц оверхилом. Стоит 45 маны.',
       },
     ],
+    data: {
+      hp: 170,
+      maxHp: 170,
+      mana: 110,
+      maxMana: 110,
+      damage: 22,
+      manaRegen: 8,
+    },
   },
 ]

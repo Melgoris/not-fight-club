@@ -1,5 +1,16 @@
+import {PlayerStorage} from './storage'
+
 export class Battle {
-  constructor({hero, enemy, ui, spellAnim, logs}) {
+  constructor({
+    hero,
+    enemy,
+    ui,
+    spellAnim,
+    logs,
+    btnHome,
+    bossId,
+    locationName,
+  }) {
     this.hero = hero
     this.enemy = enemy
     this.turn = 'hero'
@@ -7,7 +18,11 @@ export class Battle {
     this.ui = ui
     this.spellAnim = spellAnim
     this.logs = logs
+    this.btnHome = btnHome
+    this.bossId = bossId
+    this.locationName = locationName
   }
+
   start() {
     this.hero.idle()
     this.enemy.idle()
@@ -19,13 +34,13 @@ export class Battle {
     this.hero.setHP(this.hero.hp, this.hero.maxHp)
     this.enemy.setHP(this.enemy.hp, this.enemy.maxHp)
     this.enemy.setMana(this.enemy.mana, this.enemy.maxMana)
-
+    this.btnHome.addEventListener('click', async () => {
+      PlayerStorage.clearCombatStore()
+      window.location.hash = '#home'
+    })
     this.ui.fightBtn.addEventListener('click', () => {
       if (this.turn !== 'hero' || this.isBattleOver) return
-
       this.heroAttack()
-      // console.log(this.ui.getSelectedSpell().damage)
-      // console.log(this.ui.getSelectedSpell().manaCost)
     })
   }
 
@@ -165,10 +180,28 @@ export class Battle {
     await this.wait(800)
     this.addLog('Враг', critHitChangeDamage, 'enemy-turn-text', 'герою', crit)
     if (this.bossFightEnd()) return
-
+    this.saveProgress()
     this.nextTurn()
   }
-
+  saveProgress() {
+    PlayerStorage.updateCombatData({
+      heroHp: this.hero.hp,
+      heroMaxHp: this.hero.maxHp,
+      heroMana: this.hero.mana,
+      heroMaxMana: this.hero.maxMana,
+      bossHp: this.enemy.hp,
+      bossMaxHp: this.enemy.maxHp,
+      boss: this.bossId,
+      locationName: this.locationName,
+      location: this.locationName[0].toUpperCase() + this.locationName.slice(1),
+    })
+  }
+  deleteProgress() {
+    PlayerStorage.updateCombatData({
+      locationName: null,
+      location: null,
+    })
+  }
   // calcDamage(attacker, defender) {
   //   return Math.floor(Math.random() * 10 + 5)
   // }
@@ -185,14 +218,16 @@ export class Battle {
   bossFightEnd() {
     if (this.hero.hp <= 0) {
       console.log('-hero')
-      this.hero.dead()
+      // this.hero.dead()
+      this.hero.skin.dead ? this.hero.die() : this.hero.dead()
       this.dethLog({heroAlive: false})
       this.isBattleOver = true
       return true
     }
     if (this.enemy.hp <= 0) {
       console.log('-boss')
-      this.enemy.dead()
+      this.enemy.skin.dead ? this.enemy.die() : this.enemy.dead()
+      // this.enemy.dead()
       this.dethLog({enemyAlive: false})
       this.isBattleOver = true
       return true

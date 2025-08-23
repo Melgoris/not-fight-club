@@ -2,7 +2,7 @@ import {_DUNGEONS_LOCATION_DATA} from './_OBJECT_DATA'
 import {_CHANGE_SKIN_EFF} from './_EFFECT_DATA'
 import {CombatUnit} from './unitFightComponent'
 import {PlayerStorage} from './storage'
-import {getStoreHero, getFullStore} from './storage'
+import {getStoreHero, getFullStore, getCombatData} from './storage'
 import {_BOSES_DATA} from './_ENEMY_DATA'
 import {createBtn} from './helperFunc'
 import {delay, buttleHeroUi} from './helperFunc'
@@ -11,56 +11,76 @@ import {_CHARS} from './_CHAR_DATA'
 import {Battle} from './battleComponent'
 
 export const battlePageUi = async () => {
-  // const chooseButton = createBtn(
-  //   'choose-hero-button',
-  //   'choose-hero-btn',
-  //   'Attack!',
-  // )
+  const batleContainer = document.querySelector('#_battlePage')
+  batleContainer.innerHTML = ''
   // const heroData = getStoreHero().id
   //   ? getStoreHero()
   //   : PlayerStorage.get().storeHero
   const fullStore = getStoreHero().id ? getFullStore() : PlayerStorage.get()
   const heroData = fullStore.storeHero
-  const batleContainer = document.querySelector('#_battlePage')
+
+  // const arenaData = getCombatData().heroHp
+  //   ? getCombatData()
+  //   : PlayerStorage.get().arenaUi
+  const arenaData = getCombatData().heroHp
+    ? getCombatData()
+    : PlayerStorage.getArena()
+
+  console.log('arenaData', arenaData)
+  console.log('getCombatData()', PlayerStorage.getArena())
+  if (!arenaData?.location) {
+    window.location.hash = '#home'
+    return
+  }
+  const bToHome = createBtn('go-home-btn', '_goHomeBtn', '<  Go home')
+  bToHome.classList.add('go-home-btn-cont')
   const logContainer = document.createElement('div')
   const logTitle = document.createElement('p')
   logTitle.classList.add('log-title')
   logContainer.classList.add('log-container')
   logTitle.textContent = 'Logs'
   batleContainer.appendChild(logTitle)
-  const locationName = fullStore?.arenaUi?.location.toLowerCase()
-  const bossId = fullStore?.arenaUi?.boss
-  console.log(heroData)
-  console.log('fullStore', fullStore)
-  console.log('loca', fullStore.arenaUi.location)
-  console.log('loca111', locationName)
-  // batleContainer.appendChild(chooseButton)
+  const locationName = arenaData?.location?.toLowerCase()
+  // const bossId = fullStore?.arenaUi?.boss
+  const bossId = arenaData?.boss
+  console.log(_CHARS[heroData?.index]?.data)
+  // console.log('fullStore', fullStore)
+  // console.log('arenaData', arenaData)
+  // console.log('loca111', locationName)
+  batleContainer.appendChild(bToHome)
   // batleContainer.style.backgroundImage = `url(${_DUNGEONS_LOCATION_DATA.swamps.src})`
-  batleContainer.style.backgroundImage = `url(${_DUNGEONS_LOCATION_DATA[locationName].src})`
+  batleContainer.style.backgroundImage = `url(${_DUNGEONS_LOCATION_DATA[locationName]?.src})`
+
   batleContainer.appendChild(logContainer)
   logTitle.addEventListener('click', () => {
     logContainer.classList.toggle('active')
   })
+  console.log('arenaData?.boss', arenaData?.boss)
+  console.log('boss', _BOSES_DATA[bossId])
   const hero = new CombatUnit({
     skin: heroData.currentSkin || heroData.skins.defoult,
     frameWidth: 128,
     frameHeight: 128,
     wtapperClassName: heroData.class,
     wrapperId: heroData.id,
-    damage: 15,
     renderSection: batleContainer,
-    mana: 100,
+    ..._CHARS[heroData?.index]?.data,
+    ...(arenaData?.heroHp
+      ? {
+          hp: arenaData.heroHp,
+          maxHp: arenaData.heroMaxHp,
+          mana: arenaData.heroMana,
+          maxMana: arenaData.heroMaxMana,
+        }
+      : {}),
   })
   // hero.idle()
   const boss = new CombatUnit({
-    skin: _BOSES_DATA[bossId].data.skin,
-    ..._BOSES_DATA[bossId].data.options,
-    // frameWidth: 96,
-    // frameHeight: 76,
-    // hp: 200,
-    // maxHp: 200,
-    // damage: 20,
-    // wrapperId: '_skeleton',
+    skin: _BOSES_DATA[bossId]?.data?.skin,
+    ..._BOSES_DATA[bossId]?.data?.options,
+    ...(arenaData?.bossHp
+      ? {hp: arenaData.bossHp, maxHp: arenaData.bossMaxHp}
+      : {}),
     wtapperClassName: 'hero-container boss-flip',
     renderSection: batleContainer,
   })
@@ -86,16 +106,12 @@ export const battlePageUi = async () => {
     ui: battleUicomp,
     spellAnim: heroSpellsAnim,
     logs: logContainer,
+    btnHome: bToHome,
+    bossId,
+    locationName,
   })
   battle.start()
-  // chooseButton.addEventListener('click', async () => {
-  //   hero.attack()
-  //   await delay(100)
-  //   // boss.attack()
-  //   heroSpellsAnim.create()
-  //   await delay(500)
-  //   heroSpellsAnim.hit()
-  //   await delay(100)
-  //   heroSpellsAnim.explode()
+  // bToHome.addEventListener('click', async () => {
+  //   console.log('aatatat')
   // })
 }

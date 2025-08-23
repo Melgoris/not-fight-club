@@ -124,7 +124,7 @@ export const _DUNGEONS = [
 export const _DUNGEONS_LOCATION_DATA = {
   swamps: {name: 'Swamps', src: './public/img/dungeons/swampArena.jpg'},
   cemetery: {name: 'Cemetery', src: './public/img/dungeons/cemeteryArena.webp'},
-  catacombs: {
+  сatacombs: {
     name: 'Сatacombs',
     src: './public/img/dungeons/catacombArena.webp',
   },

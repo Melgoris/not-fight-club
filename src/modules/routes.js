@@ -95,11 +95,13 @@ export const routesUi = () => {
     screen.classList.toggle('active', active)
     if (!active) return
     const data = PlayerStorage.get()
+    const arenaData = PlayerStorage.getArena()
     if (!data) {
       window.location.hash = '#login'
       return
     }
-    if (!data.arenaUi.location && window.location.hash !== '#battle') {
+
+    if (!arenaData.location && window.location.hash !== '#battle') {
       window.location.hash = '#home'
     }
     battlePageUi()
@@ -107,11 +109,11 @@ export const routesUi = () => {
   }
   window.addEventListener('hashchange', router)
   window.addEventListener('load', () => {
-    const player = PlayerStorage.get()
+    const player = PlayerStorage.getArena()
 
     if (!player) {
       window.location.hash = '#login'
-    } else if (player.arenaUi?.location) {
+    } else if (player?.location) {
       window.location.hash = '#battle'
     } else if (player.storeHero) {
       window.location.hash = '#home'
