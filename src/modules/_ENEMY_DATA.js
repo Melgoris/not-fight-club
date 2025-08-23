@@ -99,7 +99,43 @@ const _WEREWOLF = {
     abilities: [],
   },
 }
+const _OGRE = {
+  skin: {
+    attack: {
+      sprite: './img/enemys/ogre/attack.png',
+      totalFrames: 7,
+      fps: 10,
+    },
+    idle: {
+      sprite: './img/enemys/ogre/idle.png',
+      totalFrames: 4,
+      fps: 3,
+    },
+    walk: {
+      sprite: './img/enemys/ogre/walk.png',
+      totalFrames: 6,
+      fps: 8,
+    },
+    protect: {
+      sprite: './img/enemys/ogre/protect.png',
+      totalFrames: 4,
+      fps: 3,
+    },
+  },
+  options: {
+    text: 'Моя бить!',
+    count: 0,
+    frameWidth: 144,
+    frameHeight: 80,
+    hp: 300,
+    maxHp: 300,
+    damage: 15,
+    wrapperId: '_ogre',
+    abilities: [],
+  },
+}
 export const _BOSES_DATA = [
+  {data: _OGRE, name: 'Ogre', index: 1},
   {data: _WEREWOLF, name: 'Werewolf', index: 0},
   {sprites: _GOLLUX, name: 'Gollux'},
   {data: _WEREWOLF, name: 'Werewolf', index: 3},

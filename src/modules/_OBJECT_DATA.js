@@ -122,5 +122,16 @@ export const _DUNGEONS = [
   {name: 'Tunnel', src: '/public/img/dungeons/tunnel.jpg', id: '_tunnel'},
 ]
 export const _DUNGEONS_LOCATION_DATA = {
-  swamps: {name: 'Wasteland', src: './public/img/dungeons/WastelandArena.webp'},
+  swamps: {name: 'Swamps', src: './public/img/dungeons/swampArena.jpg'},
+  cemetery: {name: 'Cemetery', src: './public/img/dungeons/cemeteryArena.webp'},
+  catacombs: {
+    name: 'Сatacombs',
+    src: './public/img/dungeons/catacombArena.webp',
+  },
+  wasteland: {
+    name: 'Wasteland',
+    src: './public/img/dungeons/WastelandArena.webp',
+  },
+  forest: {name: 'Forest', src: './public/img/dungeons/forestArena.webp'},
+  tunnel: {name: 'Tunnel', src: './public/img/dungeons/tunnelArena.webp'},
 }

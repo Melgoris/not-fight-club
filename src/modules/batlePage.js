@@ -29,6 +29,7 @@ export const battlePageUi = async () => {
   logTitle.textContent = 'Logs'
   batleContainer.appendChild(logTitle)
   const locationName = fullStore?.arenaUi?.location.toLowerCase()
+  const bossId = fullStore?.arenaUi?.boss
   console.log(heroData)
   console.log('fullStore', fullStore)
   console.log('loca', fullStore.arenaUi.location)
@@ -41,7 +42,7 @@ export const battlePageUi = async () => {
     logContainer.classList.toggle('active')
   })
   const hero = new CombatUnit({
-    skin: heroData.skins.defoult,
+    skin: heroData.currentSkin || heroData.skins.defoult,
     frameWidth: 128,
     frameHeight: 128,
     wtapperClassName: heroData.class,
@@ -52,8 +53,8 @@ export const battlePageUi = async () => {
   })
   // hero.idle()
   const boss = new CombatUnit({
-    skin: _BOSES_DATA[2].data.skin,
-    ..._BOSES_DATA[2].data.options,
+    skin: _BOSES_DATA[bossId].data.skin,
+    ..._BOSES_DATA[bossId].data.options,
     // frameWidth: 96,
     // frameHeight: 76,
     // hp: 200,
