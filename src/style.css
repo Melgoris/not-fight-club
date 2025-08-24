@@ -1123,6 +1123,7 @@ nav {
   position: absolute;
   bottom: 30px;
   left: 80px;
+  z-index: 10;
 }
 
 
@@ -1296,6 +1297,59 @@ nav {
 .go-home-btn-cont button:hover {
   background: #373737;
 
+}
+
+
+.stats-info {
+  position: absolute;
+  width: fit-content;
+  height: 20px;
+  right: 224px;
+  top: 480px;
+  display: flex;
+  flex-direction: row;
+  background: #191919;
+  gap: 10px;
+  align-content: center;
+  flex-wrap: wrap;
+  border: 2px solid #633309;
+  justify-content: space-between;
+  padding: 5px;
+  color: #c4c82d;
+  z-index: 2222;
+}
+
+.lose-color {
+  color: #ff3d3d;
+}
+
+.after-fight-modal {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  padding: 20px 40px;
+  border-radius: 12px;
+  font-size: 75px;
+  background: transparent;
+  text-align: center;
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.after-fight-modal.victory {
+  color: #cfe2a2;
+  opacity: 1;
+}
+
+.after-fight-modal.defeat {
+  color: #a13821;
+  opacity: 1;
+}
+
+.char-padding {
+  top: 70px;
 }
 
 /*fight*/

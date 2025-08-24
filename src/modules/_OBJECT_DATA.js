@@ -80,7 +80,7 @@ export const _CLOUDS_DATA = {
     y: -70,
   },
   fogOne: {
-    src: './img/backgrounds//clouds/fog-two.png',
+    src: './img/backgrounds/clouds/fog-two.png',
     width: 1700,
     height: 619,
     id: '_fogOne',
@@ -88,7 +88,7 @@ export const _CLOUDS_DATA = {
     y: 275,
   },
   portalFogOne: {
-    src: './img/backgrounds//clouds/portalFogOne.png',
+    src: './img/backgrounds/clouds/portalFogOne.png',
     width: 400,
     height: 253,
     id: '_portalFogOne',
@@ -96,7 +96,7 @@ export const _CLOUDS_DATA = {
     y: 575,
   },
   portalFogTwo: {
-    src: './img/backgrounds//clouds/portalFogTwoRed.png',
+    src: './img/backgrounds/clouds/portalFogTwoRed.png',
     width: 130,
     height: 120,
     id: '_portalFogTwo',
@@ -106,32 +106,32 @@ export const _CLOUDS_DATA = {
 }
 
 export const _DUNGEONS = [
-  {name: 'Swamps', src: '/public/img/dungeons/swamps.jpg', id: '_swamps'},
-  {name: 'Cemetery', src: '/public/img/dungeons/cemetery.jpg', id: '_cemetery'},
+  {name: 'Swamps', src: './img/dungeons/swamps.jpg', id: '_swamps'},
+  {name: 'Cemetery', src: './img/dungeons/cemetery.jpg', id: '_cemetery'},
   {
     name: 'Сatacombs',
-    src: '/public/img/dungeons/catacombs.jpg',
+    src: './img/dungeons/catacombs.jpg',
     id: '_catacombs',
   },
   {
     name: 'Wasteland',
-    src: '/public/img/dungeons/wasteland.jpg',
+    src: './img/dungeons/wasteland.jpg',
     id: '_wasteland',
   },
-  {name: 'Forest', src: '/public/img/dungeons/forest.jpg', id: '_forest'},
-  {name: 'Tunnel', src: '/public/img/dungeons/tunnel.jpg', id: '_tunnel'},
+  {name: 'Forest', src: './img/dungeons/forest.jpg', id: '_forest'},
+  {name: 'Tunnel', src: './img/dungeons/tunnel.jpg', id: '_tunnel'},
 ]
 export const _DUNGEONS_LOCATION_DATA = {
-  swamps: {name: 'Swamps', src: './public/img/dungeons/swampArena.jpg'},
-  cemetery: {name: 'Cemetery', src: './public/img/dungeons/cemeteryArena.webp'},
+  swamps: {name: 'Swamps', src: './img/dungeons/swampArena.jpg'},
+  cemetery: {name: 'Cemetery', src: './img/dungeons/cemeteryArena.webp'},
   сatacombs: {
     name: 'Сatacombs',
-    src: './public/img/dungeons/catacombArena.webp',
+    src: './img/dungeons/catacombArena.webp',
   },
   wasteland: {
     name: 'Wasteland',
-    src: './public/img/dungeons/WastelandArena.webp',
+    src: './img/dungeons/WastelandArena.webp',
   },
-  forest: {name: 'Forest', src: './public/img/dungeons/forestArena.webp'},
-  tunnel: {name: 'Tunnel', src: './public/img/dungeons/tunnelArena.webp'},
+  forest: {name: 'Forest', src: './img/dungeons/forestArena.webp'},
+  tunnel: {name: 'Tunnel', src: './img/dungeons/tunnelArena.webp'},
 }

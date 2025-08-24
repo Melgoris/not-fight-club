@@ -55,7 +55,7 @@ export const moveHeroToPortal = heroEl => {
   heroEl.style.transform = `translate(${deltaX}px, ${deltaY}px)`
   setTimeout(() => {
     heroEl.style.transition = 'transform 0.5s ease-out'
-    heroEl.style.transform = `translate(${deltaX}px, ${deltaY - 40}px)`
+    heroEl.style.transform = `translate(${deltaX}px, ${deltaY - 15}px)`
   }, 3000)
 }
 export const moveHeroToObject = (heroEl, objEl, shift = 0) => {
@@ -223,4 +223,18 @@ export const buttleHeroUi = (mainContainer, spellMass) => {
     getSelectedSpell: () => selectedSpellData,
     updateManaCostForIcons,
   }
+}
+
+export const playerStats = (parrent, data) => {
+  const container = document.createElement('div')
+  container.classList.add('stats-info')
+  const winsP = document.createElement('p')
+  winsP.textContent = `Побед: ${data.wins}`
+  const losesP = document.createElement('p')
+  losesP.classList.add('lose-color')
+  losesP.textContent = `Поражений: ${data.losses}`
+  container.appendChild(winsP)
+  container.appendChild(losesP)
+  parrent.appendChild(container)
+  return container
 }

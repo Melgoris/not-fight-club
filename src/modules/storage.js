@@ -1,5 +1,6 @@
 const STORAGE_KEY = 'playerData'
 const COMBAT_STORAGE_KEY = 'arenaData'
+const STATS_STORAGE_KEY = 'statsData'
 // const HERO_STORAGE_KEY = 'heroData'
 const store = {
   pickedHero: {
@@ -24,6 +25,10 @@ const store = {
     bossId: null,
     locationName: null,
     location: null,
+  },
+  stats: {
+    wins: 0,
+    losses: 0,
   },
 }
 
@@ -65,6 +70,12 @@ export const PlayerStorage = {
   saveArena(data) {
     localStorage.setItem(COMBAT_STORAGE_KEY, JSON.stringify(data))
   },
+  getStats() {
+    return JSON.parse(localStorage.getItem(STATS_STORAGE_KEY)) || null
+  },
+  saveStats(data) {
+    localStorage.setItem(STATS_STORAGE_KEY, JSON.stringify(data))
+  },
 
   updateStoreHero(heroData) {
     const data = this.get() || store
@@ -72,7 +83,6 @@ export const PlayerStorage = {
     this.save(data)
   },
 
-  //fgdgfddddddddddddddd
   updateCombatData(heroData) {
     store.arenaUi = {...store.arenaUi, ...heroData}
     this.saveArena(store.arenaUi)
@@ -81,11 +91,7 @@ export const PlayerStorage = {
     store.arenaUi = {}
     this.saveArena(store.arenaUi)
   },
-  // updateCombatData(heroData) {
-  //   const data = this.get() || store
-  //   data.arenaUi = { ...data.arenaUi, ...heroData }
-  //   this.save(data)
-  // }
+
   setName(name) {
     const data = this.get() || {
       username: '',
@@ -98,17 +104,19 @@ export const PlayerStorage = {
   },
 
   addWin() {
-    const data = this.get()
+    const data = this.getStats() || store.stats
     if (!data) return
-    data.wins++
-    this.save(data)
+    data.wins = (data.wins || 0) + 1
+    store.stats = {...store.stats, ...data}
+    this.saveStats(data)
   },
 
   addLoss() {
-    const data = this.get()
+    const data = this.getStats() || store.stats
     if (!data) return
-    data.losses++
-    this.save(data)
+    data.losses = (data.losses || 0) + 1
+    store.stats = {...store.stats, ...data}
+    this.saveStats(data)
   },
 
   setCharacter(char) {

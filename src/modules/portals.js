@@ -19,7 +19,7 @@ export function addRemovePortal(portalID, state, containerId) {
     parentCont.appendChild(portalContainer)
 
     const portal = new Character({
-      skin: '/public/img/portal.png',
+      skin: './img/portal.png',
       frameWidth: 128,
       frameHeight: 128,
       container: portalContainer,
@@ -36,7 +36,7 @@ export function addRemovePortal(portalID, state, containerId) {
     }
   }
   portalContainer.addEventListener('click', () => {
-    console.log('dfsdff')
+    // console.log('dfsdff')
   })
   return portalContainer
 }

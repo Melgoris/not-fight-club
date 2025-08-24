@@ -110,12 +110,13 @@ export const routesUi = () => {
   window.addEventListener('hashchange', router)
   window.addEventListener('load', () => {
     const player = PlayerStorage.getArena()
+    const playerhome = PlayerStorage.get()
 
-    if (!player) {
+    if (!playerhome) {
       window.location.hash = '#login'
     } else if (player?.location) {
       window.location.hash = '#battle'
-    } else if (player.storeHero) {
+    } else if (playerhome?.storeHero) {
       window.location.hash = '#home'
     } else {
       window.location.hash = '#character'

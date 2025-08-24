@@ -26,8 +26,8 @@ export const battlePageUi = async () => {
     ? getCombatData()
     : PlayerStorage.getArena()
 
-  console.log('arenaData', arenaData)
-  console.log('getCombatData()', PlayerStorage.getArena())
+  // console.log('arenaData', arenaData)
+  // console.log('getCombatData()', PlayerStorage.getArena())
   if (!arenaData?.location) {
     window.location.hash = '#home'
     return
@@ -43,7 +43,7 @@ export const battlePageUi = async () => {
   const locationName = arenaData?.location?.toLowerCase()
   // const bossId = fullStore?.arenaUi?.boss
   const bossId = arenaData?.boss
-  console.log(_CHARS[heroData?.index]?.data)
+  // console.log(_CHARS[heroData?.index]?.data)
   // console.log('fullStore', fullStore)
   // console.log('arenaData', arenaData)
   // console.log('loca111', locationName)
@@ -55,8 +55,8 @@ export const battlePageUi = async () => {
   logTitle.addEventListener('click', () => {
     logContainer.classList.toggle('active')
   })
-  console.log('arenaData?.boss', arenaData?.boss)
-  console.log('boss', _BOSES_DATA[bossId])
+  // console.log('arenaData?.boss', arenaData?.boss)
+  // console.log('boss', _BOSES_DATA[bossId])
   const hero = new CombatUnit({
     skin: heroData.currentSkin || heroData.skins.defoult,
     frameWidth: 128,

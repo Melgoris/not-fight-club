@@ -35,6 +35,9 @@ export class Battle {
     this.enemy.setHP(this.enemy.hp, this.enemy.maxHp)
     this.enemy.setMana(this.enemy.mana, this.enemy.maxMana)
     this.btnHome.addEventListener('click', async () => {
+      // this.hero.attack()
+
+      PlayerStorage.addLoss()
       PlayerStorage.clearCombatStore()
       window.location.hash = '#home'
     })
@@ -48,7 +51,7 @@ export class Battle {
     const manacost = this.ui.getSelectedSpell().manaCost
     const spellName = this.ui.getSelectedSpell().name
     const index = this.ui.getSelectedSpell().index
-    console.log(this.hero)
+    // console.log(this.hero)
     // this.ui.fightBtn.classList.add('disable')
     // return
     this.ui.wrapper.classList.add('disable')
@@ -56,11 +59,11 @@ export class Battle {
     this.hero.attack()
     await this.wait(500)
     this.spellAnim.idle()
-    await this.wait(100)
-    await this.spellTravel(this.spellAnim.container, this.enemy.container, -30)
+    await this.wait(200)
+    await this.spellTravel(this.spellAnim.container, this.enemy.container, -40)
 
     if (this.hero.mana < manacost) {
-      console.log('nema mani')
+      // console.log('nema mani')
       return
     }
     // return
@@ -69,8 +72,8 @@ export class Battle {
     const {damage: critHitChangeDamage, crit} = this.rollDamage({
       damage: damage,
     })
-    console.log('damage', critHitChangeDamage)
-    console.log('crit', crit)
+    // console.log('damage', critHitChangeDamage)
+    // console.log('crit', crit)
     if (spellName === 'Curse') this.enemy.damage = this.enemy.damage * 0.8
     // const damage = this.hero.damage
     // this.hero.attack()
@@ -91,9 +94,9 @@ export class Battle {
       crit,
     )
     if (this.bossFightEnd()) return
-    console.log('damage', damage)
-    console.log('this.enemy.hp', this.enemy.hp)
-    console.log('this.enemy.maxHp', this.enemy.maxHp)
+    // console.log('damage', damage)
+    // console.log('this.enemy.hp', this.enemy.hp)
+    // console.log('this.enemy.maxHp', this.enemy.maxHp)
 
     this.nextTurn()
   }
@@ -146,12 +149,18 @@ export class Battle {
       logLine.classList.add(`log-text`)
       logLine.textContent = 'Ваш герой повержен! Вы проиграли!'
       this.logs.appendChild(logLine)
+      PlayerStorage.addLoss()
+      PlayerStorage.clearCombatStore()
+      window.location.hash = '#home'
     }
     if (!enemyAlive) {
       const logLine = document.createElement('p')
       logLine.classList.add(`log-text`)
       logLine.textContent = 'Вы одолели противника! Победа!'
       this.logs.appendChild(logLine)
+      PlayerStorage.addWin()
+      PlayerStorage.clearCombatStore()
+      window.location.hash = '#home'
     }
   }
   getHit(target) {
@@ -217,25 +226,40 @@ export class Battle {
 
   bossFightEnd() {
     if (this.hero.hp <= 0) {
-      console.log('-hero')
+      // console.log('-hero')
       // this.hero.dead()
+
       this.hero.skin.dead ? this.hero.die() : this.hero.dead()
       this.dethLog({heroAlive: false})
+      this.afterFightModal('defeat')
+      this.wait(1200)
       this.isBattleOver = true
       return true
     }
     if (this.enemy.hp <= 0) {
-      console.log('-boss')
+      // console.log('-boss')
       this.enemy.skin.dead ? this.enemy.die() : this.enemy.dead()
       // this.enemy.dead()
       this.dethLog({enemyAlive: false})
+      this.afterFightModal('victory')
+      this.wait(1200)
       this.isBattleOver = true
       return true
     }
     return false
   }
+  afterFightModal(result) {
+    const afterModal = document.createElement('div')
+    afterModal.classList.add('after-fight-modal', result)
+    afterModal.textContent = result === 'victory' ? 'Победа!' : 'Поражение...'
+    document.body.appendChild(afterModal)
 
+    setTimeout(() => {
+      afterModal.remove()
+    }, 1000)
+  }
   spellTravel = (spellContainer, toTarget, shift = 0) => {
+    spellContainer.style.opacity = 1
     return new Promise(resolve => {
       const fromTargetRect = spellContainer.getBoundingClientRect()
       const toTargetRect = toTarget.getBoundingClientRect()
@@ -247,10 +271,12 @@ export class Battle {
       spellContainer.addEventListener(
         'transitionend',
         async () => {
+          await this.wait(200)
           await this.spellAnim.explode()
           await this.wait(500)
           spellContainer.style.transition = 'none'
           spellContainer.style.transform = `translate(0px)`
+          spellContainer.style.opacity = 0
           this.ui.wrapper.classList.remove('disable')
           // this.ui.fightBtn.classList.remove('disable')
           resolve()

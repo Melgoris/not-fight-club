@@ -30,7 +30,7 @@ export const charactersUi = async () => {
   const heroes = _CHARS.map(hero => {
     const heroContainer = document.createElement('div')
     heroContainer.id = hero.id
-    heroContainer.classList.add(hero.class)
+    heroContainer.classList.add(hero.class, 'char-padding')
     characterUi.appendChild(heroContainer)
     addHeroCloud({
       parentContainer: heroContainer,
