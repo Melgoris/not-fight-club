@@ -238,3 +238,15 @@ export const playerStats = (parrent, data) => {
   parrent.appendChild(container)
   return container
 }
+
+const sounds = {
+  enemy: new Audio('./sounds/enemy.mp3'),
+  hero: new Audio('./sounds/Fireball.wav'),
+}
+
+export const playSound = unit => {
+  const sound = sounds[unit]
+  if (!sound) return
+  sound.currentTime = 0
+  sound.play()
+}

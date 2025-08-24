@@ -68,6 +68,7 @@ export const charactersUi = async () => {
       setPickedHero({pickedHeroData: hero})
       addCloudText(id, text)
       heroLightActive(id)
+      PlayerStorage.heroSelected(false)
     })
   })
   addCloudText('school_girl', 'ууу бля')
@@ -85,6 +86,7 @@ export const charactersUi = async () => {
       }
     })
     PlayerStorage.updateStoreHero(storeHero)
+    PlayerStorage.heroSelected(true)
     await delay(600)
     clearHeroLight()
     pickedHero.pickedHeroData.container.classList.add('move-hero')

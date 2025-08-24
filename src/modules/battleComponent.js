@@ -1,5 +1,5 @@
 import {PlayerStorage} from './storage'
-
+import {playSound} from './helperFunc'
 export class Battle {
   constructor({
     hero,
@@ -58,6 +58,7 @@ export class Battle {
 
     this.hero.attack()
     await this.wait(500)
+    playSound('hero')
     this.spellAnim.idle()
     await this.wait(200)
     await this.spellTravel(this.spellAnim.container, this.enemy.container, -40)
@@ -177,6 +178,7 @@ export class Battle {
   async enemyAttack() {
     this.enemy.attack()
     this.wait(100)
+    playSound('enemy')
     this.getHit(this.hero.container)
     this.ui.updateManaCostForIcons(this.hero.mana)
     const damage = Math.floor(Math.random() * 10 + this.enemy.damage)

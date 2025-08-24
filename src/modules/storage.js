@@ -1,6 +1,7 @@
 const STORAGE_KEY = 'playerData'
 const COMBAT_STORAGE_KEY = 'arenaData'
 const STATS_STORAGE_KEY = 'statsData'
+const IS_HERO_SELECT_STORAGE_KEY = 'heroSelectData'
 // const HERO_STORAGE_KEY = 'heroData'
 const store = {
   pickedHero: {
@@ -31,7 +32,9 @@ const store = {
     losses: 0,
   },
 }
-
+export function restoreStore(data) {
+  Object.assign(store, data)
+}
 export function getFullStore() {
   return store
 }
@@ -76,7 +79,12 @@ export const PlayerStorage = {
   saveStats(data) {
     localStorage.setItem(STATS_STORAGE_KEY, JSON.stringify(data))
   },
-
+  isHeroSelect() {
+    return JSON.parse(localStorage.getItem(IS_HERO_SELECT_STORAGE_KEY)) || null
+  },
+  heroSelected(data) {
+    localStorage.setItem(IS_HERO_SELECT_STORAGE_KEY, JSON.stringify(data))
+  },
   updateStoreHero(heroData) {
     const data = this.get() || store
     data.storeHero = heroData

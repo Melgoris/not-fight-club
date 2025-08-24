@@ -1,5 +1,10 @@
 import {PlayerStorage, setStoreHero} from './storage'
-import {getFullStore, getPickedHero, getStoreHero} from './storage'
+import {
+  getFullStore,
+  getPickedHero,
+  getStoreHero,
+  restoreStore,
+} from './storage'
 import {Character} from './characterComponent'
 import {_CHARS} from './_CHAR_DATA'
 import {addCloudText} from './helperFunc'
@@ -31,7 +36,11 @@ import {CombatUnit} from './unitFightComponent'
 
 export const heroHomeUi = async () => {
   const homeUi = document.querySelector('#_heroHome')
-
+  const actualDataLocalStor = PlayerStorage.get()
+  const checStore = getStoreHero()?.id
+  if (actualDataLocalStor.storeHero.id && !checStore) {
+    restoreStore(actualDataLocalStor)
+  }
   // PlayerStorage.clearCombatStore()
   // await delay(100)
   const heroData = getStoreHero().id
@@ -44,6 +53,16 @@ export const heroHomeUi = async () => {
   }
 
   homeUi.innerHTML = ''
+  const bgMusic = new Audio('./sounds/home.wav')
+  bgMusic.loop = true
+  bgMusic.volume = 0.1
+  document.addEventListener(
+    'click',
+    () => {
+      bgMusic.play()
+    },
+    {once: true},
+  )
   playerStats(homeUi, stats)
   // console.log('ssdd', PlayerStorage.get().storeHero)
   const homeLocationObjects = _HOME_LOCATION_OBJ_NAMES.reduce((acc, name) => {

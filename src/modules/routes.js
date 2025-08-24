@@ -48,16 +48,17 @@ export const routesUi = () => {
     // mainMenu.classList.add('active')
     if (!active) return
     const player = PlayerStorage.get()
+    const heroSelected = PlayerStorage.isHeroSelect()
     // console.log('player', player)
     if (!player) {
       window.location.hash = '#login'
       return
     }
-    if (player.storeHero && window.location.hash !== '#home') {
+    if (player.storeHero && heroSelected && window.location.hash !== '#home') {
       window.location.hash = '#home'
     }
     charactersUi()
-    await delay(200)
+    await delay(300)
   }
 
   async function showHeroHomepage(active) {
@@ -65,30 +66,20 @@ export const routesUi = () => {
     screen.classList.toggle('active', active)
     if (!active) return
     const data = PlayerStorage.get()
+    const heroSelected = PlayerStorage.isHeroSelect()
     if (!data) {
       window.location.hash = '#login'
       return
     }
-    if (!data.storeHero && window.location.hash !== '#character') {
+    if (
+      !data.storeHero &&
+      !heroSelected &&
+      window.location.hash !== '#character'
+    ) {
       window.location.hash = '#character'
     }
     heroHomeUi()
-    await delay(200)
-    // document.getElementById('displayPlayerName').textContent = player.username
-    //     document.getElementById('wins').textContent = player.wins
-    //     document.getElementById('losses').textContent = player.losses
-    //     document.getElementById('win-btn').onclick = () => {
-    //       PlayerStorage.addWin()
-    //       document.getElementById('wins').textContent = PlayerStorage.get().wins
-    //     }
-    //     document.getElementById('loss-btn').onclick = () => {
-    //       PlayerStorage.addLoss()
-    //       document.getElementById('losses').textContent = PlayerStorage.get().losses
-    //     }
-    //     document.getElementById('logout-btn').onclick = () => {
-    //       PlayerStorage.clear()
-    //       window.location.hash = '#login'
-    //     }
+    await delay(300)
   }
   async function showBattlepage(active) {
     const screen = document.getElementById('_battlePage')
@@ -105,18 +96,19 @@ export const routesUi = () => {
       window.location.hash = '#home'
     }
     battlePageUi()
-    await delay(200)
+    await delay(300)
   }
   window.addEventListener('hashchange', router)
   window.addEventListener('load', () => {
     const player = PlayerStorage.getArena()
     const playerhome = PlayerStorage.get()
-
+    const heroSelected = PlayerStorage.isHeroSelect()
+    console.log('heroSelected', heroSelected)
     if (!playerhome) {
       window.location.hash = '#login'
-    } else if (player?.location) {
+    } else if (player?.location && heroSelected) {
       window.location.hash = '#battle'
-    } else if (playerhome?.storeHero) {
+    } else if (playerhome?.storeHero && heroSelected) {
       window.location.hash = '#home'
     } else {
       window.location.hash = '#character'
