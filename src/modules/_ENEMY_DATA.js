@@ -139,7 +139,7 @@ const _KITSUNE = {
     },
   },
   options: {
-    text: 'Кто тут ходит в наших лесах!',
+    text: 'Это мой лес!',
     count: 0,
     frameWidth: 128,
     frameHeight: 128,

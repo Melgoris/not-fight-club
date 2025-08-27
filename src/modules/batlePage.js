@@ -8,7 +8,10 @@ import {createBtn} from './helperFunc'
 import {delay, buttleHeroUi} from './helperFunc'
 import {AEffects} from './effectsComponent'
 import {_CHARS} from './_CHAR_DATA'
+import {_BUFFS_DEBUFFS, _BUFFS_DEBUFFS_NAMES} from './_EFFECT_DATA'
 import {Battle} from './battleComponent'
+import {addHeroCloud, addCloudText} from './helperFunc'
+import heroCloudImg from '/img/text_cloud_white.png'
 
 export const battlePageUi = async () => {
   const batleContainer = document.querySelector('#_battlePage')
@@ -32,6 +35,7 @@ export const battlePageUi = async () => {
     window.location.hash = '#home'
     return
   }
+  const cloudData = {heroCloudImg, addHeroCloud, addCloudText}
   const bToHome = createBtn('go-home-btn', '_goHomeBtn', '<  Go home')
   bToHome.classList.add('go-home-btn-cont')
   const logContainer = document.createElement('div')
@@ -63,6 +67,7 @@ export const battlePageUi = async () => {
     frameHeight: 128,
     wtapperClassName: heroData.class,
     wrapperId: heroData.id,
+    cloudData,
     renderSection: batleContainer,
     ..._CHARS[heroData?.index]?.data,
     ...(arenaData?.heroHp
@@ -74,10 +79,12 @@ export const battlePageUi = async () => {
         }
       : {}),
   })
+
   // hero.idle()
   const boss = new CombatUnit({
     skin: _BOSES_DATA[bossId]?.data?.skin,
     ..._BOSES_DATA[bossId]?.data?.options,
+    cloudData,
     ...(arenaData?.bossHp
       ? {hp: arenaData.bossHp, maxHp: arenaData.bossMaxHp}
       : {}),
@@ -94,7 +101,33 @@ export const battlePageUi = async () => {
     container: spellEffect,
   })
   hero.container.appendChild(spellEffect)
-  // console.log('heroSpellsAnim', heroSpellsAnim)
+  const buffsCont = document.createElement('div')
+  const debuffCont = document.createElement('div')
+  debuffCont.classList.add('target-debuff-effect')
+  buffsCont.classList.add('target-buff-effect')
+  boss.container.appendChild(debuffCont)
+  hero.container.appendChild(buffsCont)
+  const debuffsAnimations = new AEffects({
+    effect: _BUFFS_DEBUFFS.debuffs.burnGreen,
+    frameWidth: 24,
+    frameHeight: 32,
+    container: debuffCont,
+  })
+  const buffsAnimations = new AEffects({
+    effect: _BUFFS_DEBUFFS.buffs,
+    frameWidth: 128,
+    frameHeight: 128,
+    container: buffsCont,
+  })
+  // const buffDebuffs = _BUFFS_DEBUFFS_NAMES.reduce((acc, name) => {
+  //   acc[name] = new AEffects({
+  //     ..._BUFFS_DEBUFFS[name],
+  //     container: spellEffect,
+  //   })
+  //   return acc
+  // }, {})
+
+  // console.log('buffDebuffs', buffDebuffs)
   const battleUicomp = buttleHeroUi(batleContainer, _CHARS[0].spells)
   // const {fightBtn, getSelectedSpell} = battleUicomp
   // fightBtn.addEventListener('click', () => {
@@ -106,9 +139,12 @@ export const battlePageUi = async () => {
     ui: battleUicomp,
     spellAnim: heroSpellsAnim,
     logs: logContainer,
+    // buffDebuffs,
     btnHome: bToHome,
     bossId,
     locationName,
+    debuffsAnimations,
+    buffsAnimations,
   })
   battle.start()
   // bToHome.addEventListener('click', async () => {

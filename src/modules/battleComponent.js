@@ -9,7 +9,10 @@ export class Battle {
     logs,
     btnHome,
     bossId,
+    buffDebuffs,
     locationName,
+    debuffsAnimations,
+    buffsAnimations,
   }) {
     this.hero = hero
     this.enemy = enemy
@@ -17,16 +20,25 @@ export class Battle {
     this.isBattleOver = false
     this.ui = ui
     this.spellAnim = spellAnim
+    this.buffDebuffs = buffDebuffs
     this.logs = logs
     this.btnHome = btnHome
     this.bossId = bossId
     this.locationName = locationName
+    this.debuffsAnimations = debuffsAnimations
+    this.buffsAnimations = buffsAnimations
   }
 
-  start() {
+  async start() {
     this.hero.idle()
     this.enemy.idle()
     this.bindUI()
+    this.hero.cloudData.addCloudText(this.hero.wrapperId, 'Очередной бой..')
+    await this.wait(1000)
+    this.enemy.cloudData.addCloudText(
+      this.enemy.wrapperId,
+      this.enemy.text || 'Убирайся смертный!',
+    )
   }
 
   bindUI() {
@@ -45,6 +57,25 @@ export class Battle {
       if (this.turn !== 'hero' || this.isBattleOver) return
       this.heroAttack()
     })
+
+    this.hero.container.addEventListener('dblclick', () => {
+      this.hero.cloudData.addCloudText(
+        this.hero.wrapperId,
+        'На нос себе покликай..',
+      )
+    })
+    this.enemy.container.addEventListener('click', async () => {
+      // console.log(this.enemy.text)
+      // this.buffsAnimations.heal()
+      // this.debuffsAnimations.start()
+      // await this.wait(200)
+      // this.debuffsAnimations.loop()
+      // await this.wait(2000)
+      // this.debuffsAnimations.end()
+      // this.buffDebuffs.heal.heal()
+      // this.buffDebuffs.heal()
+      this.enemy.cloudData.addCloudText(this.enemy.wrapperId, 'Опа привет')
+    })
   }
 
   async heroAttack() {
@@ -52,21 +83,42 @@ export class Battle {
     const spellName = this.ui.getSelectedSpell().name
     const index = this.ui.getSelectedSpell().index
     // console.log(this.hero)
+    // console.log(this.hero.damage)
+    // console.log(spellName)
     // this.ui.fightBtn.classList.add('disable')
     // return
-    this.ui.wrapper.classList.add('disable')
-
-    this.hero.attack()
-    await this.wait(500)
-    playSound('hero')
-    this.spellAnim.idle()
-    await this.wait(200)
-    await this.spellTravel(this.spellAnim.container, this.enemy.container, -40)
-
     if (this.hero.mana < manacost) {
-      // console.log('nema mani')
+      this.hero.cloudData.addCloudText(this.hero.wrapperId, 'Нету маны!')
       return
     }
+    this.ui.wrapper.classList.add('disable')
+    if (spellName === 'Heal') {
+      this.hero.setHP(this.hero.hp + 50, this.hero.maxHp)
+      this.buffsAnimations.heal()
+      playSound('heal')
+      await this.wait(2000)
+    } else if (spellName === 'Curse') {
+      // this.debuffsAnimations.start()
+      // await this.wait(200)
+      this.debuffsAnimations.loop()
+      playSound('curse')
+      await this.wait(2000)
+      this.debuffsAnimations.end()
+      this.enemy.damage = this.enemy.damage * 0.8
+      await this.wait(100)
+    } else {
+      this.hero.attack()
+      await this.wait(500)
+      playSound('hero')
+      this.spellAnim.idle()
+      await this.wait(200)
+      await this.spellTravel(
+        this.spellAnim.container,
+        this.enemy.container,
+        -40,
+      )
+    }
+
     // return
     this.hero.damage = this.ui.getSelectedSpell().damage
     const damage = Math.floor(Math.random() * 10 + this.hero.damage)
@@ -75,11 +127,9 @@ export class Battle {
     })
     // console.log('damage', critHitChangeDamage)
     // console.log('crit', crit)
-    if (spellName === 'Curse') this.enemy.damage = this.enemy.damage * 0.8
+
     // const damage = this.hero.damage
     // this.hero.attack()
-    if (spellName === 'Heal')
-      this.hero.setHP(this.hero.hp + 50, this.hero.maxHp)
 
     this.enemy.setHP(this.enemy.hp - critHitChangeDamage, this.enemy.maxHp)
     this.hero.setMana(this.hero.mana - manacost, this.hero.maxMana)
@@ -123,9 +173,11 @@ export class Battle {
     let data = {damage, crit: false}
     if (rand < miss) {
       data.damage = 0
+      this.enemy.cloudData.addCloudText(this.enemy.wrapperId, 'Ха! Не попал!')
     } else if (rand < crit) {
       data.damage = damage * 2
       data.crit = true
+      this.enemy.cloudData.addCloudText(this.enemy.wrapperId, 'Ойой')
     }
     return data
   }
@@ -144,7 +196,7 @@ export class Battle {
     this.logs.appendChild(logLine)
     this.logs.scrollTop = this.logs.scrollHeight
   }
-  dethLog({heroAlive = true, enemyAlive = true}) {
+  async dethLog({heroAlive = true, enemyAlive = true}) {
     if (!heroAlive) {
       const logLine = document.createElement('p')
       logLine.classList.add(`log-text`)
@@ -152,6 +204,7 @@ export class Battle {
       this.logs.appendChild(logLine)
       PlayerStorage.addLoss()
       PlayerStorage.clearCombatStore()
+      await this.wait(2000)
       window.location.hash = '#home'
     }
     if (!enemyAlive) {
@@ -161,6 +214,7 @@ export class Battle {
       this.logs.appendChild(logLine)
       PlayerStorage.addWin()
       PlayerStorage.clearCombatStore()
+      await this.wait(2000)
       window.location.hash = '#home'
     }
   }
@@ -190,6 +244,7 @@ export class Battle {
 
     await this.wait(800)
     this.addLog('Враг', critHitChangeDamage, 'enemy-turn-text', 'герою', crit)
+    this.ui.wrapper.classList.remove('disable')
     if (this.bossFightEnd()) return
     this.saveProgress()
     this.nextTurn()

@@ -44,6 +44,8 @@ export class AEffects {
           this.currentFrame = 0
         } else {
           clearInterval(this.intervalId)
+          this.element.style.backgroundImage = ''
+          this.element.style.backgroundPositionX = '0px'
         }
 
         setTimeout(() => {
@@ -78,5 +80,21 @@ export class AEffects {
   explode() {
     const {sprite, totalFrames, fps} = this.effect.explode
     this._animate({sprite, totalFrames, fps})
+  }
+  heal() {
+    const {sprite, totalFrames, fps} = this.effect.heal
+    this._animate({sprite, totalFrames, fps, loop: false})
+  }
+  start() {
+    const {sprite, totalFrames, fps} = this.effect.start
+    this._animate({sprite, totalFrames, fps, loop: false})
+  }
+  loop() {
+    const {sprite, totalFrames, fps} = this.effect.loop
+    this._animate({sprite, totalFrames, fps, loop: true})
+  }
+  end() {
+    const {sprite, totalFrames, fps} = this.effect.end
+    this._animate({sprite, totalFrames, fps, loop: false})
   }
 }

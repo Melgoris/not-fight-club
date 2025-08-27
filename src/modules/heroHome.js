@@ -181,7 +181,7 @@ export const heroHomeUi = async () => {
   heroContainer.appendChild(spellEffect)
   heroContainer.addEventListener('click', () => {
     // changeSkinEff.changeSkin()
-    addCloudText('school_girl', 'Скучно...')
+    addCloudText(heroData?.id, 'Скучно...')
   })
 
   moveHeroMainWithAnimation({

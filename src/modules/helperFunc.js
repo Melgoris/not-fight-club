@@ -20,8 +20,12 @@ export const destroyInactiveWindows = () => {
 }
 export const addCloudText = (id, text, duration = 2000) => {
   const container = document.querySelector(`#${id} .cloud-container`)
-  document.querySelector(`#${id} p`).textContent = text
+  document.querySelector(`#${id} .cloud-container p`).textContent = text
+  if (container.style.opacity === '1') {
+    return
+  }
   container.style.opacity = '1'
+
   setTimeout(() => {
     container.style.opacity = '0'
   }, duration)
@@ -242,6 +246,8 @@ export const playerStats = (parrent, data) => {
 const sounds = {
   enemy: new Audio('./sounds/enemy.mp3'),
   hero: new Audio('./sounds/Fireball.wav'),
+  heal: new Audio('./sounds/heal.wav'),
+  curse: new Audio('./sounds/curse.wav'),
 }
 
 export const playSound = unit => {

@@ -9,11 +9,13 @@ export class Character {
     mana = 0,
     maxMana = 100,
     damage,
+    text,
     wtapperClassName,
     wrapperId,
     renderSection,
     abilities,
     manaRegen,
+    cloudData,
   }) {
     this.skin = skin
     this.frameWidth = frameWidth
@@ -25,12 +27,14 @@ export class Character {
     this.damage = damage
     this.maxHp = maxHp
     this.mana = mana
+    this.text = text
     this.maxMana = maxMana
     this.spellName = null
     this.wtapperClassName = wtapperClassName
     this.wrapperId = wrapperId
     this.abilities = abilities
     this.manaRegen = manaRegen
+    this.cloudData = cloudData
     this.container = container || this._createContainer()
     // if (renderSection)
     //   this.renderSection = document.querySelector(`#${renderSection}`)
@@ -41,6 +45,7 @@ export class Character {
     const wrapper = document.createElement('div')
     if (this.wtapperClassName) wrapper.className = this.wtapperClassName
     if (this.wrapperId) wrapper.id = this.wrapperId
+
     if (this.renderSection) this.renderSection.appendChild(wrapper)
     return wrapper
   }
@@ -51,8 +56,24 @@ export class Character {
     this.element.style.backgroundRepeat = 'no-repeat'
     this.element.style.imageRendering = 'pixelated'
     this.container.appendChild(this.element)
+    if (this.cloudData)
+      this.cloudData.addHeroCloud({
+        parentContainer: this.container,
+        src: this.cloudData.heroCloudImg,
+        text: 'В атаку!',
+      })
   }
-
+  // _createUnitCloudElement(){
+  //     const cloud = document.createElement('div')
+  //   const cloudImg = document.createElement('img')
+  //   const textContainer = document.createElement('p')
+  //   cloudImg.src = src
+  //   cloud.classList.add('cloud-container')
+  //   textContainer.classList.add('cloud-text')
+  //   cloud.appendChild(cloudImg)
+  //   cloud.appendChild(textContainer)
+  //   this.element.appendChild(cloud)
+  // }
   _animate({
     sprite,
     totalFrames,
